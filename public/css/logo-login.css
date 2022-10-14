@@ -1,0 +1,57 @@
+.indigo {
+    background: linear-gradient(0deg, #6863FF 0%, #81AEFF 100%);
+}
+
+.orange {
+    background: linear-gradient(0deg, #FEA85C 0%, #FFCC6A 100%);
+}
+
+.red {
+    background: linear-gradient(0deg, #FF536A 0%, #FF865E 100%);
+}
+
+.blue {
+    background: linear-gradient(0deg, #2C9FF2 0%, #70D3FD 100%);
+}
+
+.purple {
+    background: linear-gradient(0deg, #D76CEE 0%, #E0A0F3 100%);
+}
+
+.green {
+    background: linear-gradient(0deg, #54CB68 0%, #9DDD7D 100%);
+}
+
+.cyan {
+    background: linear-gradient(0deg, #29cab8 0%, #51ecd5 100%);
+}
+
+.nh-icon {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0px 4px;
+    color: white;
+    text-align: center;
+    font-size: 50px !important;
+    font-weight: bold;
+    overflow: hidden;
+    font-family: 'Rubik', sans-serif;
+}
+
+.nh-icon-lg {
+    font-size: 42px !important;
+    padding: 8px 4px !important;
+}
+
+.nh-icon-xlg {
+    font-size: 28px !important;
+    padding: 8px 4px !important;
+}
+
+.nh-icon-xxl {
+    width: auto !important;
+    border-radius: 50px !important;
+    font-size: 28px !important;
+    padding: 8px 20px !important;
+}

@@ -11,7 +11,7 @@
             <li class="nav-item">
                 <a href="#" class="navbar-nav-link navbar-nav-link-icon rounded">
                     <div class="d-flex align-items-center mx-md-1">
-                        <span class="d-none d-md-inline-block ms-2">Made with <i class="ph-heart text-danger"></i></span>
+                        <span class="d-none d-md-inline-block ms-2 me-1">Made with </span><i class="ph-heart text-danger fw-bold"></i>
                     </div>
                 </a>
             </li>

@@ -21,7 +21,7 @@
 
     <!-- Theme JS files -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('app_local/js/theme.js') }}"></script>
     <!-- /theme JS files -->
 
 </head>

@@ -1,7 +1,7 @@
 <!-- Main navbar -->
 <div class="navbar navbar-expand-xl navbar-static shadow">
     <div class="container-fluid">
-        <div class="navbar-brand flex-1">
+        <div class="flex-1">
             <a href="{{ route('siteurl') }}" class="d-inline-flex align-items-center">
                 <span class="{{ env('APP_WARNA') }} logo-text ms-2 fw-semibold d-none d-sm-inline-block">{{ env('APP_NAME') }}</span>
                 <span class="{{ env('APP_WARNA') }} logo-text ms-2 fw-semibold d-inline-block d-sm-none">{{ substr(env('APP_NAME'), 0, 1) }}</span>

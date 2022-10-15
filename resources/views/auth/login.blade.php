@@ -44,9 +44,10 @@
                     {!! Form::open(['route' => 'login', 'class' => 'login-form']) !!}
                     <div class="card mb-0">
                         <div class="card-body">
-                            <div class="text-center mb-3">
+                            <div class="text-center mt-3 mb-3">
                                 <span class="{{ env('APP_WARNA') }} logo-text logo-lg fw-semibold mb-6">{{ env('APP_NAME') }}</span>
                             </div>
+                            <div class="text-center mb-3 fw-semibold">LOGIN PAGE</div>
                             <div class="text-center mb-3">
                                 @if (count($errors) > 0)
                                     <div class="alert alert-danger">

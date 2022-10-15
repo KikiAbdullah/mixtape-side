@@ -108,3 +108,30 @@
 .cyan {
     background: linear-gradient(0deg, #29cab8 0%, #51ecd5 100%);
 }
+
+/* custom online indicator */
+.status-indicator-container-custom {
+    --indicator-gap: none !important;
+}
+
+[data-color-theme="dark"] .status-indicator-custom {
+    border: 2px solid #32333a;
+}
+
+.status-indicator-custom {
+    border: 2px solid white;
+    right: -1.5px;
+    bottom: -1.5px;
+}
+
+.avatar-custom:hover>.status-indicator-container-custom .status-indicator-custom {
+    border: 2px solid var(--navbar-hover-bg) !important;
+}
+
+.avatar-custom:focus>.status-indicator-container-custom .status-indicator-custom {
+    border: 2px solid var(--navbar-active-bg) !important;
+}
+
+/* [data-color-theme="dark"] .avatar-custom:hover>.status-indicator-container-custom .status-indicator-custom {
+    border: 2px solid var(--navbar-hover-color) !important;
+} */

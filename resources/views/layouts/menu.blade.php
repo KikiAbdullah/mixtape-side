@@ -317,10 +317,10 @@
             </li>
 
             <li class="nav-item nav-item-dropdown-xl dropdown">
-                <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
-                    <div class="status-indicator-container">
+                <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1 avatar-custom" data-bs-toggle="dropdown">
+                    <div class="status-indicator-container status-indicator-container-custom">
                         <img src="{{ asset('assets/images/placeholder.jpg') }}" class="w-32px h-32px rounded-pill" alt="">
-                        <span class="status-indicator bg-success"></span>
+                        <span class="status-indicator status-indicator-custom bg-success"></span>
                     </div>
                     <span class="d-none d-md-inline-block mx-md-2">{{ auth()->user()->name ?? '' }}</span>
                 </a>

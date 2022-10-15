@@ -3,7 +3,7 @@ function st_aktif($var){
     if(empty($var)){
         return "<center><div class=\"badge bg-primary\">Enabled</div></center>";
     }else{
-        return "<center><div class=\"badge bg-light\">Disabled</div></center>";
+        return "<center><div class=\"badge bg-light text-body\">Disabled</div></center>";
     }
 }
 

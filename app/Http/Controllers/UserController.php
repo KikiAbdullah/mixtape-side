@@ -144,4 +144,45 @@ class UserController extends Controller
 		}
 	}
 
+    public function destroy($id)
+	{
+		try {
+			
+			DB::beginTransaction();
+
+            if($id==1){
+                $error = ValidationException::withMessages([
+                    'SUPERADMIN' => 'Can\'t disable or change roles to this user :)'
+                    ]);
+                    throw $error;
+            }
+			if($this->withTrashed){
+				$model = $this->model->withTrashed()->with($this->relation)->findOrFail($id);
+			}else{
+				$model = $this->model->with($this->relation)->findOrFail($id);
+			}
+			
+			if (method_exists($this, 'customDestroy')) {
+				$this->customDestroy($model);
+			}
+
+			$log_helper 	= new LogHelper;
+
+			$log_helper->storeLog('delete', $model->no??$model->id,$this->subtitle);
+
+			$model->delete();
+
+			DB::commit();
+
+			return $this->redirectSuccess(__FUNCTION__, false);
+
+		} catch (Exception $e) {
+			
+			DB::rollback();
+
+			return $this->redirectBackWithError($e->getMessage());
+
+		}
+	}
+
 }

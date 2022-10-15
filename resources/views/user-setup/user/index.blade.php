@@ -161,7 +161,7 @@
                 e.preventDefault();
             });
 
-            $('body').on('click', '.disableBtn', function(e) {
+            $('body').on('click', '.deleteBtn', function(e) {
                 var form = $(this).parents('form.delete');
                 Swal.fire({
                     icon: 'warning',

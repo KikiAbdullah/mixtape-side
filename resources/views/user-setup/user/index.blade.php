@@ -53,7 +53,9 @@
                 <!-- /card -->
             </div>
             <div class="col-md-6" id="dynamic-form">
-                @include('user-setup.user.create')
+                @can('add_users')
+                    @include('user-setup.user.create')
+                @endcan
             </div>
 
         </div>

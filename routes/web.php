@@ -19,37 +19,37 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['two_factor']], function () {
         Route::get('/', 'AppController@index')->name('siteurl');
 
+        // ===========================================
+        // USER SETUP (existing)
+        // ===========================================
         Route::group(['prefix' => 'user-setup', 'as' => 'user-setup.'], function () {
-            ///PERMISSIONS
+            // PERMISSIONS
             Route::group(['prefix' => 'permission', 'as' => 'permission.', 'middleware' => 'can:permissions_view'], function () {
                 Route::get('get-data', 'PermissionController@ajaxData')->name('get-data');
             });
             Route::resource('permission', 'PermissionController')->middleware('can:permissions_view');
-            ///PERMISSIONS
 
-            ///ROLES
+            // ROLES
             Route::group(['prefix' => 'role', 'as' => 'role.', 'middleware' => 'can:roles_view'], function () {});
             Route::resource('role', 'RoleController')->middleware('can:roles_view');
-            ///ROLES
 
-            ///USERS
+            // USERS
             Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'can:users_view'], function () {
                 Route::get('get-data', 'UserController@ajaxData')->name('get-data');
             });
             Route::resource('user', 'UserController')->middleware('can:users_view');
-            ///USERS
         });
 
+        // ===========================================
+        // DEBUG / UTILITIES
+        // ===========================================
         Route::group(['prefix' => 'debug', 'as' => 'debug.'], function () {
-            //LOG VIEWER
-            Route::get('log-viewer',    'LogViewerController@index')->name('log-viewer.index');
-            //LOG VIEWER
+            Route::get('log-viewer', 'LogViewerController@index')->name('log-viewer.index');
         });
-        //others
         Route::get('get-button-option', 'AjaxController@getButtonOption')->name('get.button-option');
-        // Route::post('changepassword', 'AppController@changepassword')->name('changepassword');
     });
 
+    // Two-Factor Routes
     Route::get('2fa', 'TwoFactorController@showTwoFactorForm');
     Route::post('2fa', 'TwoFactorController@verifyTwoFactor')->name('verifyTwoFactor');
 });

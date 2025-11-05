@@ -14,7 +14,7 @@ class PermissionController extends Controller
     public function __construct(Permission $model)
     {
         $this->title            = 'Permission';
-        $this->subtitle         = 'Permission List';
+        $this->subtitle         = 'Permission';
         $this->model_request    = Request::class;
         $this->folder           = 'user-setup';
         $this->relation         = [];

@@ -1,24 +1,33 @@
 @if (array_key_exists('vedit', $url))
-    <a href="{{ route($url['vedit'], $id) }}" class="btn btn-outline-secondary waves-effect editBtn">
-        VIEW / EDIT
+    <a href="{{ route($url['vedit'], $id) }}" class="action-link-icon-text editBtn">
+        <i class="ri-edit-line"></i>
+        <span class="fw-semibold text-uppercase">VIEW / EDIT</span>
     </a>
 @endif
 
 @if (array_key_exists('edit', $url))
-    <a href="{{ route($url['edit'], $id) }}" class="btn btn-outline-secondary waves-effect editBtn">EDIT</a>
+    <a href="{{ route($url['edit'], $id) }}" class="action-link-icon-text editBtn">
+        <i class="ri-edit-line"></i>
+        <span class="fw-semibold text-uppercase">EDIT</span>
+    </a>
 @endif
 
 @if (array_key_exists('show', $url))
-    <a href="{{ route($url['show'], $id) }}" class="btn btn-outline-primary waves-effect btnShow">SHOW</a>
+    <a href="{{ route($url['show'], $id) }}" class="action-link-icon-text btnShow">
+        <i class="ri-search-line"></i>
+        <span class="fw-semibold text-uppercase">SHOW</span>
+    </a>
 @endif
 
 @if (array_key_exists('destroy', $url))
     {!! Form::open([
         'route' => [$url['destroy'], $id],
         'method' => 'DELETE',
-        'class' => 'delete',
-        'style' => 'display: contents',
+        'class' => 'delete form-delete-inline', // Tambahkan kelas ini
     ]) !!}
-    <a href="#" class="btn btn-danger waves-effect deleteBtn">DELETE</a>
+    <a href="#" class="action-link-icon-text text-danger deleteBtn">
+        <i class="ri-close-circle-line"></i>
+        <span class="fw-semibold text-uppercase">DELETE</span>
+    </a>
     {!! Form::close() !!}
 @endif

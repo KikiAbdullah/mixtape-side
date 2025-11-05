@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div
-            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2 row-gap-4">
             <div class="d-flex flex-column justify-content-center">
                 <h4 class="mb-1">{{ $title }}</h4>
                 <p class="mb-6">{{ $subtitle }}</p>

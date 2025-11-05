@@ -5,10 +5,10 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div
-            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2 row-gap-4">
             <div class="d-flex flex-column justify-content-center">
-                <h4 class="mb-1">{{ $title }} List</h4>
-                <p class="mb-6">{{ $subtitle }}</p>
+                <h4 class="mb-1">{{ $title }}</h4>
+                <p class="mb-6">Daftar {{ $subtitle }}</p>
             </div>
             <div class="d-flex align-content-center flex-wrap gap-4">
                 <span class="menuoption"></span>
@@ -150,7 +150,7 @@
                 var form = $(this).parents('form.delete');
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Are you sure disable this {{ $title }}?',
+                    title: 'Konfirmasi Hapus Data: {{ $title }}?',
                     showCancelButton: true,
                     confirmButtonText: 'Confirm',
                     buttonsStyling: false,
@@ -178,7 +178,7 @@
             $('body').on('submit', '#formupdate', function(e) {
                 swalInit.fire({
                     icon: 'question',
-                    title: 'Confirm Save Changes ?',
+                    title: 'Simpan Perubahan?',
                     showCancelButton: true,
                     confirmButtonText: 'Confirm',
                     reverseButtons: true,

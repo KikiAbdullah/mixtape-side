@@ -1,6 +1,6 @@
 .table-xxs td,
 .table-xxs th {
-    padding: .3rem 1rem;
+    padding: 0.3rem 1rem;
     font-size: 13px;
 }
 
@@ -35,7 +35,6 @@
     border: none !important;
 }
 
-
 .tform {
     padding: 0px 4px !important;
     height: 24px !important;
@@ -43,13 +42,13 @@
     width: 100% !important;
 }
 
-.tform+.select2-container {
+.tform + .select2-container {
     padding: 0 !important;
     height: 24px !important;
     font-size: 12px !important;
 }
 
-.tform+.select2-container .select2-selection--single {
+.tform + .select2-container .select2-selection--single {
     padding: 2px !important;
 }
 
@@ -73,7 +72,7 @@
     color: white;
     padding: 8px 16px;
     border-radius: 50px;
-    font-family: 'Rubik';
+    font-family: "Rubik";
     font-size: 12pt;
 }
 
@@ -83,27 +82,27 @@
 }
 
 .indigo {
-    background: linear-gradient(0deg, #6863FF 0%, #81AEFF 100%);
+    background: linear-gradient(0deg, #6863ff 0%, #81aeff 100%);
 }
 
 .orange {
-    background: linear-gradient(0deg, #FEA85C 0%, #FFCC6A 100%);
+    background: linear-gradient(0deg, #fea85c 0%, #ffcc6a 100%);
 }
 
 .red {
-    background: linear-gradient(0deg, #FF536A 0%, #FF865E 100%);
+    background: linear-gradient(0deg, #ff536a 0%, #ff865e 100%);
 }
 
 .blue {
-    background: linear-gradient(0deg, #2C9FF2 0%, #70D3FD 100%);
+    background: linear-gradient(0deg, #2c9ff2 0%, #70d3fd 100%);
 }
 
 .purple {
-    background: linear-gradient(0deg, #D76CEE 0%, #E0A0F3 100%);
+    background: linear-gradient(0deg, #d76cee 0%, #e0a0f3 100%);
 }
 
 .green {
-    background: linear-gradient(0deg, #54CB68 0%, #9DDD7D 100%);
+    background: linear-gradient(0deg, #54cb68 0%, #9ddd7d 100%);
 }
 
 .cyan {
@@ -125,11 +124,15 @@
     bottom: -1.5px;
 }
 
-.avatar-custom:hover>.status-indicator-container-custom .status-indicator-custom {
+.avatar-custom:hover
+    > .status-indicator-container-custom
+    .status-indicator-custom {
     border: 2px solid var(--navbar-hover-bg) !important;
 }
 
-.avatar-custom:focus>.status-indicator-container-custom .status-indicator-custom {
+.avatar-custom:focus
+    > .status-indicator-container-custom
+    .status-indicator-custom {
     border: 2px solid var(--navbar-active-bg) !important;
 }
 

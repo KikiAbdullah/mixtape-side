@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h6 class="mb-0">Add {{ $title }}</h6>
+        <h6 class="mb-0">Tambah {{ $title }}</h6>
     </div>
 
     <div class="card-body  mt-3">

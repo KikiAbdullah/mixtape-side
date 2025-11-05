@@ -3,10 +3,10 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div
-            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2 row-gap-4">
             <div class="d-flex flex-column justify-content-center">
-                <h4 class="mb-1">{{ $title }} List</h4>
-                <p class="mb-6">{{ $subtitle }}</p>
+                <h4 class="mb-1">{{ $title }}</h4>
+                <p class="mb-6">Daftar {{ $subtitle }}</p>
             </div>
             <div class="d-flex align-content-center flex-wrap gap-4">
                 <span class="menuoption"></span>
@@ -61,7 +61,7 @@
                     <div class="row h-100">
                         <div class="col-5">
                             <div class="d-flex align-items-end h-100 justify-content-center">
-                                <img src="{{ asset('asset_materialize/img/illustrations/add-new-role-illustration.png') }}"
+                                <img src="{{ asset('assets/img/illustrations/add-new-role-illustration.png') }}"
                                     class="img-fluid" alt="Image" width="68" />
                             </div>
                         </div>
@@ -108,7 +108,7 @@
 @section('customjs')
     <script>
         function addRole(el, e) {
-            $("#mymodal").find('.modal-title').html('Add {{ $title }}');
+            $("#mymodal").find('.modal-title').html('Tambah {{ $title }}');
             $("#mymodal").modal('show');
             $.ajax({
                 url: '{{ route('user-setup.role.create') }}',

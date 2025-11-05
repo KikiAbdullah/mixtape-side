@@ -19,7 +19,7 @@ class UserController extends Controller
         $this->middleware('can:delete_users', ['only' => ['destroy']]);
 
         $this->title            = 'User';
-        $this->subtitle         = 'User Login List';
+        $this->subtitle         = 'User Login';
         $this->model_request    = UserRequest::class;
         $this->folder           = 'user-setup';
         $this->relation         = ['roles'];

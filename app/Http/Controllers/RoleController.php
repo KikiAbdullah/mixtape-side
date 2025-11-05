@@ -13,7 +13,7 @@ class RoleController extends Controller
     public function __construct(Role $model)
     {
         $this->title            = 'Role';
-        $this->subtitle         = 'Role List';
+        $this->subtitle         = 'Role';
         $this->model_request    = Request::class;
         $this->folder           = 'user-setup';
         $this->relation         = ['permissions', 'users'];

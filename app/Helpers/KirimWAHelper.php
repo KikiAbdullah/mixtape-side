@@ -21,7 +21,7 @@ class KirimWAHelper
 				$tujuan="62".substr($tujuan,1);
 			}
 			if(env("APP_ENV")=="local"){
-				$tujuan = "6282132922001";
+				$tujuan = env("WA_NUMBER_TESTING", "6282132922001");
 			}
 			
 			$response = $client->request('GET', $endpoint, ['query' => [

@@ -29,14 +29,14 @@
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-success rounded-3">
-                                    <i class="ri-car-line ri-24px"></i>
+                                    <i class="ri-user-line ri-24px"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="card-info mt-5">
                             <h5 class="mb-1">25</h5>
-                            <p>Mobil Tersedia</p>
-                            <div class="badge bg-label-secondary rounded-pill">Dari 30</div>
+                            <p>Total User</p>
+                            <div class="badge bg-label-secondary rounded-pill">Aktif</div>
                         </div>
                     </div>
                 </div>
@@ -47,14 +47,14 @@
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-primary rounded-3">
-                                    <i class="ri-calendar-check-line ri-24px"></i>
+                                    <i class="ri-file-list-3-line ri-24px"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="card-info mt-5">
-                            <h5 class="mb-1">8</h5>
-                            <p>Penyewaan Hari Ini</p>
-                            <div class="badge bg-label-secondary rounded-pill">Terbaru</div>
+                            <h5 class="mb-1">150</h5>
+                            <p>Total Transaksi</p>
+                            <div class="badge bg-label-secondary rounded-pill">Hari Ini</div>
                         </div>
                     </div>
                 </div>
@@ -65,14 +65,14 @@
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-info rounded-3">
-                                    <i class="ri-user-add-line ri-24px"></i>
+                                    <i class="ri-shield-user-line ri-24px"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="card-info mt-5">
                             <h5 class="mb-1">12</h5>
-                            <p>Pelanggan Baru</p>
-                            <div class="badge bg-label-secondary rounded-pill">Bulan Ini</div>
+                            <p>Log Aktivitas</p>
+                            <div class="badge bg-label-secondary rounded-pill">Menit Terakhir</div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
             <div class="col-lg-8 col-12">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2">Pemesanan Mendatang</h5>
+                        <h5 class="card-title m-0 me-2">Data Terbaru</h5>
                         <div class="dropdown">
                             <button class="btn btn-text-secondary rounded-pill text-muted border-0 p-1" type="button"
                                 id="upcomingBookingsDropdown" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -92,8 +92,6 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="upcomingBookingsDropdown">
                                 <a class="dropdown-item" href="javascript:void(0);">Lihat Semua</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Minggu Ini</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Bulan Ini</a>
                             </div>
                         </div>
                     </div>
@@ -101,36 +99,36 @@
                         <table class="table table-striped table-border-bottom-0">
                             <thead>
                                 <tr>
-                                    <th>Pelanggan</th>
-                                    <th>Mobil</th>
-                                    <th>Tanggal Ambil</th>
+                                    <th>User</th>
+                                    <th>Aktivitas</th>
+                                    <th>Waktu</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>Andi Pratama</td>
-                                    <td>Toyota Avanza</td>
-                                    <td>23 Juli 2025</td>
-                                    <td><span class="badge bg-label-info">Menunggu</span></td>
+                                    <td>Login ke Sistem</td>
+                                    <td>2 Menit yang lalu</td>
+                                    <td><span class="badge bg-label-success">Selesai</span></td>
                                 </tr>
                                 <tr>
                                     <td>Budi Santoso</td>
-                                    <td>Honda Brio</td>
-                                    <td>24 Juli 2025</td>
-                                    <td><span class="badge bg-label-success">Dikonfirmasi</span></td>
+                                    <td>Menambah Data Produk</td>
+                                    <td>10 Menit yang lalu</td>
+                                    <td><span class="badge bg-label-success">Selesai</span></td>
                                 </tr>
                                 <tr>
                                     <td>Citra Dewi</td>
-                                    <td>Mitsubishi Pajero</td>
-                                    <td>24 Juli 2025</td>
-                                    <td><span class="badge bg-label-warning">Perlu Konfirmasi</span></td>
+                                    <td>Mengubah Profil</td>
+                                    <td>1 Jam yang lalu</td>
+                                    <td><span class="badge bg-label-success">Selesai</span></td>
                                 </tr>
                                 <tr>
                                     <td>Doni Kusuma</td>
-                                    <td>Suzuki Ertiga</td>
-                                    <td>25 Juli 2025</td>
-                                    <td><span class="badge bg-label-success">Dikonfirmasi</span></td>
+                                    <td>Gagal Login</td>
+                                    <td>2 Jam yang lalu</td>
+                                    <td><span class="badge bg-label-danger">Gagal</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -176,7 +174,7 @@
                 data: {
                     labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
                     datasets: [{
-                        label: 'Jumlah Penyewaan',
+                        label: 'Total Transaksi',
                         data: [30, 45, 25, 20], // Contoh data
                         backgroundColor: [
                             'rgba(75, 192, 192, 0.6)',

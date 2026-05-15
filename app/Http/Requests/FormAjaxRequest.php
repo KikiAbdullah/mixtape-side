@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-abstract class FormRequest extends LaravelFormRequest
+abstract class FormAjaxRequest extends LaravelFormRequest
 {
     /**
      * 

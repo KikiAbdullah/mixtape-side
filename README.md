@@ -1,99 +1,74 @@
 # BOILERPLATE-KUNCIKARYA
 
 ## Deskripsi
-Boilerplate ini dibangun menggunakan Laravel dan dilengkapi dengan berbagai fitur untuk mempercepat pengembangan aplikasi web. Sudah terintegrasi dengan **Spatie Permission**, **Materialize**, **Bootstrap 5**, **Log Helper**, **CRUD Trait**, dan **CreatedByTrait**. Tujuan utama dari boilerplate ini adalah untuk memberikan dasar yang kuat bagi pengembangan aplikasi dengan modul manajemen pengguna dan hak akses, tampilan yang modern, serta pengelolaan log dan pengelolaan data yang mudah.
+Boilerplate ini dibangun menggunakan Laravel 7.x dan telah dioptimalkan secara mendalam untuk menjadi pondasi aplikasi web skala Enterprise (ERP, CRM, Admin Panel). Fokus utama boilerplate ini adalah pada performa, keamanan (Standard Security), dan kemudahan pengembangan (High Developer Experience).
 
-## Fitur Utama
+## Fitur Unggulan (Pro-Level)
 
-- **Spatie Permission**: Mengelola peran dan izin pengguna.
-- **Materialize**: Digunakan sebagai framework UI untuk tampilan modern dan responsif.
-- **Bootstrap 5**: Alternatif styling dan utility class yang fleksibel.
-- **Log Helper**: Membantu pencatatan log aktivitas aplikasi.
-- **CRUD Trait**: Memudahkan implementasi operasi Create, Read, Update, Delete pada model.
-- **CreatedByTrait**: Otomatis menambahkan informasi siapa yang membuat dan memperbarui entitas dalam database.
+- **Standard Security (Anti-MD5)**: Menggunakan `Bcrypt` otomatis untuk semua password melalui model setter.
+- **JWT Ready**: Terintegrasi dengan `tymon/jwt-auth` untuk kebutuhan REST API & Mobile App (Guard: `api`).
+- **Image Processing**: Helper `uploadImage()` bertenaga `Intervention Image` (Auto Resize & Compression).
+- **Global AJAX Intelligence**: Handler error global (401, 403, 500) dengan notifikasi **SweetAlert2**.
+- **User Activity Audit**: Pencatatan otomatis aktivitas user ke database dengan indexing untuk performa tinggi.
+- **Smart UI Stack**: Kombinasi **Bootstrap 5**, **Materialize**, dan **Remix Icon** yang ringan & modern.
+- **Spatie Permission**: Role & Permission yang sudah terkonfigurasi untuk 3 level dasar (Superadmin, Admin, Staff).
+- **Single-Page CRUD Pattern**: Pengalaman pengguna yang mulus dengan kombinasi DataTables Server-side dan Dynamic Form.
 
 ## Instalasi
 
-Ikuti langkah-langkah di bawah ini untuk memulai proyek ini:
-
-### 1. Clone Repository
-
+### 1. Clone & Install
 ```bash
 git clone https://github.com/username/repo.git
 cd repo
+composer install
+npm install && npm run dev
 ```
+
 ### 2. Konfigurasi Environment
-
-Salin file `.env.example` menjadi `.env` dan sesuaikan pengaturannya, terutama untuk koneksi database:
-
 ```bash
 cp .env.example .env
-```
-
-Generate application key:
-
-```bash
 php artisan key:generate
+php artisan jwt:secret
 ```
 
-### 3. Migrasi dan Seeder Database
-
-Lakukan migrasi dan jalankan seeder untuk membuat struktur tabel serta data awal yang diperlukan:
-
+### 3. Database Setup
 ```bash
+# Untuk instalasi awal
 php artisan migrate --seed
 ```
 
-### 4. Jalankan Aplikasi
+## Panduan Fitur Khusus
 
-Jalankan aplikasi menggunakan server lokal bawaan Laravel:
-
-```bash
-php artisan serve
-```
-
-## Penggunaan Fitur
-
-### 1. **Spatie Permission**
-
-Boilerplate ini sudah terintegrasi dengan Spatie Permission, yang memungkinkan Anda untuk mengelola **roles** dan **permissions**. Anda dapat membuat peran dan memberikan izin sesuai kebutuhan aplikasi Anda.
-
-Untuk menambahkan peran atau izin, Anda bisa menggunakan command artisan atau melalui database.
-
-### 2. **Materialize dan Bootstrap 5**
-
-Kami menggunakan **Materialize** sebagai framework utama untuk UI dengan komponen yang elegan dan mudah digunakan. Namun, **Bootstrap 5** juga disertakan untuk utility classes dan beberapa komponen tambahan.
-
-Sesuaikan tampilan sesuai keinginan dengan mengubah template yang tersedia di dalam folder `resources/views/`.
-
-### 3. **Log Helper**
-
-Helper ini digunakan untuk memudahkan pencatatan log aktivitas di dalam aplikasi. Misalnya, untuk mencatat aktivitas user atau peristiwa penting lainnya.
-
-### 4. **CRUD Trait**
-
-Trait ini digunakan untuk mengimplementasikan operasi CRUD pada model dengan mudah. Anda dapat menerapkannya pada controller atau repository Anda, menghemat waktu dalam menulis logika dasar CRUD.
-
+### 1. **Image Upload Helper**
+Upload & Resize otomatis (lebar 800px, kualitas 80%):
 ```php
-use App\Traits\CrudTrait;
-
-class UserController extends Controller
-{
-    use CrudTrait;
-}
+$filename = uploadImage($request->file('avatar'), 'users');
 ```
 
-### 5. **CreatedByTrait**
-
-Trait ini digunakan untuk secara otomatis menyimpan informasi `created_by` dan `updated_by` pada model yang bersangkutan. Setiap kali data dibuat atau diperbarui, trait ini akan mengisi field tersebut dengan ID pengguna yang sedang aktif.
-
-Tambahkan trait ini ke model yang memerlukan:
-
+### 2. **WhatsApp Integration**
+Kirim notifikasi via `.env` configuration:
 ```php
-use App\Traits\CreatedByTrait;
-
-class Post extends Model
-{
-    use CreatedByTrait;
-}
+kirimWA('0812345xxxx', 'Subject', 'Pesan Utama');
 ```
+
+### 3. **Global AJAX & Notification**
+Cukup gunakan redirect standar di Controller, notifikasi akan muncul otomatis:
+```php
+return redirect()->back()->with('success', 'Data Berhasil Disimpan!');
+```
+
+### 4. **JWT Authentication (API)**
+Autentikasi API stateless menggunakan Bearer Token.
+**Endpoints:**
+- `POST /api/auth/login` - Mendapatkan token.
+- `POST /api/auth/me` - Informasi user (Header: `Authorization: Bearer <token>`).
+- `POST /api/auth/logout` - Logout & Invalidate token.
+- `POST /api/auth/refresh` - Refresh token.
+
+## Akun Default (Hasil Seeding)
+- **Superadmin**: `superadmin` / `superadmin` (Akses Full)
+- **Admin**: `admin` / `admin` (Akses Manajemen)
+- **Staff**: `staff` / `staff` (Akses View Only)
+
+---
+*Built with ❤️ for High-Performance Web Apps.*

@@ -8,12 +8,13 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $title . ' - ' . env('APP_NAME') }}</title>
+    <title>@yield('title', $title ?? 'Dashboard') | {{ config('app.name', 'Laravel') }}</title>
 
-    <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="base-url" content="{{ url('/') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets') }}/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +42,7 @@
     <link rel="stylesheet"
         href="{{ asset('assets') }}/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet"
-        href="{{ asset('assets') }}/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />>
+        href="{{ asset('assets') }}/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
@@ -167,9 +168,31 @@
     <script src="{{ asset('assets') }}/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('assets') }}/js/app-logistics-dashboard.js"></script>
-
     @yield('customjs')
+
+    <!-- Global Notification Handler -->
+    <script>
+        $(document).ready(function() {
+            @if(session('success'))
+                Swal.fire({ icon: 'success', title: 'Berhasil!', text: "{{ session('success') }}", timer: 3000, showConfirmButton: false });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({ icon: 'error', title: 'Oops!', text: "{{ session('error') }}", confirmButtonColor: '#666cff' });
+            @endif
+
+            // Global AJAX Error Handler
+            $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+                if (jqXHR.status === 401) {
+                    Swal.fire({ icon: 'warning', title: 'Sesi Berakhir', text: 'Silakan login kembali.', didClose: () => { window.location.reload(); } });
+                } else if (jqXHR.status === 403) {
+                    Swal.fire({ icon: 'error', title: 'Akses Ditolak', text: 'Anda tidak memiliki izin untuk aksi ini.' });
+                } else if (jqXHR.status >= 500) {
+                    Swal.fire({ icon: 'error', title: 'Server Error', text: 'Terjadi kesalahan pada server. Coba lagi nanti.' });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

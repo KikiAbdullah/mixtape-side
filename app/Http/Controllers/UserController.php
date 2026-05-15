@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\User;
+use App\Models\User;
 use App\Http\Requests\UserRequest;
 use DB;
 use App\Helpers\LogHelper;
@@ -34,25 +34,26 @@ class UserController extends Controller
 
     public function ajaxData()
     {
+        $query = $this->model->with(['roles']);
+        
         if ($this->withTrashed) {
-            $mapped             = $this->model->with(['roles'])->withTrashed()->orderBy('id', 'desc');
-        } else {
-            $mapped             = $this->model->with(['roles'])->orderBy('id', 'desc');
+            $query->withTrashed();
         }
-        return DataTables::of($mapped)
+
+        return DataTables::of($query)
             ->addColumn('status', function ($data) {
-                return st_aktif($data->deleted_at);
+                return st_aktif_badge($data->deleted_at);
             })
             ->addColumn('role', function ($data) {
-                return $data->roles->first()->name ?? "";
+                return $data->roles->first()->name ?? "-";
             })
             ->filterColumn('role', function ($query, $keyword) {
-                $query->whereHas('roles', function ($query) use ($keyword) {
-                    $query->where('name', 'LIKE', '%' . $keyword . '%');
+                $query->whereHas('roles', function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', '%' . $keyword . '%');
                 });
             })
             ->rawColumns(['status'])
-            ->toJson();
+            ->make(true);
     }
 
     public function customStore($data, $model)

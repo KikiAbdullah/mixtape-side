@@ -15,12 +15,13 @@ class CreateUserLogsTable extends Migration
     {
         Schema::create('user_logs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('action',50)->nullable();
-            $table->string('menu',50)->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->string('action')->nullable();
+            $table->string('menu')->nullable();
             $table->text('message')->nullable();
             $table->timestamps();
+            
+            $table->index('created_at');
         });
     }
 

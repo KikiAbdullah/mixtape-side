@@ -56,9 +56,10 @@
         const buttons = {!! json_encode(['vedit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
         var html_temp = $("#dynamic-form").html();
         var button_temp =
-            '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ph-caret-left ph-2x text-indigo"></i>CANCEL</a>';
+            '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ri-arrow-left-s-line ri-24px text-primary"></i>CANCEL</a>';
 
         $(document).ready(function($) {
+            const swalInit = Swal; // Pastikan swalInit terdefinisi
             dtable = $('#dtable').DataTable({
                 "select": {
                     style: "single",
@@ -94,7 +95,10 @@
                     "targets": [0],
                     "visible": false,
                     "searchable": false
-                }, ],
+                }, {
+                    "targets": [4],
+                    "className": "text-center"
+                }],
             });
             //set class for page length
             $("#dtable_length").addClass('d-none d-lg-block');
@@ -128,7 +132,7 @@
             //submit form create
             $("body").on("submit", "#dform", function(e) {
                 $(this).find('.submit_loader').removeAttr('class').addClass(
-                    'ph-spinner spinner submit_loader');
+                    'ri-loader-4-line spinner submit_loader');
             });
 
             $("body").on("click", ".editBtn", function(e) {

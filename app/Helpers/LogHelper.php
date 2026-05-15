@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use App\UserLog;
+use App\Models\UserLog;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 
 class LogHelper
 {

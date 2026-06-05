@@ -31,10 +31,14 @@ class CreateBandsAndLabelsTables extends Migration
             $table->json('social_links')->nullable();
             $table->unsignedBigInteger('owner_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('verified_by')->references('id')->on('users')->onDelete('set null');
             $table->index('slug');
         });
 
@@ -52,9 +56,15 @@ class CreateBandsAndLabelsTables extends Migration
             $table->string('website_url')->nullable();
             $table->text('description')->nullable();
             $table->unsignedBigInteger('owner_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('verified_by')->references('id')->on('users')->onDelete('set null');
             $table->index('slug');
         });
 

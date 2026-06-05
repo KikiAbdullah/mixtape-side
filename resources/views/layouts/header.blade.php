@@ -167,6 +167,28 @@
     <!-- Main JS -->
     <script src="{{ asset('assets') }}/js/main.js"></script>
 
+    <!-- Global Init for Select2 -->
+    <script>
+        $(document).ready(function() {
+            function initSelect2() {
+                $('.select2, select:not(.dataTables_length select)').each(function() {
+                    $(this).select2({
+                        dropdownParent: $(this).parent(),
+                        placeholder: $(this).data('placeholder') || 'Select an option',
+                        allowClear: true
+                    });
+                });
+            }
+
+            initSelect2();
+
+            // Re-init on AJAX content load (if any)
+            $(document).ajaxComplete(function() {
+                initSelect2();
+            });
+        });
+    </script>
+
     <!-- Page JS -->
     @yield('customjs')
 

@@ -24,9 +24,15 @@ class CreateReleasesAndTracksTables extends Migration
             $table->integer('original_release_year');
             $table->text('description')->nullable();
             $table->integer('track_count')->default(0);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('band_id')->references('id')->on('bands')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('verified_by')->references('id')->on('users')->onDelete('set null');
             $table->index('slug');
         });
 

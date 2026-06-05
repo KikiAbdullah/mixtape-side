@@ -57,11 +57,56 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         // ===========================================
+        // ARCHIVE MANAGEMENT
+        // ===========================================
+        Route::group(['prefix' => 'management', 'as' => 'management.'], function () {
+            // BANDS
+            Route::group(['prefix' => 'band', 'as' => 'band.'], function () {
+                Route::get('get-data', 'BandController@ajaxData')->name('get-data');
+            });
+            Route::resource('band', 'BandController');
+
+            // RELEASES
+            Route::group(['prefix' => 'release', 'as' => 'release.'], function () {
+                Route::get('get-data', 'ReleaseController@ajaxData')->name('get-data');
+            });
+            Route::resource('release', 'ReleaseController');
+
+            // GIGS
+            Route::group(['prefix' => 'gig', 'as' => 'gig.'], function () {
+                Route::get('get-data', 'GigController@ajaxData')->name('get-data');
+            });
+            Route::resource('gig', 'GigController');
+
+            // LABELS
+            Route::group(['prefix' => 'label', 'as' => 'label.'], function () {
+                Route::get('get-data', 'LabelController@ajaxData')->name('get-data');
+            });
+            Route::resource('label', 'LabelController');
+
+            // ORGANIZERS
+            Route::group(['prefix' => 'organizer', 'as' => 'organizer.'], function () {
+                Route::get('get-data', 'OrganizerController@ajaxData')->name('get-data');
+            });
+            Route::resource('organizer', 'OrganizerController');
+        });
+
+        // ===========================================
         // DEBUG / UTILITIES
         // ===========================================
         Route::group(['prefix' => 'debug', 'as' => 'debug.'], function () {
             Route::get('log-viewer', 'LogViewerController@index')->name('log-viewer.index');
         });
+        // ===========================================
+        // SELECT2 REMOTE DATA
+        // ===========================================
+        Route::group(['prefix' => 'select', 'as' => 'select.'], function () {
+            Route::get('bands', 'SelectController@bands')->name('bands');
+            Route::get('labels', 'SelectController@labels')->name('labels');
+            Route::get('organizers', 'SelectController@organizers')->name('organizers');
+            Route::get('roles', 'SelectController@roles')->name('roles');
+        });
+
         Route::get('get-button-option', 'AjaxController@getButtonOption')->name('get.button-option');
     });
 

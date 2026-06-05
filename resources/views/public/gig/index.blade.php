@@ -2,6 +2,43 @@
 
 @section('title', 'Gigs & Events - MixtapeSide')
 
+@section('customcss')
+    <style>
+        .past-gig-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .past-stamp {
+            border: 4px solid var(--accent-red);
+            color: var(--accent-red);
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            transform: rotate(-20deg);
+            opacity: 0.8;
+            letter-spacing: 5px;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .premium-card.is-past {
+            filter: grayscale(0.5);
+            opacity: 0.8;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">
@@ -11,33 +48,19 @@
 
 
         <section class="releases-section container">
-            <div class="premium-index-layout">
-                <!-- Filters -->
-                <aside class="premium-sidebar">
-                    <h3 class="filter-title">Filter Events</h3>
-                    <form action="{{ route('public.gig.index') }}" method="GET">
-                        <div class="filter-group">
-                            <label>City</label>
-                            <input type="text" name="city" class="filter-input" placeholder="e.g. Bandung"
-                                value="{{ request('city') }}">
-                        </div>
-                        <div class="filter-group">
-                            <label>From Date</label>
-                            <input type="date" name="from_date" class="filter-input" value="{{ request('from_date') }}">
-                        </div>
-                        <button type="submit" class="btn-outline"
-                            style="width:100%; text-align:center; margin-top: 10px; cursor: pointer;">Search</button>
-                        <a href="{{ route('public.gig.index') }}" class="btn-outline"
-                            style="width:100%; text-align:center; display: block; margin-top: 10px; border-color: rgba(255,255,255,0.1); color: #666; font-size: 12px;">Reset
-                            Filters</a>
-                    </form>
-                </aside>
-
-                <!-- Gigs Grid -->
-                <div class="premium-grid">
+            <!-- Gigs Grid -->
+            <div class="premium-grid">
                     @forelse($gigs as $gig)
-                        <div class="premium-card">
+                        @php
+                            $isPast = \Carbon\Carbon::parse($gig->date)->isPast() && !\Carbon\Carbon::parse($gig->date)->isToday();
+                        @endphp
+                        <div class="premium-card {{ $isPast ? 'is-past' : '' }}">
                             <a href="{{ route('public.gig.show', $gig->slug) }}" class="card-image-wrapper">
+                                @if ($isPast)
+                                    <div class="past-gig-overlay">
+                                        <div class="past-stamp">PASSED</div>
+                                    </div>
+                                @endif
                                 @if ($gig->poster_url)
                                     <img src="{{ asset($gig->poster_url) }}" alt="{{ $gig->title }}" />
                                 @else

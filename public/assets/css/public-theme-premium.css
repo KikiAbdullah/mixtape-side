@@ -68,6 +68,95 @@ a {
     transition: all 0.3s ease;
 }
 
+.nav-burger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ================== MOBILE SIDEBAR ================== */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background: #0a0a0a;
+    z-index: 1001;
+    padding: 30px;
+    transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    border-right: 1px solid rgba(211, 0, 0, 0.2);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.mobile-sidebar.active {
+    left: 0;
+}
+
+.mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.sidebar-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 25px;
+}
+
+.sidebar-links a {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidebar-links a:hover,
+.sidebar-links a.active {
+    color: var(--accent-red);
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
 .navbar.scrolled {
     background: rgba(17, 17, 17, 0.9);
     backdrop-filter: blur(10px);
@@ -143,7 +232,8 @@ a {
     position: relative;
     text-align: center;
     padding-top: 80px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(17, 17, 17, 1)), url('https://images.unsplash.com/photo-1611426959571-9941542ea4a8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(17, 17, 17, 1)),
+        url("https://images.unsplash.com/photo-1611426959571-9941542ea4a8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -504,18 +594,14 @@ a {
         gap: 40px;
     }
     .band-logo-large {
-        width: 240px;
-        height: 240px;
+        width: 180px;
+        height: 180px;
         margin: 0 auto;
     }
     .band-name-huge {
-        font-family: var(--font-heading);
-        font-size: 40px;
-        line-height: 0.85;
-        text-transform: uppercase;
-        letter-spacing: -1px;
-        margin-bottom: 25px;
-        color: white;
+        font-size: 50px !important;
+        line-height: 1 !important;
+        margin-bottom: 20px !important;
     }
     .band-hero-stats {
         justify-content: center;
@@ -527,7 +613,7 @@ a {
         font-size: 24px;
     }
     .band-quick-meta {
-        justify-content: center;
+        justify-content: center !important;
     }
 
     .band-quick-meta span {
@@ -546,23 +632,46 @@ a {
         color: var(--accent-red);
     }
     .genre-tags {
-        justify-content: center;
+        justify-content: flex-start !important;
     }
+@media (max-width: 768px) {
     .tabs-nav {
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 5px;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 10px !important;
+        padding-bottom: 15px !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: var(--accent-red) transparent !important;
     }
+
+    .tabs-nav::-webkit-scrollbar {
+        height: 3px !important;
+    }
+
+    .tabs-nav::-webkit-scrollbar-thumb {
+        background: var(--accent-red) !important;
+    }
+
     .tab-btn {
-        padding: 10px 20px;
-        font-size: 16px;
+        flex: 0 0 auto !important;
+        padding: 10px 15px !important;
+        font-size: 14px !important;
+        border-bottom: 2px solid rgba(255,255,255,0.05) !important;
     }
+
+    .tab-btn.active::after {
+        height: 2px !important;
+    }
+}
 }
 
 /* ================== NEWSLETTER / JOIN SECTION ================== */
 .join-section {
     padding: 100px 20px;
-    background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.9)), url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2000&auto=format&fit=crop');
+    background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.9)),
+        url("https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2000&auto=format&fit=crop");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -957,6 +1066,7 @@ footer {
 .hero-stat-item {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 }
 
 .hero-stat-value {
@@ -964,6 +1074,7 @@ footer {
     font-size: 32px;
     color: var(--text-main);
     line-height: 1;
+    display: block;
 }
 
 .hero-stat-label {
@@ -1198,8 +1309,12 @@ footer {
         padding: 0 20px;
     }
 
-    .nav-links {
-        display: none; 
+    .nav-links, .nav-actions {
+        display: none;
+    }
+
+    .nav-burger {
+        display: block;
     }
 
     .brand-logo {
@@ -1231,8 +1346,9 @@ footer {
         right: -20px;
     }
 
-    /* Horizontal Scroll for Mobile */
-    .releases-grid, 
+    /* Horizontal Scroll for Mobile - DISABLED */
+    /*
+    .releases-grid,
     .premium-grid,
     .gig-index-grid {
         display: flex !important;
@@ -1244,19 +1360,37 @@ footer {
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
+    */
 
-    .releases-grid::-webkit-scrollbar,
-    .premium-grid::-webkit-scrollbar,
-    .gig-index-grid::-webkit-scrollbar {
-        display: none;
+    .releases-grid,
+    .premium-grid,
+    .gig-index-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: visible !important;
     }
 
-    .release-card, 
+    .release-card,
     .premium-card,
     .gig-index-card {
-        flex: 0 0 280px;
-        scroll-snap-align: start;
-        height: auto;
+        flex: none !important;
+        width: 100% !important;
+    }
+
+    .card-title {
+        font-size: 16px !important;
+    }
+
+    .card-content {
+        padding: 12px !important;
+    }
+
+    .card-subtitle {
+        font-size: 12px !important;
+        margin-bottom: 8px !important;
     }
 
     .polaroid-collage {

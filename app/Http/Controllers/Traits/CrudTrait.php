@@ -64,6 +64,10 @@ trait CrudTrait {
 			DB::beginTransaction();
 			
 			$data  = $this->getRequest();
+
+			if (!auth()->user()->hasRole('SUPERADMIN') && !auth()->user()->hasRole('ADMIN')) {
+				$data['created_by'] = auth()->id();
+			}
 			
 			$model = $this->model->fill($data);
 
@@ -188,6 +192,10 @@ trait CrudTrait {
 			DB::beginTransaction();
 
 			$data  = $this->getRequest();
+
+			if (!auth()->user()->hasRole('SUPERADMIN') && !auth()->user()->hasRole('ADMIN')) {
+				$data['created_by'] = auth()->id();
+			}
 
 			if($this->withTrashed){
 				$model = $this->model->withTrashed()->findOrFail($id);

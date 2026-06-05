@@ -2,7 +2,73 @@
 
 @section('title', $gig->title . ' - Gig Detail - MixtapeSide')
 
+@section('customcss')
+    <style>
+        .band-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .btn-capture-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-capture-floating:hover {
+            transform: scale(1.1);
+            background: #fff;
+            color: var(--accent-red);
+        }
+
+        .btn-capture-floating i {
+            font-size: 24px;
+        }
+
+        .band-hero-content {
+            width: 100%;
+        }
+
+        .band-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        .band-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+@endsection
+
 @section('content')
+    <!-- Floating Capture Button -->
+    <button id="capture-band" class="btn-capture-floating" title="Share this gig">
+        <i class="fa-solid fa-share-nodes"></i>
+    </button>
     <!-- Gig Hero -->
     <header class="band-hero"
         style="background-image: url('{{ $gig->poster_url ? asset($gig->poster_url) : 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=2000&auto=format&fit=crop' }}');">
@@ -26,8 +92,6 @@
                         <span><i class="fa-solid fa-location-dot"></i> {{ $gig->venue_name }}, {{ $gig->city }}</span>
                         <span><i class="fa-solid fa-clock"></i>
                             {{ $gig->start_time ? date('H:i', strtotime($gig->start_time)) . ' WIB' : 'TBA' }}</span>
-                        <span><i class="fa-solid fa-ticket"></i>
-                            {{ $gig->ticket_price > 0 ? 'Rp ' . number_format($gig->ticket_price, 0, ',', '.') : 'Free / Donation' }}</span>
                     </div>
 
                     <div class="band-hero-stats">
@@ -43,6 +107,13 @@
                             <span class="hero-stat-value">LIVE</span>
                             <span class="hero-stat-label">CULTURE</span>
                         </div>
+                        @if ($gig->organizer)
+                            <div class="hero-stat-item">
+                                <span class="hero-stat-value"
+                                    style="font-size: 20px; line-height: 1.2;">{{ $gig->organizer->name }}</span>
+                                <span class="hero-stat-label">ORGANIZER</span>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="mt-5 d-flex gap-3">
@@ -52,13 +123,6 @@
                         @else
                             <a href="{{ route('login') }}" class="btn-outline" style="padding: 10px 25px;">Login to Attend</a>
                         @endauth
-                        @if ($gig->organizer)
-                            <div style="margin-left: auto; text-align: right;">
-                                <span class="meta-label" style="margin-bottom: 0;">Organized by</span>
-                                <span class="meta-value"
-                                    style="font-family: var(--font-heading); font-size: 24px;">{{ $gig->organizer->name }}</span>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -166,6 +230,42 @@
                 btn.classList.add('active');
                 document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
             });
+        });
+
+        // Capture functionality
+        $('#capture-band').on('click', function() {
+            const $btn = $(this);
+            const originalHtml = $btn.html();
+            $btn.html('<i class="fa-solid fa-spinner fa-spin"></i>').prop('disabled', true);
+
+            const element = document.querySelector('.band-hero');
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                html2canvas(element, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#000000',
+                    scale: 2,
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = '{{ $gig->slug }}-mixtapeside.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    $btn.html(originalHtml).prop('disabled', false);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Captured!',
+                        text: 'Gig profile has been saved as PNG.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }).catch(err => {
+                    console.error('Capture failed:', err);
+                    $btn.html(originalHtml).prop('disabled', false);
+                });
+            }, 500);
         });
     </script>
 @endsection

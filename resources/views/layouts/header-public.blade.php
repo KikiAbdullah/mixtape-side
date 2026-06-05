@@ -138,6 +138,7 @@
     </script>
 
     <!-- Page JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     @yield('customjs')
 
     <!-- Global Notification Handler -->

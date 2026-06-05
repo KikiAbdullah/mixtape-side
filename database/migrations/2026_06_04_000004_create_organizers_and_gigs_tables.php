@@ -23,9 +23,15 @@ class CreateOrganizersAndGigsTables extends Migration
             $table->text('description')->nullable();
             $table->string('contact_info')->nullable();
             $table->unsignedBigInteger('owner_id')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('verified_by')->references('id')->on('users')->onDelete('set null');
             $table->index('slug');
         });
 
@@ -44,10 +50,14 @@ class CreateOrganizersAndGigsTables extends Migration
             $table->string('ticket_info')->nullable(); // Free, BYOB, Presale 50k
             $table->unsignedBigInteger('organizer_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('verified_by')->nullable();
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('organizer_id')->references('id')->on('organizers')->onDelete('set null');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('verified_by')->references('id')->on('users')->onDelete('set null');
             $table->index('slug');
             $table->index('date');
         });

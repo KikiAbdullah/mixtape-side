@@ -2,7 +2,76 @@
 
 @section('title', $band->name . ' - Band Profile - MixtapeSide')
 
+@section('customcss')
+    <style>
+        .band-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .btn-capture-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-capture-floating:hover {
+            transform: scale(1.1);
+            background: #fff;
+            color: var(--accent-red);
+        }
+
+        .btn-capture-floating i {
+            font-size: 24px;
+        }
+
+        /* Ensure hero content looks good on 100vh */
+        .band-hero-content {
+            width: 100%;
+        }
+
+        /* Overlay for capture to make sure it looks good as image */
+        .band-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        .band-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+@endsection
+
 @section('content')
+    <!-- Floating Capture Button -->
+    <button id="capture-band" class="btn-capture-floating" title="Share your band">
+        <i class="fa-solid fa-share-nodes"></i>
+    </button>
+
     <!-- Band Hero -->
     <header class="band-hero"
         style="background-image: url('{{ $band->logo_url ? asset($band->logo_url) : 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2000&auto=format&fit=crop' }}');">
@@ -225,6 +294,50 @@
                 btn.classList.add('active');
                 document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
             });
+        });
+
+        // Capture functionality
+        $('#capture-band').on('click', function() {
+            const $btn = $(this);
+            const originalHtml = $btn.html();
+            $btn.html('<i class="fa-solid fa-spinner fa-spin"></i>').prop('disabled', true);
+
+            const element = document.querySelector('.band-hero');
+
+            // Scroll to top to ensure clean capture if needed
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                html2canvas(element, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#000000',
+                    scale: 2, // Higher quality
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = '{{ $band->slug }}-mixtapeside.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    $btn.html(originalHtml).prop('disabled', false);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Captured!',
+                        text: 'Band profile has been saved as PNG.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }).catch(err => {
+                    console.error('Capture failed:', err);
+                    $btn.html(originalHtml).prop('disabled', false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops!',
+                        text: 'Failed to capture image. Check console for details.',
+                    });
+                });
+            }, 500);
         });
     </script>
 @endsection

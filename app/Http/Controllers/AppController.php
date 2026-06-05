@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use DB;
 
+use App\Models\Band;
+use App\Models\Release;
+use App\Models\Gig;
+use App\Models\Label;
+use App\Models\UserLog;
+use App\Models\VerificationRequest;
+
 class AppController extends Controller
 {
     /**
@@ -28,6 +35,24 @@ class AppController extends Controller
     {
         $data['title'] = "Dashboard";
         $data['subtitle'] = "Hi, " . auth()->user()->name;
+
+        // Statistics
+        $data['counts'] = [
+            'bands' => Band::count(),
+            'releases' => Release::count(),
+            'labels' => Label::count(),
+            'pending_verifications' => VerificationRequest::where('status', 'Pending')->count(),
+        ];
+
+        // Recent Logs
+        $data['recentLogs'] = UserLog::with('user')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        // Chart Data (Mockup for now, 7 days activity)
+        $data['chartData'] = [30, 45, 25, 20, 35, 50, 40];
+
         return view('home')->with($data);
     }
 

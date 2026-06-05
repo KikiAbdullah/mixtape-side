@@ -9,7 +9,7 @@ class Band extends Model
     protected $fillable = [
         'slug', 'name', 'alternative_names', 'logo_url', 'photo_url', 'city', 
         'country', 'formed_year', 'disbanded_year', 'status', 'genre', 
-        'biography', 'social_links', 'owner_id', 'created_by'
+        'biography', 'social_links', 'owner_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];
 
     protected $casts = [

@@ -13,4 +13,9 @@ class UserLog extends Model
         'menu',
         'message',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

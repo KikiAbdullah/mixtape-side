@@ -8,7 +8,7 @@ class Label extends Model
 {
     protected $fillable = [
         'slug', 'name', 'logo_url', 'city', 'formed_year', 'defunct_year', 
-        'status', 'contact_email', 'website_url', 'description', 'owner_id'
+        'status', 'contact_email', 'website_url', 'description', 'owner_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];
 
     public function releases()

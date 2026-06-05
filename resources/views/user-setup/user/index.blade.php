@@ -39,8 +39,12 @@
                 </div>
             </div>
             <div class="col-md-6" id="dynamic-form">
-                @can('users_add')
+                @can('users_create')
                     @include('user-setup.user.create')
+                @else
+                    <div class="alert alert-warning">
+                        Anda tidak memiliki izin untuk menambah data user.
+                    </div>
                 @endcan
             </div>
 
@@ -247,8 +251,12 @@
             $('.menuoption').html('');
             button_temp = $('.btnBack').clone();
             $('.menuoption').find('.btnBack').remove();
-            $('.select').select2();
+            SelectRemoteData('.select-remote-role', '{{ route('select.roles') }}');
         }
+
+        $(document).ready(function() {
+            SelectRemoteData('.select-remote-role', '{{ route('select.roles') }}');
+        });
     </script>
 @endsection
 

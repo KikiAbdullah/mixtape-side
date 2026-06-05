@@ -2,6 +2,42 @@
 
 @section('title', 'Discovery Search - MixtapeSide')
 
+@section('customcss')
+    <style>
+        .past-gig-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .past-stamp {
+            border: 3px solid var(--accent-red);
+            color: var(--accent-red);
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5rem;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            transform: rotate(-20deg);
+            opacity: 0.8;
+            letter-spacing: 3px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .premium-card.is-past {
+            filter: grayscale(0.5);
+            opacity: 0.8;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">
@@ -44,27 +80,39 @@
                             <p class="text-muted text-center" style="padding: 80px 0;">No bands found matching your query.
                             </p>
                         @else
-                            <div class="releases-grid">
+                            <div class="premium-grid">
                                 @foreach ($bands as $band)
-                                    <a href="{{ route('public.band.show', $band->slug) }}" class="release-card">
-                                        <div class="cover-wrapper">
+                                    <div class="premium-card">
+                                        <a href="{{ route('public.band.show', $band->slug) }}" class="card-image-wrapper">
                                             @if ($band->logo_url)
                                                 <img src="{{ asset($band->logo_url) }}" alt="{{ $band->name }}" />
                                             @else
-                                                <div class="no-cover-placeholder"><i class="fa-solid fa-guitar fa-2x"></i>
+                                                <div class="no-cover-placeholder"
+                                                    style="display: flex; height: 100%; align-items: center; justify-content: center; background: #222; color: #444;">
+                                                    <i class="fa-solid fa-guitar fa-4x"></i>
                                                 </div>
                                             @endif
-                                            <div class="vinyl-record"></div>
-                                            <span class="badge">Band</span>
+                                            <div class="card-badge">Band</div>
+                                        </a>
+                                        <div class="card-content">
+                                            <h3 class="card-title">
+                                                <a href="{{ route('public.band.show', $band->slug) }}">{{ $band->name }}</a>
+                                            </h3>
+                                            <div class="card-subtitle">
+                                                <i class="fa-solid fa-location-dot" style="color: var(--accent-red);"></i>
+                                                {{ $band->city }}
+                                            </div>
+                                            <div class="genre-tags">
+                                                @if (is_array($band->genre))
+                                                    @foreach (array_slice($band->genre, 0, 2) as $g)
+                                                        <span class="genre-tag">{{ $g }}</span>
+                                                    @endforeach
+                                                @else
+                                                    <span class="genre-tag">{{ $band->genre }}</span>
+                                                @endif
+                                            </div>
                                         </div>
-                                        <div class="release-info">
-                                            <h3>{{ $band->name }}</h3>
-                                            <p class="artist"><i class="fa-solid fa-location-dot"></i> {{ $band->city }}
-                                            </p>
-                                            <span
-                                                class="year">{{ is_array($band->genre) ? implode(', ', $band->genre) : $band->genre }}</span>
-                                        </div>
-                                    </a>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif
@@ -77,26 +125,33 @@
                             <p class="text-muted text-center" style="padding: 80px 0;">No releases found matching your
                                 query.</p>
                         @else
-                            <div class="releases-grid">
+                            <div class="premium-grid">
                                 @foreach ($releases as $release)
-                                    <a href="{{ route('public.release.show', [$release->band->slug, $release->slug]) }}"
-                                        class="release-card">
-                                        <div class="cover-wrapper">
+                                    <div class="premium-card">
+                                        <a href="{{ route('public.release.show', [$release->band->slug, $release->slug]) }}"
+                                            class="card-image-wrapper">
                                             @if ($release->cover_url)
                                                 <img src="{{ asset($release->cover_url) }}" alt="{{ $release->title }}" />
                                             @else
-                                                <div class="no-cover-placeholder"><i
-                                                        class="fa-solid fa-compact-disc fa-2x"></i></div>
+                                                <div class="no-cover-placeholder"
+                                                    style="display: flex; height: 100%; align-items: center; justify-content: center; background: #222; color: #444;">
+                                                    <i class="fa-solid fa-compact-disc fa-4x"></i>
+                                                </div>
                                             @endif
-                                            <div class="vinyl-record"></div>
-                                            <span class="badge">{{ $release->release_type }}</span>
+                                            <div class="card-badge">{{ $release->release_type }}</div>
+                                        </a>
+                                        <div class="card-content">
+                                            <h3 class="card-title">
+                                                <a
+                                                    href="{{ route('public.release.show', [$release->band->slug, $release->slug]) }}">{{ $release->title }}</a>
+                                            </h3>
+                                            <div class="card-subtitle">{{ $release->band->name }}</div>
+                                            <div class="card-meta">
+                                                <span>{{ $release->original_release_year }}</span>
+                                                <span>{{ $release->track_count ?? 0 }} Tracks</span>
+                                            </div>
                                         </div>
-                                        <div class="release-info">
-                                            <h3>{{ $release->title }}</h3>
-                                            <p class="artist">{{ $release->band->name }}</p>
-                                            <span class="year">{{ $release->original_release_year }}</span>
-                                        </div>
-                                    </a>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif
@@ -109,26 +164,30 @@
                             <p class="text-muted text-center" style="padding: 80px 0;">No record labels found matching your
                                 query.</p>
                         @else
-                            <div class="releases-grid">
+                            <div class="premium-grid">
                                 @foreach ($labels as $label)
-                                    <a href="{{ route('public.label.show', $label->slug) }}" class="release-card">
-                                        <div class="cover-wrapper">
+                                    <div class="premium-card">
+                                        <a href="{{ route('public.label.show', $label->slug) }}" class="card-image-wrapper">
                                             @if ($label->logo_url)
                                                 <img src="{{ asset($label->logo_url) }}" alt="{{ $label->name }}" />
                                             @else
-                                                <div class="no-cover-placeholder"><i class="fa-solid fa-building fa-2x"></i>
+                                                <div class="no-cover-placeholder"
+                                                    style="display: flex; height: 100%; align-items: center; justify-content: center; background: #222; color: #444;">
+                                                    <i class="fa-solid fa-building fa-4x"></i>
                                                 </div>
                                             @endif
-                                            <div class="vinyl-record"></div>
-                                            <span class="badge">Label</span>
+                                            <div class="card-badge">Label</div>
+                                        </a>
+                                        <div class="card-content">
+                                            <h3 class="card-title">
+                                                <a href="{{ route('public.label.show', $label->slug) }}">{{ $label->name }}</a>
+                                            </h3>
+                                            <div class="card-subtitle">{{ $label->city }}</div>
+                                            <div class="card-meta">
+                                                <span>Est. {{ $label->formed_year }}</span>
+                                            </div>
                                         </div>
-                                        <div class="release-info">
-                                            <h3>{{ $label->name }}</h3>
-                                            <p class="artist"><i class="fa-solid fa-location-dot"></i> {{ $label->city }}
-                                            </p>
-                                            <span class="year">Est. {{ $label->formed_year }}</span>
-                                        </div>
-                                    </a>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif
@@ -141,13 +200,38 @@
                             <p class="text-muted text-center" style="padding: 80px 0;">No gigs found matching your query.
                             </p>
                         @else
-                            <div class="gig-list">
+                            <div class="premium-grid">
                                 @foreach ($gigs as $gig)
-                                    <a href="{{ route('public.gig.show', $gig->slug) }}" class="gig-list-item">
-                                        <span class="gig-date">{{ date('d M Y', strtotime($gig->date)) }}</span>
-                                        <span class="gig-title">{{ $gig->title }}</span>
-                                        <span class="gig-venue">{{ $gig->venue_name }}, {{ $gig->city }}</span>
-                                    </a>
+                                    @php
+                                        $isPast = \Carbon\Carbon::parse($gig->date)->isPast() && !\Carbon\Carbon::parse($gig->date)->isToday();
+                                    @endphp
+                                    <div class="premium-card {{ $isPast ? 'is-past' : '' }}">
+                                        <a href="{{ route('public.gig.show', $gig->slug) }}" class="card-image-wrapper">
+                                            @if ($isPast)
+                                                <div class="past-gig-overlay">
+                                                    <div class="past-stamp" style="font-size: 1.5rem;">PASSED</div>
+                                                </div>
+                                            @endif
+                                            @if ($gig->poster_url)
+                                                <img src="{{ asset($gig->poster_url) }}" alt="{{ $gig->title }}" />
+                                            @else
+                                                <div class="no-cover-placeholder"
+                                                    style="display: flex; height: 100%; align-items: center; justify-content: center; background: #222; color: #444;">
+                                                    <i class="fa-solid fa-calendar-days fa-4x"></i>
+                                                </div>
+                                            @endif
+                                            <div class="card-badge">{{ date('d M', strtotime($gig->date)) }}</div>
+                                        </a>
+                                        <div class="card-content">
+                                            <h3 class="card-title">
+                                                <a href="{{ route('public.gig.show', $gig->slug) }}">{{ $gig->title }}</a>
+                                            </h3>
+                                            <div class="card-subtitle">
+                                                <i class="fa-solid fa-location-dot" style="color: var(--accent-red);"></i>
+                                                {{ $gig->venue_name }}, {{ $gig->city }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif

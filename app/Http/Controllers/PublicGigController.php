@@ -19,11 +19,9 @@ class PublicGigController extends Controller
 
         if ($request->has('from_date') && !empty($request->from_date)) {
             $query->where('date', '>=', $request->from_date);
-        } else {
-            $query->where('date', '>=', date('Y-m-d'));
         }
 
-        $gigs = $query->orderBy('date', 'asc')->paginate(12);
+        $gigs = $query->orderBy('date', 'desc')->paginate(12);
 
         $data = [
             'gigs' => $gigs,

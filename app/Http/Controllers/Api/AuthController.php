@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -41,7 +41,62 @@ class AuthController extends Controller
             return response()->json(responseFailed('Username atau Password salah'), 401);
         }
 
+        $user = auth('api')->user();
+        if ($user->hasRole('REGISTERED_USER') && !$user->hasVerifiedEmail()) {
+            auth('api')->logout();
+            return response()->json(responseFailed('Email Anda belum diverifikasi. Silakan cek email Anda.'), 403);
+        }
+
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Register a new user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'nowa' => 'nullable|string|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(responseFailed($validator->errors()->first()), 422);
+        }
+
+        \DB::beginTransaction();
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => $request->password,
+                'nowa' => $request->nowa,
+            ]);
+
+            // Assign default REGISTERED_USER role
+            $user->assignRole('REGISTERED_USER');
+
+            // Create empty profile
+            $user->profile()->create([
+                'display_name' => $user->name,
+            ]);
+
+            // Send email verification notification
+            $user->sendEmailVerificationNotification();
+
+            \DB::commit();
+
+            return response()->json(responseSuccess([], 'Registrasi berhasil! Silakan periksa email Anda untuk verifikasi.'));
+        } catch (\Exception $e) {
+            \DB::rollback();
+            return response()->json(responseFailed('Gagal melakukan registrasi: ' . $e->getMessage()), 500);
+        }
     }
 
     /**

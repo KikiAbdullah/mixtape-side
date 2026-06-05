@@ -40,7 +40,7 @@ class PermissionSeeder extends Seeder
         $roleSuper = Role::firstOrCreate(['name' => 'SUPERADMIN']);
         $roleSuper->syncPermissions(Permission::all());
 
-        // 2. ADMIN
+        // 2. ADMIN / KURATOR
         $roleAdmin = Role::firstOrCreate(['name' => 'ADMIN']);
         $roleAdmin->syncPermissions([
             'users_view', 'users_add', 'users_edit',
@@ -53,6 +53,12 @@ class PermissionSeeder extends Seeder
             'users_view'
         ]);
 
+        // 4. VERIFIED ENTITY
+        $roleVerified = Role::firstOrCreate(['name' => 'VERIFIED_ENTITY']);
+
+        // 5. REGISTERED USER
+        $roleRegistered = Role::firstOrCreate(['name' => 'REGISTERED_USER']);
+
         // Assign roles to users
         $userSuper = User::where('username', 'superadmin')->first();
         if ($userSuper) $userSuper->assignRole($roleSuper);
@@ -62,16 +68,5 @@ class PermissionSeeder extends Seeder
 
         $userStaff = User::where('username', 'staff')->first();
         if ($userStaff) $userStaff->assignRole($roleStaff);
-    }
-}
-        }
-
-        // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'SUPERADMIN']);
-
-        $role2 = Role::create(['name' => 'ADMIN']);
-
-        $user = User::find(1);
-        $user->assignRole($role1);
     }
 }

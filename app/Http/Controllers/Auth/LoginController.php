@@ -84,17 +84,16 @@ class LoginController extends Controller
         ]);
     }
 
+    public function username()
+    {
+        return 'username';
+    }
+
     protected function attemptLogin(Request $request)
     {
-        $user = User::where([
-            'username' => $request->username,
-            'password' => md5($request->password)
-        ])->first();
-        if(!empty($user)){
-        return $this->guard()->login(
-            $user, $request->filled('remember')
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
         );
-    }
     }
 
     public function logout(Request $request)

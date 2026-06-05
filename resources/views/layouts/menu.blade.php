@@ -2,13 +2,47 @@
 <aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
     <div class="container-xxl d-flex h-100">
         <ul class="menu-inner">
-            <!-- Dashboards -->
-            <li class="menu-item {{ $title == 'Dashboard' ? 'active' : '' }}">
-                <a href="{{ route('siteurl') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                    <div data-i18n="Dashboards">Dashboards</div>
+            <!-- Home -->
+            <li class="menu-item {{ Request::routeIs('homepage') ? 'active' : '' }}">
+                <a href="{{ route('homepage') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-home-3-line"></i>
+                    <div data-i18n="Home">Home</div>
                 </a>
             </li>
+
+            <!-- Bands -->
+            <li class="menu-item {{ Request::routeIs('public.band.*') ? 'active' : '' }}">
+                <a href="{{ route('public.band.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-mic-line"></i>
+                    <div data-i18n="Bands">Bands</div>
+                </a>
+            </li>
+
+            <!-- Gigs -->
+            <li class="menu-item {{ Request::routeIs('public.gig.*') ? 'active' : '' }}">
+                <a href="{{ route('public.gig.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-calendar-line"></i>
+                    <div data-i18n="Gigs">Gigs</div>
+                </a>
+            </li>
+
+            <!-- Discovery -->
+            <li class="menu-item {{ Request::routeIs('public.discovery') ? 'active' : '' }}">
+                <a href="{{ route('public.discovery') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-search-line"></i>
+                    <div data-i18n="Search">Search</div>
+                </a>
+            </li>
+
+            <!-- Dashboards -->
+            @auth
+            <li class="menu-item {{ $title == 'Dashboard' ? 'active' : '' }}">
+                <a href="{{ route('siteurl') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-dashboard-line"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
+            @endauth
 
             {{-- ========================================
                  SETUP

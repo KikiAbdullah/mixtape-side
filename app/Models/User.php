@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable;
     use SoftDeletes;
@@ -53,6 +53,11 @@ class User extends Authenticatable implements JWTSubject
 
     function getDeletedAtBaruAttribute(){
         return $this->deleted_at == null ? "1":"0";
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     /**

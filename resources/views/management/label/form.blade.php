@@ -29,12 +29,21 @@
         <input type="number" name="defunct_year" class="form-control" value="{{ $item->defunct_year ?? '' }}">
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <label class="form-label">Label Logo</label>
         <input type="file" name="logo_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->logo_url)
             <div class="mt-2">
                 <img src="{{ asset($item->logo_url) }}" alt="Logo" class="rounded border" height="50">
+            </div>
+        @endif
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Label Banner</label>
+        <input type="file" name="banner_file" class="form-control" accept="image/*">
+        @if(isset($item) && $item->banner_url)
+            <div class="mt-2">
+                <img src="{{ asset($item->banner_url) }}" alt="Banner" class="rounded border" height="50">
             </div>
         @endif
     </div>

@@ -44,7 +44,7 @@
     </section>
 
     <!-- Popular Labels Section -->
-    <section class="labels-section container mt-5 home-page-section">
+    <section class="labels-section container home-page-section">
         <div class="section-header text-center">
             <h2 class="section-title">
                 THE <span class="graffiti-text text-red">RECORD</span> KEEPERS
@@ -152,7 +152,7 @@
     </section>
 
     <!-- Join The Movement -->
-    <section class="join-section mt-5">
+    <section class="join-section">
         <div class="join-content">
             <h2 class="section-title">JOIN THE <br /><span class="graffiti-text text-red">MOVEMENT</span></h2>
             <p>Help us archive the history, contribute your knowledge, and keep the scene alive.</p>

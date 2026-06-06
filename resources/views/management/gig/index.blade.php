@@ -116,6 +116,55 @@
                 e.preventDefault();
             });
 
+            $("body").on("submit", "#dform", function(e) {
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({ icon: 'success', title: 'Berhasil!', text: response.msg, timer: 2000, showConfirmButton: false });
+                            dtable.ajax.reload();
+                            form[0].reset();
+                            $('.select').val(null).trigger('change');
+                        } else {
+                            Swal.fire({ icon: 'error', title: 'Gagal!', text: response.msg });
+                        }
+                    }
+                });
+                e.preventDefault();
+            });
+
+            $("body").on("submit", "#formupdate", function(e) {
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({ icon: 'success', title: 'Berhasil!', text: response.msg, timer: 2000, showConfirmButton: false });
+                            dtable.ajax.reload();
+                            backtoCreate();
+                        } else {
+                            Swal.fire({ icon: 'error', title: 'Gagal!', text: response.msg });
+                        }
+                    }
+                });
+                e.preventDefault();
+            });
+
             $('body').on('click', '.btnBack', function(e) {
                 backtoCreate();
                 e.preventDefault();
@@ -125,11 +174,15 @@
         function backtoCreate() {
             $("#dynamic-form").html(html_temp);
             $('.menuoption').html('');
-            SelectRemoteData('.select-remote-organizer', '{{ route('select.organizers') }}');
+            if (typeof SelectRemoteData === "function") {
+                SelectRemoteData('.select-remote-organizer', '{{ route('select.organizers') }}');
+            }
         }
 
         $(document).ready(function() {
-            SelectRemoteData('.select-remote-organizer', '{{ route('select.organizers') }}');
+            if (typeof SelectRemoteData === "function") {
+                SelectRemoteData('.select-remote-organizer', '{{ route('select.organizers') }}');
+            }
         });
     </script>
 @endsection

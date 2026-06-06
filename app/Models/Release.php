@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Release extends Model
 {
     protected $fillable = [
-        'band_id', 'slug', 'title', 'release_type', 'cover_url', 'original_release_year', 'description', 'track_count', 'created_by', 'is_verified', 'verified_by', 'verified_at'
+        'band_id', 'slug', 'title', 'release_type', 'cover_url', 'banner_url', 'original_release_year', 'description', 'track_count', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];
 
     public function band()

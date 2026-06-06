@@ -2,43 +2,6 @@
 
 @section('title', 'Gigs & Events - MixtapeSide')
 
-@section('customcss')
-    <style>
-        .past-gig-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .past-stamp {
-            border: 4px solid var(--accent-red);
-            color: var(--accent-red);
-            font-family: 'Permanent Marker', cursive;
-            font-size: 2.5rem;
-            padding: 10px 20px;
-            text-transform: uppercase;
-            transform: rotate(-20deg);
-            opacity: 0.8;
-            letter-spacing: 5px;
-            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .premium-card.is-past {
-            filter: grayscale(0.5);
-            opacity: 0.8;
-        }
-    </style>
-@endsection
-
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">

@@ -2,42 +2,6 @@
 
 @section('title', 'Discovery Search - MixtapeSide')
 
-@section('customcss')
-    <style>
-        .past-gig-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .past-stamp {
-            border: 3px solid var(--accent-red);
-            color: var(--accent-red);
-            font-family: 'Permanent Marker', cursive;
-            font-size: 1.5rem;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            transform: rotate(-20deg);
-            opacity: 0.8;
-            letter-spacing: 3px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .premium-card.is-past {
-            filter: grayscale(0.5);
-            opacity: 0.8;
-        }
-    </style>
-@endsection
-
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">

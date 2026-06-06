@@ -46,6 +46,9 @@ class GigController extends Controller
         if (request()->hasFile('poster_file')) {
             $model->poster_url = 'storage/gigs/posters/' . $this->saveFoto(request()->file('poster_file'), 'gigs/posters');
         }
+        if (request()->hasFile('banner_file')) {
+            $model->banner_url = 'storage/gigs/banners/' . $this->saveFoto(request()->file('banner_file'), 'gigs/banners');
+        }
         $model->save();
     }
 

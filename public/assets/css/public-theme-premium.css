@@ -55,6 +55,10 @@ a {
     text-align: center;
 }
 
+main {
+    flex-grow: 1;
+}
+
 /* ================== NAVBAR ================== */
 .navbar {
     position: fixed;
@@ -66,6 +70,22 @@ a {
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0);
     transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(11, 11, 11, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-burger {
@@ -157,22 +177,6 @@ a {
     overflow: hidden;
 }
 
-.navbar.scrolled {
-    background: rgba(17, 17, 17, 0.9);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .brand-logo {
     font-family: var(--font-heading);
     font-size: 28px;
@@ -224,19 +228,27 @@ a {
 
 /* ================== HERO SECTION ================== */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     text-align: center;
-    padding-top: 80px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(17, 17, 17, 1)),
+    padding: 120px 20px 80px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(17, 17, 17, 1)),
         url("https://images.unsplash.com/photo-1611426959571-9941542ea4a8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
 }
 
 .typography-wrapper {
@@ -368,14 +380,12 @@ a {
 }
 
 .section-header {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     position: relative;
-    padding-top: 100px;
 }
 
-/* No padding for section headers on home page since it uses hero */
-.home-page-section .section-header {
-    padding-top: 0;
+.home-page-section {
+    padding: 80px 0;
 }
 
 .section-title {
@@ -394,7 +404,13 @@ a {
 
 .releases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.premium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 30px;
 }
 
@@ -634,37 +650,37 @@ a {
     .genre-tags {
         justify-content: flex-start !important;
     }
-@media (max-width: 768px) {
-    .tabs-nav {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        gap: 10px !important;
-        padding-bottom: 15px !important;
-        scrollbar-width: thin !important;
-        scrollbar-color: var(--accent-red) transparent !important;
-    }
+    @media (max-width: 768px) {
+        .tabs-nav {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 10px !important;
+            padding-bottom: 15px !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: var(--accent-red) transparent !important;
+        }
 
-    .tabs-nav::-webkit-scrollbar {
-        height: 3px !important;
-    }
+        .tabs-nav::-webkit-scrollbar {
+            height: 3px !important;
+        }
 
-    .tabs-nav::-webkit-scrollbar-thumb {
-        background: var(--accent-red) !important;
-    }
+        .tabs-nav::-webkit-scrollbar-thumb {
+            background: var(--accent-red) !important;
+        }
 
-    .tab-btn {
-        flex: 0 0 auto !important;
-        padding: 10px 15px !important;
-        font-size: 14px !important;
-        border-bottom: 2px solid rgba(255,255,255,0.05) !important;
-    }
+        .tab-btn {
+            flex: 0 0 auto !important;
+            padding: 10px 15px !important;
+            font-size: 14px !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05) !important;
+        }
 
-    .tab-btn.active::after {
-        height: 2px !important;
+        .tab-btn.active::after {
+            height: 2px !important;
+        }
     }
-}
 }
 
 /* ================== NEWSLETTER / JOIN SECTION ================== */
@@ -966,7 +982,7 @@ footer {
 
 .gig-index-poster {
     width: 100%;
-    aspect-ratio: 4/5;
+    aspect-ratio: 1/1;
     overflow: hidden;
 }
 
@@ -1014,25 +1030,28 @@ footer {
     padding: 150px 0 100px;
     background-color: #080808;
     overflow: hidden;
-    border-bottom: 0px solid rgba(255, 255, 255, 0.05);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    min-height: 500px;
+    width: 100%;
 }
 
-.band-hero::before {
-    content: "";
+.hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(
         to bottom,
         rgba(8, 8, 8, 0.4),
         rgba(8, 8, 8, 1)
     );
     z-index: 2;
+    pointer-events: none;
 }
 
 .band-hero-bg {
@@ -1053,6 +1072,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 60px;
+    width: 100%;
 }
 
 .band-hero-stats {
@@ -1092,16 +1112,29 @@ footer {
     flex-shrink: 0;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    background: var(--bg-card);
-    transition: transform 0.5s;
+    display: block;
+    position: relative;
+    background: transparent;
+}
+
+.band-logo-large img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .band-logo-large img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .band-logo-large:hover {
@@ -1298,6 +1331,81 @@ footer {
     color: white;
 }
 
+/* ================== CAPTURE & WATERMARK ================== */
+.btn-capture-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-capture-floating:hover {
+    transform: scale(1.1) rotate(15deg);
+    background: var(--accent-hover);
+    box-shadow: 0 8px 25px rgba(211, 0, 0, 0.4);
+}
+
+.btn-capture-floating:disabled {
+    background: #444;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.hero-watermark {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.6;
+    color: white;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.hero-watermark i {
+    font-size: 20px;
+    color: var(--accent-red);
+}
+
+@media (max-width: 768px) {
+    .btn-capture-floating {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .hero-watermark {
+        top: 20px;
+        right: 20px;
+        font-size: 10px;
+    }
+
+    .hero-watermark i {
+        font-size: 14px;
+    }
+}
+
 /* ================== RESPONSIVE MEDIA QUERIES ================== */
 @media (max-width: 768px) {
     .navbar {
@@ -1309,7 +1417,8 @@ footer {
         padding: 0 20px;
     }
 
-    .nav-links, .nav-actions {
+    .nav-links,
+    .nav-actions {
         display: none;
     }
 
@@ -1366,7 +1475,7 @@ footer {
     .premium-grid,
     .gig-index-grid {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
         gap: 15px !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -1437,6 +1546,12 @@ footer {
 
     .join-content h2 {
         font-size: 50px;
+    }
+
+    .releases-section,
+    .gigs-section,
+    .labels-section {
+        padding: 60px 20px !important;
     }
 
     .premium-index-layout {

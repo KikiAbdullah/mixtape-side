@@ -46,6 +46,9 @@ class ReleaseController extends Controller
         if (request()->hasFile('cover_file')) {
             $model->cover_url = 'storage/releases/covers/' . $this->saveFoto(request()->file('cover_file'), 'releases/covers');
         }
+        if (request()->hasFile('banner_file')) {
+            $model->banner_url = 'storage/releases/banners/' . $this->saveFoto(request()->file('banner_file'), 'releases/banners');
+        }
         $model->save();
     }
 

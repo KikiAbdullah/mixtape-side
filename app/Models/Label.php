@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Label extends Model
 {
     protected $fillable = [
-        'slug', 'name', 'logo_url', 'city', 'formed_year', 'defunct_year', 
+        'slug', 'name', 'logo_url', 'banner_url', 'city', 'formed_year', 'defunct_year', 
         'status', 'contact_email', 'website_url', 'description', 'owner_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];
 

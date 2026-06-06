@@ -65,7 +65,9 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    @yield('content')
+                    <main>
+                        @yield('content')
+                    </main>
                     <!--/ Content -->
 
 

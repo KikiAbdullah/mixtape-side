@@ -2,68 +2,6 @@
 
 @section('title', $release->title . ' by ' . $band->name . ' - MixtapeSide')
 
-@section('customcss')
-    <style>
-        .band-hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .btn-capture-floating {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent-red);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-capture-floating:hover {
-            transform: scale(1.1);
-            background: #fff;
-            color: var(--accent-red);
-        }
-
-        .btn-capture-floating i {
-            font-size: 24px;
-        }
-
-        .band-hero-content {
-            width: 100%;
-        }
-
-        .band-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
-            z-index: 1;
-        }
-
-        .band-hero .container {
-            position: relative;
-            z-index: 2;
-        }
-    </style>
-@endsection
-
 @section('content')
     <!-- Floating Capture Button -->
     <button id="capture-band" class="btn-capture-floating" title="Share this release">
@@ -71,7 +9,12 @@
     </button>
     <!-- Release Hero -->
     <header class="band-hero"
-        style="background-image: url('{{ $release->cover_url ? asset($release->cover_url) : 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2000&auto=format&fit=crop' }}');">
+        style="background-image: url('{{ $release->banner_url ? asset($release->banner_url) : ($release->cover_url ? asset($release->cover_url) : 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2000&auto=format&fit=crop') }}');">
+        <div class="hero-overlay"></div>
+        <div class="hero-watermark">
+            <i class="fa-solid fa-record-vinyl"></i>
+            <span>MixtapeSide.com</span>
+        </div>
         <div class="container">
             <div class="band-hero-content">
                 <div class="band-logo-large">
@@ -110,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-5 d-flex gap-3">
+                    <div class="mt-5 d-flex gap-3" data-html2canvas-ignore>
                         <a href="#tracklist" class="btn-outline" style="padding: 10px 25px;"><i
                                 class="fa-solid fa-play"></i> View Tracklist</a>
                     </div>
@@ -272,9 +215,16 @@
             setTimeout(() => {
                 html2canvas(element, {
                     useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: '#000000',
-                    scale: 2,
+                    allowTaint: false,
+                    backgroundColor: '#080808',
+                    scale: 3,
+                    logging: false,
+                    onclone: (clonedDoc) => {
+                        const watermark = clonedDoc.querySelector('.hero-watermark');
+                        if (watermark) {
+                            watermark.style.opacity = '1';
+                        }
+                    }
                 }).then(canvas => {
                     const link = document.createElement('a');
                     link.download = '{{ $release->slug }}-mixtapeside.png';

@@ -167,6 +167,38 @@
     <!-- Main JS -->
     <script src="{{ asset('assets') }}/js/main.js"></script>
 
+    <!-- SelectRemoteData Helper -->
+    <script>
+        function SelectRemoteData(selector, url, placeholder = 'Select an option') {
+            $(selector).select2({
+                ajax: {
+                    url: url,
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: placeholder,
+                allowClear: true,
+                dropdownParent: $(selector).parent()
+            });
+        }
+    </script>
+
     <!-- Global Init for Select2 -->
     <script>
         $(document).ready(function() {
@@ -202,6 +234,26 @@
             @if(session('error'))
                 Swal.fire({ icon: 'error', title: 'Oops!', text: "{{ session('error') }}", confirmButtonColor: '#666cff' });
             @endif
+
+            // Global Delete Confirmation
+            $('body').on('click', '.deleteBtn', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#666cff',
+                    cancelButtonColor: '#ff4d49',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
 
             // Global AJAX Error Handler
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {

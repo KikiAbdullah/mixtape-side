@@ -23,9 +23,9 @@
     {!! Form::open([
         'route' => [$url['destroy'], $id],
         'method' => 'DELETE',
-        'class' => 'delete form-delete-inline', // Tambahkan kelas ini
+        'class' => 'delete form-delete-inline d-inline', // Added d-inline
     ]) !!}
-    <a href="#" class="action-link-icon-text text-danger deleteBtn">
+    <a href="javascript:void(0);" class="action-link-icon-text text-danger deleteBtn">
         <i class="ri-close-circle-line"></i>
         <span class="fw-semibold text-uppercase">DELETE</span>
     </a>

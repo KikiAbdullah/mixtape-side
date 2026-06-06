@@ -2,68 +2,6 @@
 
 @section('title', $gig->title . ' - Gig Detail - MixtapeSide')
 
-@section('customcss')
-    <style>
-        .band-hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .btn-capture-floating {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent-red);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-capture-floating:hover {
-            transform: scale(1.1);
-            background: #fff;
-            color: var(--accent-red);
-        }
-
-        .btn-capture-floating i {
-            font-size: 24px;
-        }
-
-        .band-hero-content {
-            width: 100%;
-        }
-
-        .band-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
-            z-index: 1;
-        }
-
-        .band-hero .container {
-            position: relative;
-            z-index: 2;
-        }
-    </style>
-@endsection
-
 @section('content')
     <!-- Floating Capture Button -->
     <button id="capture-band" class="btn-capture-floating" title="Share this gig">
@@ -71,10 +9,15 @@
     </button>
     <!-- Gig Hero -->
     <header class="band-hero"
-        style="background-image: url('{{ $gig->poster_url ? asset($gig->poster_url) : 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=2000&auto=format&fit=crop' }}');">
+        style="background-image: url('{{ $gig->banner_url ? asset($gig->banner_url) : ($gig->poster_url ? asset($gig->poster_url) : 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=2000&auto=format&fit=crop') }}');">
+        <div class="hero-overlay"></div>
+        <div class="hero-watermark">
+            <i class="fa-solid fa-record-vinyl"></i>
+            <span>MixtapeSide.com</span>
+        </div>
         <div class="container">
             <div class="band-hero-content">
-                <div class="band-logo-large" style="aspect-ratio: 4/5; height: auto;">
+                <div class="band-logo-large" style="aspect-ratio: 1/1;">
                     @if ($gig->poster_url)
                         <img src="{{ asset($gig->poster_url) }}" alt="{{ $gig->title }}" />
                     @else
@@ -116,7 +59,7 @@
                         @endif
                     </div>
 
-                    <div class="mt-5 d-flex gap-3">
+                    <div class="mt-5 d-flex gap-3" data-html2canvas-ignore>
                         @auth
                             <button class="btn-outline" style="padding: 10px 25px;"><i class="fa-solid fa-check"></i> I'm
                                 Attending</button>
@@ -244,9 +187,16 @@
             setTimeout(() => {
                 html2canvas(element, {
                     useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: '#000000',
-                    scale: 2,
+                    allowTaint: false,
+                    backgroundColor: '#080808',
+                    scale: 3,
+                    logging: false,
+                    onclone: (clonedDoc) => {
+                        const watermark = clonedDoc.querySelector('.hero-watermark');
+                        if (watermark) {
+                            watermark.style.opacity = '1';
+                        }
+                    }
                 }).then(canvas => {
                     const link = document.createElement('a');
                     link.download = '{{ $gig->slug }}-mixtapeside.png';

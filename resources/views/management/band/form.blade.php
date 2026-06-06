@@ -15,7 +15,7 @@
     </div>
 
     <!-- Media -->
-    <div class="col-md-6">
+    <div class="col-md-4">
         <label class="form-label">Band Logo (Square)</label>
         <input type="file" name="logo_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->logo_url)
@@ -24,8 +24,17 @@
             </div>
         @endif
     </div>
-    <div class="col-md-6">
-        <label class="form-label">Band Photo (Banner/Press Kit)</label>
+    <div class="col-md-4">
+        <label class="form-label">Band Banner (Wide)</label>
+        <input type="file" name="banner_file" class="form-control" accept="image/*">
+        @if(isset($item) && $item->banner_url)
+            <div class="mt-2">
+                <img src="{{ asset($item->banner_url) }}" alt="Banner" class="rounded border" height="50">
+            </div>
+        @endif
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Band Photo (Press Kit)</label>
         <input type="file" name="photo_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->photo_url)
             <div class="mt-2">

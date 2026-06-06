@@ -49,12 +49,21 @@
         <input type="text" name="ticket_info" class="form-control" placeholder="e.g. OTS 50K, Presale 35K" value="{{ $item->ticket_info ?? '' }}">
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <label class="form-label">Event Poster</label>
         <input type="file" name="poster_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->poster_url)
             <div class="mt-2">
                 <img src="{{ asset($item->poster_url) }}" alt="Poster" class="rounded border" height="50">
+            </div>
+        @endif
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Event Banner</label>
+        <input type="file" name="banner_file" class="form-control" accept="image/*">
+        @if(isset($item) && $item->banner_url)
+            <div class="mt-2">
+                <img src="{{ asset($item->banner_url) }}" alt="Banner" class="rounded border" height="50">
             </div>
         @endif
     </div>

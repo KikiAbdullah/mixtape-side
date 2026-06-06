@@ -3,7 +3,7 @@
         <h5 class="card-title m-0">Edit Organizer: {{ $item->name }}</h5>
     </div>
     <div class="card-body">
-        <form id="formupdate" action="{{ $url['update'] }}" method="POST" enctype="multipart/form-data">
+        <form id="formupdate" action="{{ route($url['update'], $id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             @include('management.organizer.form')

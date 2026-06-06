@@ -38,6 +38,9 @@ class LabelController extends Controller
         if (request()->hasFile('logo_file')) {
             $model->logo_url = 'storage/labels/logos/' . $this->saveFoto(request()->file('logo_file'), 'labels/logos');
         }
+        if (request()->hasFile('banner_file')) {
+            $model->banner_url = 'storage/labels/banners/' . $this->saveFoto(request()->file('banner_file'), 'labels/banners');
+        }
         $model->save();
     }
 

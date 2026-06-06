@@ -51,6 +51,9 @@ class BandController extends Controller
         if (request()->hasFile('logo_file')) {
             $model->logo_url = 'storage/bands/logos/' . $this->saveFoto(request()->file('logo_file'), 'bands/logos');
         }
+        if (request()->hasFile('banner_file')) {
+            $model->banner_url = 'storage/bands/banners/' . $this->saveFoto(request()->file('banner_file'), 'bands/banners');
+        }
         if (request()->hasFile('photo_file')) {
             $model->photo_url = 'storage/bands/photos/' . $this->saveFoto(request()->file('photo_file'), 'bands/photos');
         }

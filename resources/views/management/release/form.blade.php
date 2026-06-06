@@ -32,12 +32,21 @@
         <input type="number" name="original_release_year" class="form-control" placeholder="2023" value="{{ $item->original_release_year ?? '' }}">
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <label class="form-label">Cover Artwork</label>
         <input type="file" name="cover_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->cover_url)
             <div class="mt-2">
                 <img src="{{ asset($item->cover_url) }}" alt="Cover" class="rounded border" height="50">
+            </div>
+        @endif
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Release Banner</label>
+        <input type="file" name="banner_file" class="form-control" accept="image/*">
+        @if(isset($item) && $item->banner_url)
+            <div class="mt-2">
+                <img src="{{ asset($item->banner_url) }}" alt="Banner" class="rounded border" height="50">
             </div>
         @endif
     </div>

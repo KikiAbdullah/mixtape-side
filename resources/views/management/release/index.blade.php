@@ -48,19 +48,24 @@
 @endsection
 
 @section('customjs')
+    
     <script type="text/javascript">
         var dtable;
         const urlAjax = '{{ route('management.release.get-data') }}';
         const getButtonOption = '{{ route('get.button-option') }}';
-        const buttons = {!! json_encode(['vedit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
+        const buttons = {!! json_encode(['show' => $url['show'], 'edit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
         var html_temp = $("#dynamic-form").html();
         var button_temp = '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ri-arrow-left-s-line ri-24px text-primary"></i>CANCEL</a>';
 
         $(document).ready(function($) {
+            SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
+
+
             dtable = $('#dtable').DataTable({
                 "select": { style: "single", info: false },
                 "serverSide": true,
                 "stateSave": true,
+                "processing": true,
                 "sServerMethod": "GET",
                 "deferRender": true,
                 "rowId": 'id',
@@ -84,15 +89,20 @@
             dtable.on('select', function(e, dt, type, indexes) {
                 var rowData = dtable.rows(indexes).data().toArray();
                 var id = rowData[0].id;
+                console.log("Row selected, ID:", id);
                 $.ajax({
                     type: 'GET',
                     url: getButtonOption,
                     data: { id: id, buttons: buttons },
                     success: function(response) {
+                        console.log("Button option response:", response);
                         if (response.status) {
                             backtoCreate();
                             $(".menuoption").html(response.view);
                         }
+                    },
+                    error: function(xhr) {
+                        console.error("Ajax error fetching buttons:", xhr.responseText);
                     }
                 });
             });
@@ -101,7 +111,7 @@
                 if (type === 'row') backtoCreate();
             });
 
-            $("body").on("click", ".editBtn", function(e) {
+            $("body").on("click", ".editBtn, .btnShow", function(e) {
                 $.ajax({
                     url: $(this).attr('href'),
                     type: 'GET',
@@ -109,41 +119,68 @@
                     success: function(response) {
                         if (response.status) {
                             $("#dynamic-form").html(response.view);
+                            if (response.view.includes('select-remote-band')) {
+                                SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
+                            }
                             $('.select').select2();
                             $('.menuoption').prepend(button_temp);
-                            $('.menuoption').find('.editBtn').remove();
+                            $('.menuoption').find('.editBtn, .btnShow').remove();
                         }
                     }
                 });
                 e.preventDefault();
             });
 
-            $("body").on("submit", "#dform", function(e) {
-                var form = $(this);
-                var url = form.attr('action');
-                var formData = new FormData(this);
+            // Handle Add Track
+            $("body").on("click", ".btnAddTrack", function() {
+                $('#modalTrack').modal('show');
+            });
 
+            $("body").on("submit", "#trackForm", function(e) {
+                e.preventDefault();
+                var form = $(this);
                 $.ajax({
-                    url: url,
+                    url: '{{ route('management.release.add-track') }}',
                     type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
+                    data: form.serialize(),
                     success: function(response) {
                         if (response.status) {
-                            Swal.fire({ icon: 'success', title: 'Berhasil!', text: response.msg, timer: 2000, showConfirmButton: false });
-                            dtable.ajax.reload();
+                            $('#modalTrack').modal('hide');
                             form[0].reset();
-                            $('.select').val(null).trigger('change');
-                        } else {
-                            Swal.fire({ icon: 'error', title: 'Gagal!', text: response.msg });
+                            // Refresh Show View
+                            $(".btnShow[href*='/release/" + form.find('input[name="release_id"]').val() + "']").first().click();
+                            Swal.fire({ icon: 'success', title: 'Success', text: response.msg, timer: 2000 });
                         }
                     }
                 });
-                e.preventDefault();
             });
 
-            $("body").on("submit", "#formupdate", function(e) {
+            // Handle Delete Track
+            $("body").on("click", ".delTrack", function() {
+                var id = $(this).data('id');
+                var release_id = $('input[name="release_id"]').val();
+                Swal.fire({
+                    title: 'Delete track?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ url('management/release/delete-track') }}/' + id,
+                            type: 'DELETE',
+                            success: function(response) {
+                                if (response.status) {
+                                    $(".btnShow[href*='/release/" + release_id + "']").first().click();
+                                    Swal.fire({ icon: 'success', title: 'Deleted!', text: response.msg, timer: 2000 });
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $("body").on("submit", "#dform, #formupdate", function(e) {
                 var form = $(this);
                 var url = form.attr('action');
                 var formData = new FormData(this);
@@ -158,7 +195,13 @@
                         if (response.status) {
                             Swal.fire({ icon: 'success', title: 'Berhasil!', text: response.msg, timer: 2000, showConfirmButton: false });
                             dtable.ajax.reload();
-                            backtoCreate();
+                            if(form.attr('id') == 'dform') {
+                                form[0].reset();
+                                $('.select').val(null).trigger('change');
+                                SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
+                            } else {
+                                backtoCreate();
+                            }
                         } else {
                             Swal.fire({ icon: 'error', title: 'Gagal!', text: response.msg });
                         }
@@ -174,13 +217,10 @@
         });
 
         function backtoCreate() {
+            console.log("Back to Create triggered");
             $("#dynamic-form").html(html_temp);
             $('.menuoption').html('');
             SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
         }
-
-        $(document).ready(function() {
-            SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
-        });
     </script>
 @endsection

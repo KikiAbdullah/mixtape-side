@@ -42,4 +42,9 @@ class Band extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function zines()
+    {
+        return $this->morphToMany(Zine::class, 'taggable', 'zine_taggables');
+    }
 }

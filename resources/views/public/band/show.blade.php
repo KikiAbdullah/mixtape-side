@@ -91,6 +91,7 @@
                 <button class="tab-btn" data-tab="discography">Discography</button>
                 <button class="tab-btn" data-tab="members">Personnel</button>
                 <button class="tab-btn" data-tab="gigs">Gig History</button>
+                <button class="tab-btn" data-tab="zines">Related Zines</button>
             </div>
 
             <!-- About Tab -->
@@ -221,6 +222,35 @@
                         <p class="text-muted" style="padding: 20px 0;">No past performances recorded.</p>
                     @endforelse
                 </div>
+            </div>
+
+            <!-- Zines Tab -->
+            <div class="tab-content" id="tab-zines">
+                @if ($band->zines->where('status', 'Published')->isEmpty())
+                    <p class="text-muted text-center" style="padding: 60px 0;">No articles featuring this band/artist yet.</p>
+                @else
+                    <div class="premium-grid">
+                        @foreach ($band->zines->where('status', 'Published') as $zine)
+                            <div class="premium-card">
+                                <a href="{{ route('public.zine.show', $zine->slug) }}" class="card-image-wrapper" style="aspect-ratio: 16/9;">
+                                    @if ($zine->thumbnail_url)
+                                        <img src="{{ asset($zine->thumbnail_url) }}" alt="{{ $zine->title }}" />
+                                    @else
+                                        <div class="no-cover-placeholder" style="display: flex; height: 100%; align-items: center; justify-content: center; background: #222; color: #444;">
+                                            <i class="fa-solid fa-newspaper fa-3x"></i>
+                                        </div>
+                                    @endif
+                                    <div class="card-badge">{{ $zine->published_at->format('d M Y') }}</div>
+                                </a>
+                                <div class="card-content">
+                                    <h3 class="card-title">
+                                        <a href="{{ route('public.zine.show', $zine->slug) }}">{{ $zine->title }}</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
     </section>

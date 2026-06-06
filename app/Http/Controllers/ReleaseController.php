@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Release;
 use App\Models\Band;
+use App\Models\Track;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -14,9 +15,41 @@ class ReleaseController extends Controller
         $this->title            = 'Release';
         $this->subtitle         = 'Releases Management';
         $this->folder           = 'management';
-        $this->relation         = ['band'];
+        $this->relation         = ['band', 'tracks'];
         $this->model            = $model;
         $this->withTrashed      = false;
+    }
+
+    public function addTrack(Request $request)
+    {
+        try {
+            $track = Track::create($request->all());
+            return response()->json([
+                'status' => true,
+                'msg' => 'Track added successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'msg' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function deleteTrack($id)
+    {
+        try {
+            Track::destroy($id);
+            return response()->json([
+                'status' => true,
+                'msg' => 'Track deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'msg' => $e->getMessage()
+            ]);
+        }
     }
 
     public function formData()

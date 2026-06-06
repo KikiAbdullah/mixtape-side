@@ -162,48 +162,17 @@
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('app_local/js/settings.js') }}"></script>
+    <script src="{{ asset('app_local/js/swal.js') }}"></script>
 
 
     <!-- Main JS -->
     <script src="{{ asset('assets') }}/js/main.js"></script>
 
-    <!-- SelectRemoteData Helper -->
-    <script>
-        function SelectRemoteData(selector, url, placeholder = 'Select an option') {
-            $(selector).select2({
-                ajax: {
-                    url: url,
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term,
-                            page: params.page
-                        };
-                    },
-                    processResults: function(data, params) {
-                        params.page = params.page || 1;
-                        return {
-                            results: data.items,
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                },
-                placeholder: placeholder,
-                allowClear: true,
-                dropdownParent: $(selector).parent()
-            });
-        }
-    </script>
-
     <!-- Global Init for Select2 -->
     <script>
         $(document).ready(function() {
             function initSelect2() {
-                $('.select2, select:not(.dataTables_length select)').each(function() {
+                $('.select2, select:not(.dataTables_length select):not([class*="select-remote"])').each(function() {
                     $(this).select2({
                         dropdownParent: $(this).parent(),
                         placeholder: $(this).data('placeholder') || 'Select an option',
@@ -215,9 +184,9 @@
             initSelect2();
 
             // Re-init on AJAX content load (if any)
-            $(document).ajaxComplete(function() {
-                initSelect2();
-            });
+            // $(document).ajaxComplete(function() {
+            //     initSelect2();
+            // });
         });
     </script>
 

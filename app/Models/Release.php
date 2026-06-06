@@ -27,4 +27,9 @@ class Release extends Model
     {
         return $this->hasMany(Track::class);
     }
+
+    public function zines()
+    {
+        return $this->morphToMany(Zine::class, 'taggable', 'zine_taggables');
+    }
 }

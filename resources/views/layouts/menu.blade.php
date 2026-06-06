@@ -57,6 +57,14 @@
                 </a>
             </li>
             @endcan
+            @can('zines_view')
+            <li class="menu-item {{ $title == 'Zine' ? 'active' : '' }}">
+                <a href="{{ route('management.zine.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-article-line"></i>
+                    <div data-i18n="Zine">Zine</div>
+                </a>
+            </li>
+            @endcan
 
             {{-- ========================================
                  SETUP

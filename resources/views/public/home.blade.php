@@ -158,7 +158,7 @@
             <p>Help us archive the history, contribute your knowledge, and keep the scene alive.</p>
             <div class="d-flex justify-content-center gap-4 mt-4">
                 <a href="{{ route('register') }}" class="btn-outline" style="background: white; color: black; border: none;">Create Account</a>
-                <a href="{{ route('public.discovery') }}" class="btn-outline">Contribute Data</a>
+                <a href="{{ route('public.zine.index') }}" class="btn-outline">Read Zine</a>
             </div>
         </div>
     </section>

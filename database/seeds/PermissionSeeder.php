@@ -46,6 +46,9 @@ class PermissionSeeder extends Seeder
             // System Utilities
             'debug_view', 'audit_logs_view',
             'dashboard_view',
+
+            // Zine Management
+            'zines_view', 'zines_create', 'zines_edit', 'zines_delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -69,6 +72,7 @@ class PermissionSeeder extends Seeder
             'labels_view', 'labels_create', 'labels_edit', 'labels_delete',
             'gigs_view', 'gigs_create', 'gigs_edit', 'gigs_delete',
             'organizers_view', 'organizers_create', 'organizers_edit', 'organizers_delete',
+            'zines_view', 'zines_create', 'zines_edit', 'zines_delete',
             'moderation_view', 'moderation_approve', 'moderation_reject',
             'claims_view', 'claims_approve', 'claims_reject',
             'audit_logs_view',
@@ -83,6 +87,7 @@ class PermissionSeeder extends Seeder
             'labels_view', 'labels_create', 'labels_edit',
             'gigs_view', 'gigs_create', 'gigs_edit',
             'organizers_view', 'organizers_create', 'organizers_edit',
+            'zines_view', 'zines_create', 'zines_edit',
         ]);
 
         // --- REGISTERED USER: Community Contributor (Need Moderation) ---
@@ -92,6 +97,7 @@ class PermissionSeeder extends Seeder
             'bands_view', 'bands_create', // will be saved as draft
             'releases_view', 'releases_create',
             'gigs_view', 'gigs_create',
+            'zines_view', 'zines_create',
             'bands_claim',
         ]);
 

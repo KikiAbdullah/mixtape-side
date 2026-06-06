@@ -19,4 +19,9 @@ class Organizer extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function zines()
+    {
+        return $this->morphToMany(Zine::class, 'taggable', 'zine_taggables');
+    }
 }

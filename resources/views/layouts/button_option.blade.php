@@ -13,7 +13,7 @@
 @endif
 
 @if (array_key_exists('show', $url))
-    <a href="{{ route($url['show'], $id) }}" class="action-link-icon-text btnShow">
+    <a href="{{ route($url['show'], $id) }}" class="action-link-icon-text">
         <i class="ri-search-line"></i>
         <span class="fw-semibold text-uppercase">SHOW</span>
     </a>

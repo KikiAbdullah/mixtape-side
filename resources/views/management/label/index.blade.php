@@ -47,6 +47,7 @@
 @endsection
 
 @section('customjs')
+    
     <script type="text/javascript">
         var dtable;
         const urlAjax = '{{ route('management.label.get-data') }}';

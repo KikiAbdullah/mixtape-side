@@ -11,6 +11,7 @@
             <li><a href="{{ route('homepage') }}" class="{{ request()->routeIs('homepage') ? 'active' : '' }}">Home</a></li>
             <li><a href="{{ route('public.band.index') }}" class="{{ request()->routeIs('public.band.*') ? 'active' : '' }}">Bands</a></li>
             <li><a href="{{ route('public.release.index') }}" class="{{ request()->routeIs('public.release.*') && !request()->has('q') ? 'active' : '' }}">Releases</a></li>
+            <li><a href="{{ route('public.zine.index') }}" class="{{ request()->routeIs('public.zine.*') ? 'active' : '' }}">Zine</a></li>
             <li><a href="{{ route('public.gig.index') }}" class="{{ request()->routeIs('public.gig.*') ? 'active' : '' }}">Gigs</a></li>
             <li><a href="{{ route('public.discovery') }}" class="{{ request()->has('q') ? 'active' : '' }}">Discovery</a></li>
         </ul>
@@ -37,6 +38,7 @@
         <li><a href="{{ route('homepage') }}" class="{{ request()->routeIs('homepage') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('public.band.index') }}" class="{{ request()->routeIs('public.band.*') ? 'active' : '' }}">Bands</a></li>
         <li><a href="{{ route('public.release.index') }}" class="{{ request()->routeIs('public.release.*') && !request()->has('q') ? 'active' : '' }}">Releases</a></li>
+        <li><a href="{{ route('public.zine.index') }}" class="{{ request()->routeIs('public.zine.*') ? 'active' : '' }}">Zine</a></li>
         <li><a href="{{ route('public.gig.index') }}" class="{{ request()->routeIs('public.gig.*') ? 'active' : '' }}">Gigs</a></li>
         <li><a href="{{ route('public.discovery') }}" class="{{ request()->has('q') ? 'active' : '' }}">Discovery</a></li>
         <li class="mt-4">

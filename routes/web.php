@@ -26,6 +26,9 @@ Route::get('/discovery', 'PublicDiscoveryController@index')->name('public.discov
 Route::get('/gigs', 'PublicGigController@index')->name('public.gig.index');
 Route::get('/gigs/{slug}', 'PublicGigController@show')->name('public.gig.show');
 Route::get('/releases', 'PublicReleaseController@index')->name('public.release.index');
+Route::get('/zine', 'Public\ZineController@index')->name('public.zine.index');
+Route::get('/zine/{slug}', 'Public\ZineController@show')->name('public.zine.show');
+Route::post('/zine/{slug}/comment', 'Public\ZineController@comment')->name('public.zine.comment')->middleware('auth');
 Route::redirect('/about', '/');
 Route::redirect('/events', '/gigs');
 Route::redirect('/contacts', '/discovery');
@@ -69,6 +72,8 @@ Route::group(['middleware' => ['auth']], function () {
             // RELEASES
             Route::group(['prefix' => 'release', 'as' => 'release.'], function () {
                 Route::get('get-data', 'ReleaseController@ajaxData')->name('get-data');
+                Route::post('add-track', 'ReleaseController@addTrack')->name('add-track');
+                Route::delete('delete-track/{id}', 'ReleaseController@deleteTrack')->name('delete-track');
             });
             Route::resource('release', 'ReleaseController');
 
@@ -89,6 +94,12 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('get-data', 'OrganizerController@ajaxData')->name('get-data');
             });
             Route::resource('organizer', 'OrganizerController');
+
+            // ZINE
+            Route::group(['prefix' => 'zine', 'as' => 'zine.'], function () {
+                Route::get('get-data', 'Management\ZineController@ajaxData')->name('get-data');
+            });
+            Route::resource('zine', 'Management\ZineController');
         });
 
         // ===========================================
@@ -104,6 +115,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('bands', 'SelectController@bands')->name('bands');
             Route::get('labels', 'SelectController@labels')->name('labels');
             Route::get('organizers', 'SelectController@organizers')->name('organizers');
+            Route::get('releases', 'SelectController@releases')->name('releases');
             Route::get('roles', 'SelectController@roles')->name('roles');
         });
 

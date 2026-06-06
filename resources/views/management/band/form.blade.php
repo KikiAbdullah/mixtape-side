@@ -1,7 +1,7 @@
 <div class="row g-4">
     <!-- Basic Info -->
     <div class="col-md-8">
-        <label class="form-label">Band Name</label>
+        <label class="form-label">Band/Artist Name</label>
         <input type="text" name="name" class="form-control" placeholder="e.g. Burgerkill" value="{{ $item->name ?? '' }}" required>
     </div>
     <div class="col-md-4">
@@ -16,7 +16,7 @@
 
     <!-- Media -->
     <div class="col-md-4">
-        <label class="form-label">Band Logo (Square)</label>
+        <label class="form-label">Band/Artist Logo (Square)</label>
         <input type="file" name="logo_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->logo_url)
             <div class="mt-2">
@@ -25,7 +25,7 @@
         @endif
     </div>
     <div class="col-md-4">
-        <label class="form-label">Band Banner (Wide)</label>
+        <label class="form-label">Band/Artist Banner (Wide)</label>
         <input type="file" name="banner_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->banner_url)
             <div class="mt-2">
@@ -34,7 +34,7 @@
         @endif
     </div>
     <div class="col-md-4">
-        <label class="form-label">Band Photo (Press Kit)</label>
+        <label class="form-label">Band/Artist Photo (Press Kit)</label>
         <input type="file" name="photo_file" class="form-control" accept="image/*">
         @if(isset($item) && $item->photo_url)
             <div class="mt-2">

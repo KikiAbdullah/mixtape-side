@@ -1,11 +1,11 @@
 @extends('layouts.header-public')
 
-@section('title', 'Bands Directory - MixtapeSide')
+@section('title', 'Bands/Artists Directory - MixtapeSide')
 
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">
-            <h2 class="section-title">BANDS<span class="graffiti-text">Explores</span></h2>
+            <h2 class="section-title">BANDS/ARTISTS<span class="graffiti-text">Explores</span></h2>
             <p class="subtitle">Discover local talents, archived legends, and active forces.</p>
         </div>
 
@@ -59,7 +59,7 @@
             </div>
 
             <div class="text-center mt-5">
-                {{ $bands->appends(request()->query())->links() }}
+                {{ $bands->appends(request()->query())->links('vendor.pagination.mixtape') }}
             </div>
         </section>
     </div>

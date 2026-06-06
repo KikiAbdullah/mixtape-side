@@ -27,6 +27,44 @@
 
     <!-- MixtapeSide Public Theme -->
     <link rel="stylesheet" href="{{ asset('assets/css/public-theme-premium.css') }}" />
+    <style>
+        /* Custom Pagination Styling */
+        .custom-pagination {
+            display: inline-block;
+            margin-top: 2rem;
+        }
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            gap: 5px;
+        }
+        .pagination-item .pagination-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .pagination-item.active .pagination-link {
+            background: var(--accent-red, #ff3e3e);
+            border-color: var(--accent-red, #ff3e3e);
+        }
+        .pagination-item .pagination-link:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .pagination-item.disabled .pagination-link {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
 
     @yield('customcss')
 

@@ -56,7 +56,7 @@
                                                     <i class="fa-solid fa-guitar fa-4x"></i>
                                                 </div>
                                             @endif
-                                            <div class="card-badge">Band</div>
+                                            <div class="card-badge">Band/Artist</div>
                                         </a>
                                         <div class="card-content">
                                             <h3 class="card-title">

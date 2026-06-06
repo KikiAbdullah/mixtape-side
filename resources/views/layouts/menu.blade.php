@@ -21,7 +21,7 @@
             <li class="menu-item {{ $title == 'Band' ? 'active' : '' }}">
                 <a href="{{ route('management.band.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ri-mic-line"></i>
-                    <div data-i18n="Bands">Bands</div>
+                    <div data-i18n="Bands/Artists">Bands/Artists</div>
                 </a>
             </li>
             @endcan

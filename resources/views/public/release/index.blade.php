@@ -36,7 +36,7 @@
             </div>
 
             <div class="text-center mt-5">
-                {{ $releases->appends(request()->query())->links() }}
+                {{ $releases->appends(request()->query())->links('vendor.pagination.mixtape') }}
             </div>
         </section>
     </div>

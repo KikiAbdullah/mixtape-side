@@ -24,7 +24,7 @@
                                     <th>ID</th>
                                     <th>Cover</th>
                                     <th>Title</th>
-                                    <th>Band</th>
+                                    <th>Band/Artist</th>
                                     <th>Type</th>
                                     <th>Year</th>
                                 </tr>

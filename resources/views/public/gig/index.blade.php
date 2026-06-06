@@ -57,7 +57,7 @@
             </div>
 
             <div class="text-center mt-5">
-                {{ $gigs->appends(request()->query())->links() }}
+                {{ $gigs->appends(request()->query())->links('vendor.pagination.mixtape') }}
             </div>
         </section>
 

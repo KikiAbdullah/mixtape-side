@@ -1,6 +1,6 @@
 @extends('layouts.header-public')
 
-@section('title', $band->name . ' - Band Profile - MixtapeSide')
+@section('title', $band->name . ' - Band/Artist Profile - MixtapeSide')
 
 @section('content')
     <!-- Floating Capture Button -->
@@ -8,7 +8,7 @@
         <i class="fa-solid fa-share-nodes"></i>
     </button>
 
-    <!-- Band Hero -->
+    <!-- Band/Artist Hero -->
     <header class="band-hero"
         style="background-image: url('{{ $band->banner_url ? asset($band->banner_url) : ($band->logo_url ? asset($band->logo_url) : 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2000&auto=format&fit=crop') }}');">
         <div class="hero-overlay"></div>
@@ -272,7 +272,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Captured!',
-                        text: 'Band profile has been saved as PNG.',
+                        text: 'Band/Artist profile has been saved as PNG.',
                         timer: 2000,
                         showConfirmButton: false
                     });

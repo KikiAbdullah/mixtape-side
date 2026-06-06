@@ -27,7 +27,7 @@
     <section class="stats-section">
         <div class="stat-item">
             <span class="stat-number">{{ $bandCount ?? '5K' }}<span class="text-red">+</span></span>
-            <span class="stat-label">Bands Archived</span>
+            <span class="stat-label">Bands/Artists Archived</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">{{ $releaseCount ?? '12K' }}</span>

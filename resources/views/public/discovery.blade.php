@@ -3,7 +3,7 @@
 @section('title', 'Discovery Search - MixtapeSide')
 
 @section('content')
-    <div class="container py-5">
+    <div class="container py-5" style="margin-top: 60px;">
         <div class="section-header text-center">
             <h2 class="section-title">DISCOVERY<span class="graffiti-text">Catalog</span></h2>
             <p class="subtitle">Search for anything in the MixtapeSide universe.</p>

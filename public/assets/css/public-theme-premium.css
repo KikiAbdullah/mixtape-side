@@ -380,26 +380,66 @@ main {
 }
 
 .section-header {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     position: relative;
+    z-index: 10;
+    margin-top: 100px;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-transform: uppercase;
 }
 
 .home-page-section {
-    padding: 80px 0;
+    padding: 100px 0;
+}
+
+@media (max-width: 768px) {
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .home-page-section {
+        padding: 60px 0;
+    }
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 60px;
+    font-size: 72px;
+    line-height: 1;
     letter-spacing: 2px;
     position: relative;
     display: inline-block;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px rgba(211, 0, 0, 0.2);
 }
 
 .section-header .graffiti-text {
-    top: 23px;
-    right: -35px;
-    font-size: 40px;
+    bottom: 30px;
+    right: -50px;
+    font-size: 44px;
+    transform: rotate(-8deg);
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 48px;
+    }
+
+    .section-header .graffiti-text {
+        font-size: 32px;
+        top: -5px;
+        right: -25px;
+    }
+
+    .section-header p {
+        font-size: 14px;
+    }
 }
 
 .releases-grid {
@@ -1129,11 +1169,6 @@ footer {
     width: auto !important;
     height: auto !important;
     image-rendering: -webkit-optimize-contrast;
-}
-
-.band-logo-large img {
-    width: 100%;
-    height: 100%;
     object-fit: contain;
 }
 
@@ -1331,6 +1366,39 @@ footer {
     color: white;
 }
 
+.premium-card.is-past .card-image-wrapper img {
+    filter: grayscale(1) brightness(0.5);
+}
+
+.past-gig-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.past-stamp {
+    font-family: var(--font-graffiti);
+    font-size: 38px;
+    color: var(--accent-red);
+    border: 3px solid var(--accent-red);
+    padding: 5px 20px;
+    transform: rotate(-15deg);
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 2px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    text-shadow: 2px 2px 0px #000;
+}
+
 /* ================== CAPTURE & WATERMARK ================== */
 .btn-capture-floating {
     position: fixed;
@@ -1408,6 +1476,10 @@ footer {
 
 /* ================== RESPONSIVE MEDIA QUERIES ================== */
 @media (max-width: 768px) {
+    .section-header {
+        padding-top: 20px;
+    }
+
     .navbar {
         padding: 15px 0;
         background: rgba(17, 17, 17, 0.95) !important;
@@ -1475,7 +1547,7 @@ footer {
     .premium-grid,
     .gig-index-grid {
         display: grid !important;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 15px !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -1500,6 +1572,12 @@ footer {
     .card-subtitle {
         font-size: 12px !important;
         margin-bottom: 8px !important;
+    }
+
+    .past-stamp {
+        font-size: 22px;
+        padding: 2px 10px;
+        border-width: 2px;
     }
 
     .polaroid-collage {

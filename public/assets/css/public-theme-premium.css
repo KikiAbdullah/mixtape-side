@@ -1,9 +1,37 @@
-/* ==========================================
+/* ==========================================================================
    MIXTAPESIDE - PREMIUM DARK THEME
    Inspired by Grunge/Metal Poster Aesthetics
-========================================== */
+   
+   TABLE OF CONTENTS:
+   1. CSS Variables, Reset & Global Enhancements
+      1.1. Variables & Base Reset
+      1.2. Custom Global Scrollbar
+      1.3. Accessibility & Focus States
+   2. Typography, Utilities & Animations
+      2.1. Utilities
+      2.2. Skeleton Shimmer (Loading State)
+      2.3. Active States Feedback
+   3. Global Layout & Components (Desktop First)
+      3.1. Navbar & Sidebar
+      3.2. Hero Section
+      3.3. Stats Section
+      3.4. Grids & Cards (Releases, Premium, Gigs)
+      3.5. Polaroid Section
+      3.6. Band Profile Page
+      3.7. Miscellaneous & Extended Forms (Join, Footer, Inputs)
+   4. Media Queries (Responsive Design)
+      4.1. Tablet (max-width: 1024px)
+      4.2. Mobile (max-width: 768px)
+   5. Print Stylesheet (@media print)
+========================================================================== */
 
+/* ==========================================================================
+   1. CSS VARIABLES, RESET & GLOBAL ENHANCEMENTS
+========================================================================== */
+
+/* 1.1. Variables & Base Reset */
 :root {
+    /* Colors */
     --bg-main: #111111;
     --bg-card: #1a1a1a;
     --text-main: #ffffff;
@@ -11,6 +39,7 @@
     --accent-red: #d30000; /* Merah darah/grafiti */
     --accent-hover: #ff1a1a;
 
+    /* Typography */
     --font-heading: "Bebas Neue", sans-serif;
     --font-body: "Inter", sans-serif;
     --font-graffiti: "Permanent Marker", cursive;
@@ -27,7 +56,7 @@ body {
     color: var(--text-main);
     font-family: var(--font-body);
     overflow-x: hidden;
-    /* Tambahan tekstur noise bisa ditambahkan dengan background image */
+    /* Tambahan tekstur noise bisa ditambahkan dengan background image di sini */
 }
 
 a {
@@ -35,6 +64,54 @@ a {
     color: inherit;
 }
 
+main {
+    flex-grow: 1;
+}
+
+/* 1.2. Custom Global Scrollbar (Desktop Aesthetics) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 5px;
+    border: 2px solid var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-red);
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a var(--bg-main);
+}
+
+/* 1.3. Accessibility & Focus States (Keyboard Navigation) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.release-card:focus-visible,
+.premium-card:focus-visible,
+.gig-index-card:focus-visible,
+.polaroid:focus-visible {
+    outline: 2px dashed var(--accent-red);
+    outline-offset: 4px;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY, UTILITIES & ANIMATIONS
+========================================================================== */
+
+/* 2.1. Utilities */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -44,22 +121,65 @@ a {
 .text-red {
     color: var(--accent-red);
 }
-
+.text-center {
+    text-align: center;
+}
 .mt-3 {
     margin-top: 2rem;
 }
 .mt-5 {
     margin-top: 4rem;
 }
-.text-center {
-    text-align: center;
+.mt-negative {
+    margin-top: -10px;
+}
+.overflow-hidden {
+    overflow: hidden;
 }
 
-main {
-    flex-grow: 1;
+/* 2.2. Skeleton Shimmer (Loading Placeholder State) */
+.skeleton {
+    background: linear-gradient(90deg, #1a1a1a 25%, #262626 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite linear;
+    border-radius: 4px;
+    display: block;
 }
 
-/* ================== NAVBAR ================== */
+@keyframes loading-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 2.3. Active States Feedback (Tactile Click Effects) */
+.btn-login:active,
+.btn-outline:active,
+.search-form button:active {
+    transform: scale(0.96);
+}
+
+.btn-capture-floating:active {
+    transform: scale(0.95) rotate(15deg);
+}
+
+.release-card:active,
+.premium-card:active,
+.gig-index-card:active,
+.polaroid:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   3. GLOBAL LAYOUT & COMPONENTS (DESKTOP FIRST)
+========================================================================== */
+
+/* ------------------------------------------
+   3.1. Navbar & Sidebar
+------------------------------------------ */
 .navbar {
     position: fixed;
     top: 0;
@@ -88,6 +208,58 @@ main {
     align-items: center;
 }
 
+.brand-logo {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.brand-logo span {
+    color: var(--accent-red);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--text-main);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.btn-login {
+    border: 1px solid var(--text-main);
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background: var(--text-main);
+    color: var(--bg-main);
+}
+
 .nav-burger {
     display: none;
     background: transparent;
@@ -97,7 +269,7 @@ main {
     cursor: pointer;
 }
 
-/* ================== MOBILE SIDEBAR ================== */
+/* Mobile Sidebar (Hidden by default on Desktop) */
 .mobile-sidebar {
     position: fixed;
     top: 0;
@@ -173,60 +345,9 @@ main {
     color: var(--accent-red);
 }
 
-.overflow-hidden {
-    overflow: hidden;
-}
-
-.brand-logo {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    letter-spacing: 2px;
-}
-
-.brand-logo span {
-    color: var(--accent-red);
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    transition: color 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: var(--text-main);
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 14px;
-}
-
-.btn-login {
-    border: 1px solid var(--text-main);
-    padding: 8px 20px;
-    border-radius: 4px;
-    transition: all 0.3s;
-}
-
-.btn-login:hover {
-    background: var(--text-main);
-    color: var(--bg-main);
-}
-
-/* ================== HERO SECTION ================== */
+/* ------------------------------------------
+   3.2. Hero Section
+------------------------------------------ */
 .hero-section {
     min-height: 100vh;
     display: flex;
@@ -237,7 +358,7 @@ main {
     text-align: center;
     padding: 120px 20px 80px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(17, 17, 17, 1)),
-        url("https://images.unsplash.com/photo-1611426959571-9941542ea4a8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        url("https://images.unsplash.com/photo-1611426959571-9941542ea4a8?q=80&w=1170&auto=format&fit=crop");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -267,10 +388,6 @@ main {
     z-index: 2;
 }
 
-.mt-negative {
-    margin-top: -10px;
-}
-
 .graffiti-text {
     font-family: var(--font-graffiti);
     color: var(--accent-red);
@@ -286,7 +403,6 @@ main {
     left: 20%;
     font-size: 50px;
 }
-
 .overlay-2 {
     bottom: -10%;
     right: 15%;
@@ -300,7 +416,6 @@ main {
     letter-spacing: 2px;
 }
 
-/* Global Search Input di Hero */
 .search-form {
     display: flex;
     width: 100%;
@@ -338,7 +453,9 @@ main {
     padding: 10px;
 }
 
-/* ================== STATS SECTION ================== */
+/* ------------------------------------------
+   3.3. Stats Section
+------------------------------------------ */
 .stats-section {
     display: flex;
     justify-content: center;
@@ -374,7 +491,12 @@ main {
     margin-top: 5px;
 }
 
-/* ================== RELEASES GRID (ALL ABOUT ALBUM) ================== */
+/* ------------------------------------------
+   3.4. Grids & Cards (Releases, Premium, Gigs)
+------------------------------------------ */
+.home-page-section {
+    padding: 100px 0;
+}
 .releases-section {
     padding: 20px 20px;
 }
@@ -392,20 +514,6 @@ main {
     letter-spacing: 1px;
     margin-top: 10px;
     text-transform: uppercase;
-}
-
-.home-page-section {
-    padding: 100px 0;
-}
-
-@media (max-width: 768px) {
-    .section-header {
-        margin-bottom: 40px;
-    }
-
-    .home-page-section {
-        padding: 60px 0;
-    }
 }
 
 .section-title {
@@ -426,22 +534,30 @@ main {
     transform: rotate(-8deg);
 }
 
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 48px;
-    }
-
-    .section-header .graffiti-text {
-        font-size: 32px;
-        top: -5px;
-        right: -25px;
-    }
-
-    .section-header p {
-        font-size: 14px;
-    }
+/* Layouts */
+.premium-index-layout,
+.gig-index-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
 }
 
+.gig-index-layout {
+    margin-top: 40px;
+}
+
+.premium-sidebar,
+.gig-filters {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 4px;
+    height: fit-content;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 100px;
+}
+
+/* Grids */
 .releases-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -454,26 +570,64 @@ main {
     gap: 30px;
 }
 
-.release-card {
+.gig-index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Base Cards */
+.release-card,
+.premium-card,
+.gig-index-card {
     background: var(--bg-card);
     border-radius: 4px;
     overflow: hidden;
     transition: transform 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
-.release-card:hover {
+.premium-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gig-index-card {
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Hover Effects */
+.release-card:hover,
+.gig-index-card:hover {
     transform: translateY(-10px);
 }
+.premium-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(211, 0, 0, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
 
-.cover-wrapper {
+/* Images & Wrappers */
+.cover-wrapper,
+.card-image-wrapper,
+.gig-index-poster {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
     overflow: hidden;
 }
 
-.cover-wrapper img {
+.card-image-wrapper {
+    background: #000;
+}
+
+.cover-wrapper img,
+.card-image-wrapper img,
+.gig-index-poster img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -481,7 +635,14 @@ main {
     z-index: 2;
 }
 
-/* Efek Vinyl saat hover */
+.card-image-wrapper img {
+    transition: transform 0.6s ease;
+}
+.premium-card:hover .card-image-wrapper img {
+    transform: scale(1.1);
+}
+
+/* Vinyl Effect */
 .vinyl-record {
     position: absolute;
     top: 5%;
@@ -505,7 +666,10 @@ main {
     transform: translateX(40%) rotate(45deg);
 }
 
-.badge {
+/* Badges & Meta */
+.badge,
+.card-badge,
+.gig-date-badge {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -518,18 +682,66 @@ main {
     text-transform: uppercase;
 }
 
-.release-info {
+.card-badge {
+    top: 15px;
+    left: 15px;
+    font-size: 11px;
+    font-weight: 800;
+    z-index: 5;
+    letter-spacing: 1px;
+}
+
+.gig-date-badge {
+    position: relative;
+    display: inline-block;
+    top: auto;
+    left: auto;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+/* Card Information */
+.release-info,
+.card-content,
+.gig-index-info {
     padding: 20px;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .release-info h3 {
     font-size: 18px;
     margin-bottom: 5px;
 }
+.gig-index-info h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+.card-title {
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.3;
+}
 
-.release-info .artist {
+.release-info .artist,
+.gig-index-info p {
     color: var(--text-muted);
     font-size: 14px;
+}
+.card-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .release-info .year {
@@ -538,23 +750,80 @@ main {
     font-size: 12px;
     color: #666;
 }
+.gig-index-info p {
+    margin-bottom: 5px;
+}
+.gig-organizer {
+    font-size: 12px;
+    color: #555;
+}
 
-.btn-outline {
-    display: inline-block;
-    padding: 12px 30px;
-    border: 2px solid white;
+.card-meta {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.genre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.genre-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    background: rgba(211, 0, 0, 0.1);
+    color: var(--accent-red);
+    border: 1px solid rgba(211, 0, 0, 0.2);
+    border-radius: 2px;
     text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: all 0.3s;
+    font-weight: 600;
 }
 
-.btn-outline:hover {
-    background: white;
-    color: black;
+/* Past Gigs Overlay */
+.premium-card.is-past .card-image-wrapper img {
+    filter: grayscale(1) brightness(0.5);
 }
 
-/* ================== POLAROID GIGS SECTION ================== */
+.past-gig-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.past-stamp {
+    font-family: var(--font-graffiti);
+    font-size: 38px;
+    color: var(--accent-red);
+    border: 3px solid var(--accent-red);
+    padding: 5px 20px;
+    transform: rotate(-15deg);
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 2px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    text-shadow: 2px 2px 0px #000;
+}
+
+/* ------------------------------------------
+   3.5. Polaroid Gigs Section
+------------------------------------------ */
 .gigs-section {
     padding: 20px 20px;
     position: relative;
@@ -590,26 +859,29 @@ main {
 .polaroid:hover img {
     filter: grayscale(0%) contrast(100%);
 }
+.polaroid:hover {
+    z-index: 10;
+    transform: scale(1.15) rotate(0deg) !important;
+}
 
 .polaroid-caption {
     color: #000;
     text-align: center;
     margin-top: 15px;
-    font-family: var(--font-graffiti); /* Tulisan tangan di foto */
+    font-family: var(--font-graffiti);
 }
 
 .polaroid-caption h4 {
     font-size: 18px;
     margin-bottom: 5px;
 }
-
 .polaroid-caption p {
     font-family: var(--font-body);
     font-size: 12px;
     color: #666;
 }
 
-/* Dekorasi Isolasi */
+/* Dekorasi Isolasi & Posisi */
 .tape {
     position: absolute;
     width: 100px !important;
@@ -621,7 +893,6 @@ main {
     filter: none !important;
 }
 
-/* Posisi Kolase */
 .p-left {
     transform: translateX(-80%) rotate(-10deg);
     z-index: 1;
@@ -635,436 +906,9 @@ main {
     z-index: 2;
 }
 
-.polaroid:hover {
-    z-index: 10;
-    transform: scale(1.15) rotate(0deg) !important;
-}
-
-@media (max-width: 768px) {
-    .band-hero {
-        padding: 120px 0 60px;
-    }
-    .band-hero-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-    .band-logo-large {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-    }
-    .band-name-huge {
-        font-size: 50px !important;
-        line-height: 1 !important;
-        margin-bottom: 20px !important;
-    }
-    .band-hero-stats {
-        justify-content: center;
-        gap: 20px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        margin-bottom: 25px;
-    }
-    .hero-stat-value {
-        font-size: 24px;
-    }
-    .band-quick-meta {
-        justify-content: center !important;
-    }
-
-    .band-quick-meta span {
-        font-size: 13px;
-    }
-
-    .band-quick-meta span {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        color: var(--text-muted);
-    }
-
-    .band-quick-meta i {
-        color: var(--accent-red);
-    }
-    .genre-tags {
-        justify-content: flex-start !important;
-    }
-    @media (max-width: 768px) {
-        .tabs-nav {
-            display: flex !important;
-            flex-wrap: nowrap !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            gap: 10px !important;
-            padding-bottom: 15px !important;
-            scrollbar-width: thin !important;
-            scrollbar-color: var(--accent-red) transparent !important;
-        }
-
-        .tabs-nav::-webkit-scrollbar {
-            height: 3px !important;
-        }
-
-        .tabs-nav::-webkit-scrollbar-thumb {
-            background: var(--accent-red) !important;
-        }
-
-        .tab-btn {
-            flex: 0 0 auto !important;
-            padding: 10px 15px !important;
-            font-size: 14px !important;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.05) !important;
-        }
-
-        .tab-btn.active::after {
-            height: 2px !important;
-        }
-    }
-}
-
-/* ================== NEWSLETTER / JOIN SECTION ================== */
-.join-section {
-    padding: 100px 20px;
-    background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.9)),
-        url("https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2000&auto=format&fit=crop");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    text-align: center;
-    border-top: 1px solid rgba(211, 0, 0, 0.2);
-    border-bottom: 1px solid rgba(211, 0, 0, 0.2);
-}
-
-.join-content {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.join-content h2 {
-    font-family: var(--font-heading);
-    font-size: 80px;
-    line-height: 0.9;
-    margin-bottom: 20px;
-}
-
-.join-content p {
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-bottom: 40px;
-    letter-spacing: 1px;
-}
-
-/* ================== FOOTER ================== */
-footer {
-    background: #050505;
-    padding: 100px 20px 50px;
-    text-align: center;
-    position: relative;
-}
-
-.footer-links {
-    margin: 60px 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.glowing-text {
-    font-family: var(--font-graffiti);
-    color: var(--accent-red);
-    font-size: 24px;
-    text-shadow: 0 0 10px rgba(211, 0, 0, 0.5), 0 0 20px rgba(211, 0, 0, 0.3);
-    transition: text-shadow 0.3s;
-}
-
-.glowing-text:hover {
-    text-shadow: 0 0 20px rgba(211, 0, 0, 0.8), 0 0 30px rgba(211, 0, 0, 0.6);
-}
-
-.socials {
-    font-size: 24px;
-    margin-bottom: 40px;
-}
-
-.socials i {
-    margin: 0 15px;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.socials i:hover {
-    color: var(--text-main);
-}
-
-.footer-bottom {
-    font-size: 12px;
-    color: #444;
-    border-top: 1px solid #1a1a1a;
-    padding-top: 20px;
-}
-
-.footer-bottom a {
-    color: #666;
-    margin: 0 10px;
-}
-
-.footer-bottom p {
-    margin-top: 10px;
-}
-
-/* ================== SHARED INDEX LAYOUT ================== */
-.premium-index-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 40px;
-}
-
-.premium-sidebar {
-    background: var(--bg-card);
-    padding: 30px;
-    border-radius: 4px;
-    height: fit-content;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    position: sticky;
-    top: 100px;
-}
-
-.premium-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-/* ================== PREMIUM CARDS ================== */
-.premium-card {
-    background: var(--bg-card);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.premium-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(211, 0, 0, 0.3);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-}
-
-.card-image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    background: #000;
-}
-
-.card-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.premium-card:hover .card-image-wrapper img {
-    transform: scale(1.1);
-}
-
-.no-cover-placeholder i {
-    opacity: 0.2;
-}
-
-.card-content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.card-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--accent-red);
-    color: white;
-    padding: 5px 12px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    z-index: 5;
-    letter-spacing: 1px;
-}
-
-.card-title {
-    font-size: 20px;
-    margin-bottom: 8px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.card-subtitle {
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.card-meta {
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: #666;
-}
-
-.genre-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 10px;
-}
-
-.genre-tag {
-    font-size: 10px;
-    padding: 2px 8px;
-    background: rgba(211, 0, 0, 0.1);
-    color: var(--accent-red);
-    border: 1px solid rgba(211, 0, 0, 0.2);
-    border-radius: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-/* ================== GIGS INDEX PAGE ================== */
-.gig-index-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 40px;
-    margin-top: 40px;
-}
-
-.gig-filters {
-    background: var(--bg-card);
-    padding: 30px;
-    border-radius: 4px;
-    height: fit-content;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    position: sticky;
-    top: 100px;
-}
-
-.filter-title {
-    font-family: var(--font-heading);
-    font-size: 24px;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    border-bottom: 1px solid var(--accent-red);
-    padding-bottom: 10px;
-}
-
-.filter-group {
-    margin-bottom: 20px;
-}
-
-.filter-group label {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-}
-
-.filter-input {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px 15px;
-    color: white;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.filter-input:focus {
-    border-color: var(--accent-red);
-}
-
-.gig-index-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.gig-index-card {
-    background: var(--bg-card);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.gig-index-card:hover {
-    transform: translateY(-5px);
-}
-
-.gig-index-poster {
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-}
-
-.gig-index-poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.gig-index-info {
-    padding: 20px;
-}
-
-.gig-date-badge {
-    display: inline-block;
-    background: var(--accent-red);
-    color: white;
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.gig-index-info h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.gig-index-info p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 5px;
-}
-
-.gig-organizer {
-    font-size: 12px;
-    color: #555;
-}
-
-/* ================== BAND PROFILE PAGE ================== */
+/* ------------------------------------------
+   3.6. Band Profile Page
+------------------------------------------ */
 .band-hero {
     position: relative;
     padding: 150px 0 100px;
@@ -1113,37 +957,6 @@ footer {
     align-items: center;
     gap: 60px;
     width: 100%;
-}
-
-.band-hero-stats {
-    display: flex;
-    gap: 30px;
-    margin-top: 35px;
-    padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.hero-stat-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.hero-stat-value {
-    font-family: var(--font-heading);
-    font-size: 32px;
-    color: var(--text-main);
-    line-height: 1;
-    display: block;
-}
-
-.hero-stat-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    color: var(--accent-red);
-    letter-spacing: 1.5px;
-    margin-top: 5px;
-    font-weight: 700;
 }
 
 .band-logo-large {
@@ -1198,7 +1011,55 @@ footer {
     color: white;
 }
 
-/* Tabs Styling */
+.band-hero-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 35px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hero-stat-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.hero-stat-value {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--text-main);
+    line-height: 1;
+    display: block;
+}
+.hero-stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    letter-spacing: 1.5px;
+    margin-top: 5px;
+    font-weight: 700;
+}
+
+.band-quick-meta {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.band-quick-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+.band-quick-meta i {
+    color: var(--accent-red);
+}
+
+/* Band Profile Tabs */
 .profile-tabs-section {
     padding: 80px 0;
 }
@@ -1227,7 +1088,6 @@ footer {
 .tab-btn.active {
     color: var(--text-main);
 }
-
 .tab-btn.active::after {
     content: "";
     position: absolute;
@@ -1238,30 +1098,9 @@ footer {
     background: var(--accent-red);
 }
 
-.band-quick-meta {
-    display: flex;
-    gap: 25px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.band-quick-meta span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: var(--text-muted);
-}
-
-.band-quick-meta i {
-    color: var(--accent-red);
-}
-
 .tab-content {
     display: none;
 }
-
 .tab-content.active {
     display: block;
     animation: fadeIn 0.5s ease;
@@ -1288,7 +1127,7 @@ footer {
     padding-left: 15px;
 }
 
-/* Personnel list */
+/* Band Profile Inner Content */
 .personnel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1310,20 +1149,17 @@ footer {
     font-size: 18px;
     display: block;
 }
-
 .personnel-card .role {
     font-size: 12px;
     text-transform: uppercase;
     color: var(--accent-red);
     letter-spacing: 1px;
 }
-
 .personnel-card .years {
     font-size: 11px;
     color: #444;
 }
 
-/* Bio styling */
 .bio-wrapper {
     max-width: 800px;
     margin: 0 auto;
@@ -1331,26 +1167,21 @@ footer {
     font-size: 18px;
     color: #bbb;
 }
-
 .bio-wrapper p {
     margin-bottom: 25px;
 }
 
-/* Sidebar Info (Optional) */
 .profile-meta-sidebar {
     background: #151515;
     padding: 40px;
     border-radius: 4px;
 }
-
 .meta-row {
     margin-bottom: 25px;
 }
-
 .meta-row:last-child {
     margin-bottom: 0;
 }
-
 .meta-label {
     font-size: 11px;
     text-transform: uppercase;
@@ -1360,46 +1191,240 @@ footer {
     margin-bottom: 5px;
     letter-spacing: 2px;
 }
-
 .meta-value {
     font-size: 18px;
     color: white;
 }
 
-.premium-card.is-past .card-image-wrapper img {
-    filter: grayscale(1) brightness(0.5);
+/* ------------------------------------------
+   3.7. Miscellaneous & Extended Forms
+------------------------------------------ */
+.btn-outline {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 2px solid white;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+.btn-outline:hover {
+    background: white;
+    color: black;
 }
 
-.past-gig-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.filter-title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--accent-red);
+    padding-bottom: 10px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+.filter-group label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.filter-input {
     width: 100%;
-    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    color: white;
+    border-radius: 4px;
+    outline: none;
+    font-family: var(--font-body);
+    transition: border-color 0.3s;
+}
+.filter-input:focus {
+    border-color: var(--accent-red);
+}
+
+/* Extended Elements: Textarea & Select Dropdown */
+textarea.filter-input {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select.filter-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+/* Custom Styled Checkboxes & Radio Buttons */
+.form-checkbox-group,
+.form-radio-group {
     display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 10;
-    pointer-events: none;
+    gap: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-muted);
+    user-select: none;
 }
 
-.past-stamp {
-    font-family: var(--font-graffiti);
-    font-size: 38px;
+.form-checkbox-group input[type="checkbox"],
+.form-radio-group input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-radio-group input[type="radio"] {
+    border-radius: 50%;
+}
+
+.form-checkbox-group input[type="checkbox"]:checked,
+.form-radio-group input[type="radio"]:checked {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+.form-checkbox-group input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-radio-group input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Form Validation States */
+.filter-input.is-invalid {
+    border-color: var(--accent-red) !important;
+    background-color: rgba(211, 0, 0, 0.05);
+}
+
+.form-error-text {
     color: var(--accent-red);
-    border: 3px solid var(--accent-red);
-    padding: 5px 20px;
-    transform: rotate(-15deg);
-    text-transform: uppercase;
-    font-weight: normal;
-    letter-spacing: 2px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    text-shadow: 2px 2px 0px #000;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
 }
 
-/* ================== CAPTURE & WATERMARK ================== */
+/* Newsletter / Join Section */
+.join-section {
+    padding: 100px 20px;
+    background: linear-gradient(rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.9)),
+        url("https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2000&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+    border-top: 1px solid rgba(211, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(211, 0, 0, 0.2);
+}
+
+.join-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+.join-content h2 {
+    font-family: var(--font-heading);
+    font-size: 80px;
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+.join-content p {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+/* Footer */
+footer {
+    background: #050505;
+    padding: 100px 20px 50px;
+    text-align: center;
+    position: relative;
+}
+.footer-links {
+    margin: 60px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.glowing-text {
+    font-family: var(--font-graffiti);
+    color: var(--accent-red);
+    font-size: 24px;
+    text-shadow: 0 0 10px rgba(211, 0, 0, 0.5), 0 0 20px rgba(211, 0, 0, 0.3);
+    transition: text-shadow 0.3s;
+}
+.glowing-text:hover {
+    text-shadow: 0 0 20px rgba(211, 0, 0, 0.8), 0 0 30px rgba(211, 0, 0, 0.6);
+}
+
+.socials {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+.socials i {
+    margin: 0 15px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.socials i:hover {
+    color: var(--text-main);
+}
+
+.footer-bottom {
+    font-size: 12px;
+    color: #444;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 20px;
+}
+.footer-bottom a {
+    color: #666;
+    margin: 0 10px;
+}
+.footer-bottom p {
+    margin-top: 10px;
+}
+
+/* Floating Buttons & Watermarks */
 .btn-capture-floating {
     position: fixed;
     bottom: 30px;
@@ -1419,13 +1444,11 @@ footer {
     align-items: center;
     justify-content: center;
 }
-
 .btn-capture-floating:hover {
     transform: scale(1.1) rotate(15deg);
     background: var(--accent-hover);
     box-shadow: 0 8px 25px rgba(211, 0, 0, 0.4);
 }
-
 .btn-capture-floating:disabled {
     background: #444;
     cursor: not-allowed;
@@ -1448,106 +1471,135 @@ footer {
     font-size: 14px;
     pointer-events: none;
 }
-
 .hero-watermark i {
     font-size: 20px;
     color: var(--accent-red);
 }
 
-@media (max-width: 768px) {
-    .btn-capture-floating {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-    }
+.no-cover-placeholder i {
+    opacity: 0.2;
+}
 
-    .hero-watermark {
-        top: 20px;
-        right: 20px;
-        font-size: 10px;
-    }
+/* ==========================================================================
+   4. MEDIA QUERIES (RESPONSIVE DESIGN)
+========================================================================== */
 
-    .hero-watermark i {
-        font-size: 14px;
+/* ------------------------------------------
+   4.1. Tablet Breakpoint (max-width: 1024px)
+------------------------------------------ */
+@media (max-width: 1024px) {
+    .premium-index-layout,
+    .gig-index-layout {
+        grid-template-columns: 240px 1fr;
+        gap: 25px;
+    }
+    .main-title {
+        font-size: 64px;
+    }
+    .section-title {
+        font-size: 56px;
     }
 }
 
-/* ================== RESPONSIVE MEDIA QUERIES ================== */
+/* ------------------------------------------
+   4.2. Mobile Breakpoint (max-width: 768px)
+------------------------------------------ */
 @media (max-width: 768px) {
-    .section-header {
-        padding-top: 20px;
-    }
-
+    /* Navbar & Header Adjustments */
     .navbar {
         padding: 15px 0;
         background: rgba(17, 17, 17, 0.95) !important;
     }
-
     .nav-container {
         padding: 0 20px;
     }
-
     .nav-links,
     .nav-actions {
         display: none;
-    }
-
+    } /* Hide desktop nav */
     .nav-burger {
         display: block;
-    }
-
+    } /* Show hamburger menu */
     .brand-logo {
         font-size: 22px;
     }
 
+    /* Typography Adjustments */
     .main-title {
         font-size: 50px;
         letter-spacing: 2px;
     }
-
     .graffiti-text.overlay-1 {
         font-size: 35px;
         top: 25%;
     }
-
     .graffiti-text.overlay-2 {
         font-size: 40px;
         bottom: -5%;
     }
-
     .section-title {
         font-size: 40px;
     }
-
+    .section-header {
+        padding-top: 20px;
+        margin-bottom: 40px;
+    }
+    .section-header p {
+        font-size: 14px;
+    }
     .section-header .graffiti-text {
         font-size: 30px;
         top: 15px;
         right: -20px;
     }
 
-    /* Horizontal Scroll for Mobile - DISABLED */
-    /*
-    .releases-grid,
-    .premium-grid,
-    .gig-index-grid {
-        display: flex !important;
-        overflow-x: auto;
-        gap: 20px;
-        padding: 10px 20px 30px 20px;
-        margin: 0 -20px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+    /* Layout Sections Adjustments */
+    .home-page-section {
+        padding: 60px 0;
     }
-    */
+    .releases-section,
+    .gigs-section,
+    .labels-section {
+        padding: 60px 20px !important;
+    }
+    .premium-index-layout,
+    .gig-index-layout {
+        display: block;
+    } /* Matikan Grid Sidebar */
+    .premium-sidebar,
+    .gig-filters {
+        margin-bottom: 40px;
+        position: relative;
+        top: 0;
+    }
 
+    /* Stats Section */
+    .stats-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    .stat-item {
+        flex: 0 0 40%;
+    }
+    .stat-number {
+        font-size: 40px;
+    }
+    .join-content h2 {
+        font-size: 50px;
+    }
+
+    /* Cards & Grids Setup */
     .releases-grid,
     .premium-grid,
     .gig-index-grid {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(
+            2,
+            1fr
+        ) !important; /* 2 Kolom untuk Mobile */
         gap: 15px !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -1560,26 +1612,23 @@ footer {
         flex: none !important;
         width: 100% !important;
     }
-
     .card-title {
         font-size: 16px !important;
     }
-
     .card-content {
         padding: 12px !important;
     }
-
     .card-subtitle {
         font-size: 12px !important;
         margin-bottom: 8px !important;
     }
-
     .past-stamp {
         font-size: 22px;
         padding: 2px 10px;
         border-width: 2px;
     }
 
+    /* Polaroid Mobile Fixes */
     .polaroid-collage {
         display: flex !important;
         flex-direction: row !important;
@@ -1591,11 +1640,9 @@ footer {
         min-height: auto;
         scrollbar-width: none;
     }
-
     .polaroid-collage::-webkit-scrollbar {
         display: none;
     }
-
     .polaroid {
         position: relative !important;
         flex: 0 0 260px;
@@ -1606,37 +1653,195 @@ footer {
         right: auto !important;
     }
 
-    .stats-section {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 20px;
+    /* Band Profile Mobile */
+    .band-hero {
+        padding: 120px 0 60px;
+    }
+    .band-hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .band-logo-large {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+    .band-name-huge {
+        font-size: 50px !important;
+        line-height: 1 !important;
+        margin-bottom: 20px !important;
+    }
+
+    .band-hero-stats {
         justify-content: center;
-        padding: 40px 20px;
+        gap: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        margin-bottom: 25px;
+    }
+    .hero-stat-value {
+        font-size: 24px;
+    }
+    .band-quick-meta {
+        justify-content: center !important;
+    }
+    .band-quick-meta span {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+    }
+    .band-quick-meta i {
+        color: var(--accent-red);
+    }
+    .genre-tags {
+        justify-content: flex-start !important;
     }
 
-    .stat-item {
-        flex: 0 0 40%;
+    /* Profile Tabs Horizontal Scroll Mobile */
+    .tabs-nav {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 10px !important;
+        padding-bottom: 15px !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: var(--accent-red) transparent !important;
+    }
+    .tabs-nav::-webkit-scrollbar {
+        height: 3px !important;
+    }
+    .tabs-nav::-webkit-scrollbar-thumb {
+        background: var(--accent-red) !important;
     }
 
-    .stat-number {
-        font-size: 40px;
+    .tab-btn {
+        flex: 0 0 auto !important;
+        padding: 10px 15px !important;
+        font-size: 14px !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.05) !important;
+    }
+    .tab-btn.active::after {
+        height: 2px !important;
     }
 
-    .join-content h2 {
-        font-size: 50px;
+    /* Floating Capture Button & Watermark Fixes */
+    .btn-capture-floating {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    .hero-watermark {
+        top: 20px;
+        right: 20px;
+        font-size: 10px;
+    }
+    .hero-watermark i {
+        font-size: 14px;
+    }
+}
+
+/* ==========================================================================
+   5. PRINT STYLESHEET (@media print)
+========================================================================== */
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
     }
 
-    .releases-section,
-    .gigs-section,
-    .labels-section {
-        padding: 60px 20px !important;
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt;
     }
 
-    .premium-index-layout {
-        display: block;
+    /* Sembunyikan Elemen UI Interaktif & Non-Esensial */
+    .navbar,
+    footer,
+    .btn-capture-floating,
+    .search-form,
+    .premium-sidebar,
+    .gig-filters,
+    .nav-burger,
+    .mobile-sidebar,
+    .mobile-sidebar-overlay,
+    .hero-watermark,
+    .tabs-nav,
+    .vinyl-record {
+        display: none !important;
     }
 
-    .premium-sidebar {
-        margin-bottom: 40px;
+    /* Pastikan Layout Mengalir Alami Tanpa Grid Samping */
+    .container,
+    main {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .premium-index-layout,
+    .gig-index-layout {
+        display: block !important;
+    }
+
+    /* Cetak Baris Komponen */
+    .release-card,
+    .premium-card,
+    .gig-index-card,
+    .personnel-card,
+    .profile-meta-sidebar {
+        background: #ffffff !important;
+        border: 1px solid #666666 !important;
+        color: #000000 !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        border-radius: 0;
+    }
+
+    /* Tipografi & Warna untuk Cetak Cetak */
+    .text-muted,
+    .release-info .artist,
+    .card-subtitle,
+    .gig-index-info p,
+    .band-quick-meta span {
+        color: #444444 !important;
+    }
+
+    .section-title,
+    .main-title,
+    .band-name-huge,
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: #000000 !important;
+    }
+
+    .accent-red,
+    .text-red,
+    .brand-logo span,
+    .graffiti-text,
+    .past-stamp,
+    .band-type-label {
+        color: #000000 !important;
+        border-color: #000000 !important;
+        font-weight: bold;
+    }
+
+    /* Optimasi Gambar */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+        filter: grayscale(100%) !important;
     }
 }

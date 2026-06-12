@@ -26,6 +26,7 @@ Route::get('/discovery', 'PublicDiscoveryController@index')->name('public.discov
 Route::get('/gigs', 'PublicGigController@index')->name('public.gig.index');
 Route::get('/gigs/{slug}', 'PublicGigController@show')->name('public.gig.show');
 Route::get('/releases', 'PublicReleaseController@index')->name('public.release.index');
+Route::get('/track/{id}/detail', 'PublicReleaseController@trackDetail')->name('public.track.detail');
 Route::get('/zine', 'Front\ZineController@index')->name('public.zine.index');
 Route::get('/zine/{slug}', 'Front\ZineController@show')->name('public.zine.show');
 Route::post('/zine/{slug}/comment', 'Front\ZineController@comment')->name('public.zine.comment')->middleware('auth');

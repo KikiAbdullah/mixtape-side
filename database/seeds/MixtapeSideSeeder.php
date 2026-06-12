@@ -238,7 +238,7 @@ class MixtapeSideSeeder extends Seeder
 
         foreach ($releases as $rel) {
             if (isset($bandModels[$rel['band_slug']])) {
-                Release::updateOrCreate(
+                $releaseModel = Release::updateOrCreate(
                     ['slug' => $rel['slug']],
                     [
                         'band_id' => $bandModels[$rel['band_slug']]->id,
@@ -248,6 +248,21 @@ class MixtapeSideSeeder extends Seeder
                         'track_count' => $rel['track_count']
                     ]
                 );
+
+                // Seed tracks for this release
+                for ($i = 1; $i <= $rel['track_count']; $i++) {
+                    Track::firstOrCreate(
+                        [
+                            'release_id' => $releaseModel->id,
+                            'track_number' => $i
+                        ],
+                        [
+                            'title' => 'Track ' . $i . ' of ' . $rel['title'],
+                            'duration' => rand(180, 300), // Random duration between 3-5 minutes
+                            'lyrics' => 'Sample lyrics for ' . $rel['title'] . ' track ' . $i
+                        ]
+                    );
+                }
             }
         }
 

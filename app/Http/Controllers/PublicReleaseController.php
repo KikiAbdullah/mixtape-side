@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Band;
 use App\Models\Release;
+use App\Models\Track;
 
 use Illuminate\Routing\Controller;
 
@@ -51,5 +52,17 @@ class PublicReleaseController extends Controller
         }
 
         return view('public.release.show', $data);
+    }
+
+    public function trackDetail($id)
+    {
+        $track = Track::with('contributors')->findOrFail($id);
+
+        $view = view('public.release.partial_track_detail', compact('track'))->render();
+
+        return response()->json([
+            'status' => true,
+            'view' => $view
+        ]);
     }
 }

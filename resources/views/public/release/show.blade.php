@@ -62,6 +62,123 @@
         </div>
     </header>
 
+    <!-- Release Capture Area (Dedicated for Instagram Stories 9:16) -->
+    <div id="release-capture-area"
+        style="position: absolute; left: -9999px; top: 0; width: 1080px; height: 1920px; background: #080808; overflow: hidden; display: block;">
+        @php
+            $bannerUrl = $release->banner_url
+                ? asset($release->banner_url)
+                : ($release->cover_url
+                    ? asset($release->cover_url)
+                    : 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2000&auto=format&fit=crop');
+            $coverUrl = $release->cover_url ? asset($release->cover_url) : null;
+        @endphp
+
+        <img src="{{ $bannerUrl }}"
+            style="position: absolute; top: 0; left: 50%; height: 100%; width: auto; transform: translateX(-50%); filter: brightness(0.6);">
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%);">
+        </div>
+
+        <!-- Safe Zone Content (1080x1350 centered in 1080x1920) -->
+        <div
+            style="position: absolute; top: 50px; height: 1350px; left: 0; right: 0; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; padding: 80px;">
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h4
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; margin: 0; letter-spacing: 4px;">
+                        MIXTAPESIDE</h4>
+                    <span
+                        style="font-family: 'Inter', sans-serif; font-size: 16px; color: #ff3e3e; font-weight: 800; letter-spacing: 6px;">
+                        {{ strtoupper($release->release_type) }} // ARCHIVE</span>
+                </div>
+                <div
+                    style="background: #fff; color: #000; padding: 8px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; transform: rotate(5deg); box-shadow: 8px 8px 0px #ff3e3e;">
+                    {{ $release->original_release_year }}
+                </div>
+            </div>
+
+            <div
+                style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 0;">
+                @if ($coverUrl)
+                    <div
+                        style="width: 600px; height: 600px; border: 20px solid #fff; transform: rotate(-2deg); margin-bottom: 60px; overflow: hidden; background: #111;">
+                        <img src="{{ $coverUrl }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                @else
+                    <div
+                        style="width: 600px; height: 600px; border: 20px solid #fff; transform: rotate(-2deg); margin-bottom: 60px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
+                        <i class="fa-solid fa-compact-disc fa-10x"></i>
+                    </div>
+                @endif
+
+                <div style="max-width: 900px;">
+                    <h1
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 110px; color: #fff; line-height: 1.0; margin: 0; text-transform: uppercase; letter-spacing: 2px;">
+                        {{ $release->title }}
+                    </h1>
+                </div>
+
+                <div
+                    style="margin-top: 30px; font-family: 'Permanent Marker', cursive; font-size: 48px; color: #ff3e3e; transform: rotate(1deg); text-shadow: 3px 3px 0px #fff;">
+                    {{ $band->name }}
+                </div>
+
+                <div
+                    style="margin-top: 40px; width: 100%; max-width: 850px; background: rgba(255,255,255,0.03); padding: 40px; border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
+                    <h5
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #ff3e3e; margin-bottom: 25px; border-bottom: 3px solid #ff3e3e; display: inline-block; padding-right: 30px; letter-spacing: 2px;">
+                        TRACKLIST</h5>
+                    @foreach ($release->tracks->take(5) as $track)
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <span
+                                    style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #ff3e3e; min-width: 40px;">{{ str_pad($track->track_number, 2, '0', STR_PAD_LEFT) }}</span>
+                                <span
+                                    style="font-family: 'Inter', sans-serif; font-size: 24px; color: #fff; font-weight: 600;">{{ $track->title }}</span>
+                            </div>
+                            <span
+                                style="font-family: monospace; font-size: 20px; color: #888;">{{ $track->duration ? sprintf('%02d:%02d', floor($track->duration / 60), $track->duration % 60) : '--:--' }}</span>
+                        </div>
+                    @endforeach
+                    @if ($release->tracks->count() > 5)
+                        <p
+                            style="font-family: 'Permanent Marker', cursive; font-size: 20px; color: #ff3e3e; margin-top: 25px; text-align: center; opacity: 0.8; letter-spacing: 1px;">
+                            ... AND {{ $release->tracks->count() - 5 }} MORE TRACKS</p>
+                    @endif
+                </div>
+            </div>
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 3px dashed rgba(255,255,255,0.4); padding-top: 40px;">
+                <div style="color: #fff;">
+                    <p
+                        style="font-family: 'Inter', sans-serif; font-size: 14px; margin: 0; opacity: 0.8; text-transform: uppercase; letter-spacing: 2px;">
+                        Format</p>
+                    <p style="font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin: 0; color: #ff3e3e;">
+                        {{ $release->release_type }} ({{ $release->track_count }} TRACKS)</p>
+                </div>
+                <div style="text-align: right;">
+                    <p
+                        style="font-family: 'Permanent Marker', cursive; font-size: 28px; color: #fff; margin: 0; text-shadow: 2px 2px 0px #ff3e3e;">
+                        MixtapeSide.com</p>
+                    <p
+                        style="font-family: 'Inter', sans-serif; font-size: 12px; color: #fff; margin: 0; opacity: 0.6; letter-spacing: 2px;">
+                        DISCOGRAPHY // ARCHIVE // SCENE</p>
+                </div>
+            </div>
+        </div>
+        <!-- Texture Overlay -->
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); opacity: 0.3; pointer-events: none;">
+        </div>
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%); pointer-events: none;">
+        </div>
+    </div>
+
     <section class="profile-tabs-section container" id="tracklist">
         <div class="tabs-wrapper">
             <div class="tabs-nav">
@@ -74,9 +191,9 @@
             <div class="tab-content active" id="tab-tracks">
                 <div class="members-table" style="max-width: 900px; margin: 0 auto;">
                     @forelse($release->tracks as $track)
-                        <div class="member-row"
+                        <div class="member-row track-item"
                             style="cursor: pointer; padding: 25px; background: rgba(255,255,255,0.02); margin-bottom: 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05);"
-                            data-bs-toggle="modal" data-bs-target="#trackModal{{ $track->id }}">
+                            data-id="{{ $track->id }}" data-title="{{ $track->title }}">
                             <span class="member-name"
                                 style="min-width: 40px; color: var(--accent-red); font-family: var(--font-heading); font-size: 24px;">{{ str_pad($track->track_number, 2, '0', STR_PAD_LEFT) }}</span>
                             <span class="member-role"
@@ -143,54 +260,27 @@
             </div>
         </div>
     </section>
+@endsection
 
-    <!-- Track Modals -->
-    @foreach ($release->tracks as $track)
-        <div class="modal fade" id="trackModal{{ $track->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content"
-                    style="background: #111; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
-                    <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 30px;">
-                        <h5 class="modal-title"
-                            style="font-family: var(--font-heading); font-size: 32px; letter-spacing: 1px;">
-                            {{ str_pad($track->track_number, 2, '0', STR_PAD_LEFT) }}. {{ $track->title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="filter: invert(1); opacity: 0.5;"></button>
-                    </div>
-                    <div class="modal-body" style="padding: 30px;">
-                        <div class="row">
-                            <div class="col-md-7 mb-4 mb-md-0">
-                                <h6 class="meta-label" style="margin-bottom: 20px;">Lyrics</h6>
-                                <div
-                                    style="max-height: 450px; overflow-y: auto; font-family: 'Inter', sans-serif; line-height: 1.8; color: #bbb; white-space: pre-wrap; font-size: 16px; padding-right: 20px;">
-                                    {{ $track->lyrics ?? 'Lyrics not available yet.' }}</div>
-                            </div>
-                            <div class="col-md-5">
-                                <h6 class="meta-label" style="margin-bottom: 20px;">Contributors</h6>
-                                @forelse($track->contributors as $contrib)
-                                    <div
-                                        style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.03);">
-                                        <div style="color: white; font-weight: 600; font-size: 15px;">{{ $contrib->name }}
-                                        </div>
-                                        <div
-                                            style="color: var(--accent-red); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">
-                                            {{ $contrib->role }}</div>
-                                        @if ($contrib->notes)
-                                            <div style="color: #555; font-size: 12px; margin-top: 4px;">
-                                                {{ $contrib->notes }}</div>
-                                        @endif
-                                    </div>
-                                @empty
-                                    <p class="text-muted" style="font-size: 14px;">No contributor credits listed.</p>
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
+@section('appmodal')
+    <!-- Basic modal -->
+    <div id="mymodal" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #111; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 20px 30px; background: #1a1a1a;">
+                    <h5 class="modal-title" style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #ff3e3e; letter-spacing: 1px; margin: 0;"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.8;"></button>
+                </div>
+
+                <div class="modal-body" style="padding: 30px;">
+                    <!-- Content will be loaded here -->
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+    <!-- /basic modal -->
 @endsection
+
 
 @section('customjs')
     <script>
@@ -209,29 +299,37 @@
             const originalHtml = $btn.html();
             $btn.html('<i class="fa-solid fa-spinner fa-spin"></i>').prop('disabled', true);
 
-            const element = document.querySelector('.band-hero');
-            window.scrollTo(0, 0);
+            const element = document.getElementById('release-capture-area');
+            const originalStyle = element.style.cssText;
+
+            Object.assign(element.style, {
+                position: 'fixed',
+                left: '0px',
+                top: '0px',
+                zIndex: '9999',
+                opacity: '1',
+                display: 'block'
+            });
 
             setTimeout(() => {
                 html2canvas(element, {
                     useCORS: true,
-                    allowTaint: false,
+                    allowTaint: true,
                     backgroundColor: '#080808',
-                    scale: 3,
-                    logging: false,
-                    onclone: (clonedDoc) => {
-                        const watermark = clonedDoc.querySelector('.hero-watermark');
-                        if (watermark) {
-                            watermark.style.opacity = '1';
-                        }
-                    }
+                    scale: 2,
+                    width: 1080,
+                    height: 1920,
+                    logging: false
                 }).then(canvas => {
+                    element.style.cssText = originalStyle;
+
                     const link = document.createElement('a');
-                    link.download = '{{ $release->slug }}-mixtapeside.png';
-                    link.href = canvas.toDataURL('image/png');
+                    link.download = 'release-{{ $release->slug }}-mixtapeside.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
                     link.click();
 
                     $btn.html(originalHtml).prop('disabled', false);
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Captured!',
@@ -241,9 +339,49 @@
                     });
                 }).catch(err => {
                     console.error('Capture failed:', err);
+                    element.style.cssText = originalStyle;
                     $btn.html(originalHtml).prop('disabled', false);
                 });
             }, 500);
+        });
+
+        // Track Detail Modal Logic
+        $('.track-item').on('click', function() {
+            const trackId = $(this).data('id');
+            const title = $(this).data('title');
+
+            // Set title
+            $('#mymodal .modal-title').text(title);
+
+            // Show loading
+            $('#mymodal .modal-body').html(
+                '<div class="text-center py-5"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--accent-red);"></i><p class="mt-2" style="color: #666; font-family: Bebas Neue; letter-spacing: 2px;">FETCHING DATA...</p></div>'
+            );
+
+            // Show modal
+            const modalEl = document.getElementById('mymodal');
+            let modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (!modalInstance) {
+                modalInstance = new bootstrap.Modal(modalEl);
+            }
+            modalInstance.show();
+
+            // Fetch data
+            $.ajax({
+                url: '{{ url('/track') }}/' + trackId + '/detail',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.status) {
+                        $('#mymodal .modal-body').hide().html(response.view).fadeIn(400);
+                    }
+                },
+                error: function(xhr) {
+                    $('#mymodal .modal-body').html(
+                        '<div class="text-center py-5"><i class="fa-solid fa-triangle-exclamation fa-2x text-danger"></i><p class="mt-2 text-danger">FAILED TO LOAD TRACK DETAILS</p></div>'
+                    );
+                }
+            });
         });
     </script>
 @endsection

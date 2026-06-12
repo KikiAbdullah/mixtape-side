@@ -1,7 +1,8 @@
 <!doctype html>
 
 <html lang="id" class="light-style layout-compact" dir="ltr" data-theme="theme-default"
-    data-assets-path="{{ asset('assets') }}/" data-template="horizontal-menu-template-no-customizer" data-style="light">
+    data-assets-path="{{ asset('assets_front') }}/" data-template="horizontal-menu-template-no-customizer"
+    data-style="light">
 
 <head>
     <meta charset="utf-8" />
@@ -14,7 +15,7 @@
     <meta name="base-url" content="{{ url('/') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets_front/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,12 +24,26 @@
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&family=Permanent+Marker&display=swap"
         rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- MixtapeSide Public Theme -->
-    <link rel="stylesheet" href="{{ asset('assets/css/public-theme-premium.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets_front/css/public-theme-premium.css') }}" />
     <style>
-        /* Custom Pagination Styling */
+        /* Reset Bootstrap Links */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover {
+            color: var(--accent-red, #ff3e3e);
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+        }
         .custom-pagination {
             display: inline-block;
             margin-top: 2rem;
@@ -73,14 +88,6 @@
 
     @yield('customcss')
 
-    <!-- Helpers -->
-    <script src="{{ asset('assets') }}/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets') }}/js/config.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/jquery/jquery.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/popper/popper.js"></script>
-    <script src="{{ asset('assets') }}/vendor/js/bootstrap.js"></script>
 
     <script type="text/javascript">
         const _csrf_token = "{{ csrf_token() }}";
@@ -154,25 +161,6 @@
     <!--/ Layout wrapper -->
     @yield('appmodal')
 
-    <!-- Core JS -->
-    <script src="{{ asset('assets') }}/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/hammer/hammer.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/i18n/i18n.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="{{ asset('assets') }}/vendor/js/menu.js"></script>
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets') }}/vendor/libs/apex-charts/apexcharts.js"></script>
-    <script src="{{ asset('assets') }}/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-
-
-    <!-- Main JS -->
-    <script src="{{ asset('assets') }}/js/main.js"></script>
 
     <script>
         $(window).scroll(function() {

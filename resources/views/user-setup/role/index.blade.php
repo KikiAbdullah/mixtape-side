@@ -86,23 +86,22 @@
 @endsection
 
 @section('appmodal')
-    <!-- /basic modal -->
-
-    <div class="modal fade" id="mymodal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-simple modal-dialog-centered modal-add-new-role">
+    <!-- Basic modal -->
+    <div id="mymodal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-body p-0">
-                    <div class="text-center mb-6">
-                        <h4 class="modal-title mb-2 pb-0"></h4>
-                    </div>
-                    <!-- modal-body -->
-                    <div class="modal-body-inner"></div>
-                    <!--/ modal-body -->
+                <div class="modal-header bg-indigo text-white">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- /basic modal -->
 @endsection
 
 @section('customjs')

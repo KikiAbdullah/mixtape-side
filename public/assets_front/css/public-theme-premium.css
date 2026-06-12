@@ -200,6 +200,7 @@ select:focus-visible,
 }
 
 .nav-container {
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 30px;
@@ -212,6 +213,7 @@ select:focus-visible,
     font-family: var(--font-heading);
     font-size: 28px;
     letter-spacing: 2px;
+    flex: 1;
 }
 
 .brand-logo span {
@@ -222,6 +224,7 @@ select:focus-visible,
     list-style: none;
     display: flex;
     gap: 30px;
+    justify-content: center;
 }
 
 .nav-links a {
@@ -231,6 +234,7 @@ select:focus-visible,
     letter-spacing: 1px;
     color: var(--text-muted);
     transition: color 0.3s;
+    white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -241,8 +245,10 @@ select:focus-visible,
 .nav-actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 20px;
     font-size: 14px;
+    flex: 1;
 }
 
 .btn-login {

@@ -126,12 +126,12 @@
                 style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 0;">
                 @if ($logoUrl)
                     <div
-                        style="width: 550px; height: 550px; border: 15px solid #fff; box-shadow: 25px 25px 0px rgba(0,0,0,0.6); transform: rotate(-3deg); margin-bottom: 60px; overflow: hidden; background: #111;">
+                        style="width: 550px; height: 550px; border: 15px solid #fff; transform: rotate(-3deg); margin-bottom: 60px; overflow: hidden; background: #111;">
                         <img src="{{ $logoUrl }}" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
                     </div>
                 @else
                     <div
-                        style="width: 550px; height: 550px; border: 15px solid #fff; box-shadow: 25px 25px 0px rgba(0,0,0,0.6); transform: rotate(-3deg); margin-bottom: 60px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
+                        style="width: 550px; height: 550px; border: 15px solid #fff; transform: rotate(-3deg); margin-bottom: 60px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
                         <i class="fa-solid fa-guitar fa-10x"></i>
                     </div>
                 @endif

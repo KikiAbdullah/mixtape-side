@@ -84,6 +84,104 @@
         </div>
     </header>
 
+    <!-- Band Capture Area (Dedicated for Instagram Stories 9:16) -->
+    <div id="band-capture-area"
+        style="position: absolute; left: -9999px; top: 0; width: 1080px; height: 1920px; background: #080808; overflow: hidden; display: block;">
+        @php
+            $bannerUrl = $band->banner_url
+                ? asset($band->banner_url)
+                : ($band->logo_url
+                    ? asset($band->logo_url)
+                    : 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2000&auto=format&fit=crop');
+            $logoUrl = $band->logo_url ? asset($band->logo_url) : null;
+            $genres = is_array($band->genre) ? implode(' // ', $band->genre) : $band->genre;
+        @endphp
+
+        <img src="{{ $bannerUrl }}"
+            style="position: absolute; top: 0; left: 50%; height: 100%; width: auto; transform: translateX(-50%); filter: brightness(0.6);">
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%);">
+        </div>
+
+        <!-- Safe Zone Content (1080x1350 centered in 1080x1920) -->
+        <div
+            style="position: absolute; top: 285px; height: 1350px; left: 0; right: 0; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; padding: 80px;">
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h4
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; margin: 0; letter-spacing: 4px;">
+                        MIXTAPESIDE</h4>
+                    <span
+                        style="font-family: 'Inter', sans-serif; font-size: 16px; color: #ff3e3e; font-weight: 800; letter-spacing: 6px;">ARCHIVE
+                        // NO. #{{ str_pad($band->id, 4, '0', STR_PAD_LEFT) }}</span>
+                </div>
+                <div
+                    style="background: #fff; color: #000; padding: 8px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; transform: rotate(5deg); box-shadow: 8px 8px 0px #ff3e3e;">
+                    {{ strtoupper($band->status) }}
+                </div>
+            </div>
+
+            <div
+                style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 0;">
+                @if ($logoUrl)
+                    <div
+                        style="width: 550px; height: 550px; border: 15px solid #fff; box-shadow: 25px 25px 0px rgba(0,0,0,0.6); transform: rotate(-3deg); margin-bottom: 60px; overflow: hidden; background: #111;">
+                        <img src="{{ $logoUrl }}" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
+                    </div>
+                @else
+                    <div
+                        style="width: 550px; height: 550px; border: 15px solid #fff; box-shadow: 25px 25px 0px rgba(0,0,0,0.6); transform: rotate(-3deg); margin-bottom: 60px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
+                        <i class="fa-solid fa-guitar fa-10x"></i>
+                    </div>
+                @endif
+
+                <div style="max-width: 900px;">
+                    <h1
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 120px; color: #fff; line-height: 1.0; margin: 0; text-transform: uppercase; letter-spacing: 2px;">
+                        {{ $band->name }}
+                    </h1>
+                </div>
+
+                <div
+                    style="margin-top: 40px; font-family: 'Inter', sans-serif; font-size: 24px; color: #ff3e3e; font-weight: 800; text-transform: uppercase; letter-spacing: 4px;">
+                    {{ $genres }}
+                </div>
+
+                <div
+                    style="margin-top: 50px; font-family: 'Permanent Marker', cursive; font-size: 36px; color: #fff; transform: rotate(-1deg); background: #ff3e3e; padding: 10px 35px;">
+                    {{ $band->city }}, {{ $band->country }}
+                </div>
+            </div>
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 3px dashed rgba(255,255,255,0.4); padding-top: 40px;">
+                <div style="color: #fff;">
+                    <p
+                        style="font-family: 'Inter', sans-serif; font-size: 14px; margin: 0; opacity: 0.8; text-transform: uppercase; letter-spacing: 2px;">
+                        Established</p>
+                    <p style="font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin: 0; color: #ff3e3e;">
+                        SINCE {{ $band->formed_year }}</p>
+                </div>
+                <div style="text-align: right;">
+                    <p
+                        style="font-family: 'Permanent Marker', cursive; font-size: 28px; color: #fff; margin: 0; text-shadow: 2px 2px 0px #ff3e3e;">
+                        MixtapeSide.com</p>
+                    <p
+                        style="font-family: 'Inter', sans-serif; font-size: 12px; color: #fff; margin: 0; opacity: 0.6; letter-spacing: 2px;">
+                        BANDS // GIGS // CULTURE</p>
+                </div>
+            </div>
+        </div>
+        <!-- Texture Overlay -->
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); opacity: 0.3; pointer-events: none;">
+        </div>
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%); pointer-events: none;">
+        </div>
+    </div>
+
     <section class="profile-tabs-section container">
         <div class="tabs-wrapper">
             <div class="tabs-nav">
@@ -273,27 +371,30 @@
             const originalHtml = $btn.html();
             $btn.html('<i class="fa-solid fa-spinner fa-spin"></i>').prop('disabled', true);
 
-            const element = document.querySelector('.band-hero');
+            // Target the dedicated capture area
+            const element = document.querySelector('#band-capture-area');
 
-            // Scroll to top to ensure clean capture if needed
-            window.scrollTo(0, 0);
+            // Move it into view temporarily for html2canvas to work reliably
+            const originalStyle = element.style.cssText;
+            element.style.left = '0';
+            element.style.top = '0';
+            element.style.zIndex = '-1000';
 
             setTimeout(() => {
                 html2canvas(element, {
                     useCORS: true,
-                    allowTaint: false, // Ubah ke false untuk kestabilan CORS
+                    allowTaint: false,
                     backgroundColor: '#080808',
-                    scale: 3, // Tingkatkan scale untuk ketajaman
-                    logging: false,
-                    onclone: (clonedDoc) => {
-                        const watermark = clonedDoc.querySelector('.hero-watermark');
-                        if (watermark) {
-                            watermark.style.opacity = '1';
-                        }
-                    }
+                    scale: 1,
+                    width: 1080,
+                    height: 1920,
+                    logging: false
                 }).then(canvas => {
+                    // Restore original style
+                    element.style.cssText = originalStyle;
+
                     const link = document.createElement('a');
-                    link.download = '{{ $band->slug }}-mixtapeside.png';
+                    link.download = 'band-{{ $band->slug }}-mixtapeside.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
 
@@ -302,12 +403,13 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Captured!',
-                        text: 'Band/Artist profile has been saved as PNG.',
+                        text: 'Band profile has been saved as PNG.',
                         timer: 2000,
                         showConfirmButton: false
                     });
                 }).catch(err => {
                     console.error('Capture failed:', err);
+                    element.style.cssText = originalStyle;
                     $btn.html(originalHtml).prop('disabled', false);
                     Swal.fire({
                         icon: 'error',

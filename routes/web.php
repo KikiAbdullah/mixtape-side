@@ -26,9 +26,9 @@ Route::get('/discovery', 'PublicDiscoveryController@index')->name('public.discov
 Route::get('/gigs', 'PublicGigController@index')->name('public.gig.index');
 Route::get('/gigs/{slug}', 'PublicGigController@show')->name('public.gig.show');
 Route::get('/releases', 'PublicReleaseController@index')->name('public.release.index');
-Route::get('/zine', 'Public\ZineController@index')->name('public.zine.index');
-Route::get('/zine/{slug}', 'Public\ZineController@show')->name('public.zine.show');
-Route::post('/zine/{slug}/comment', 'Public\ZineController@comment')->name('public.zine.comment')->middleware('auth');
+Route::get('/zine', 'Front\ZineController@index')->name('public.zine.index');
+Route::get('/zine/{slug}', 'Front\ZineController@show')->name('public.zine.show');
+Route::post('/zine/{slug}/comment', 'Front\ZineController@comment')->name('public.zine.comment')->middleware('auth');
 Route::redirect('/about', '/');
 Route::redirect('/events', '/gigs');
 Route::redirect('/contacts', '/discovery');
@@ -94,6 +94,14 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('get-data', 'OrganizerController@ajaxData')->name('get-data');
             });
             Route::resource('organizer', 'OrganizerController');
+
+            // DATA DRAFTS
+            Route::group(['prefix' => 'data-draft', 'as' => 'data-draft.'], function () {
+                Route::get('/', 'DataDraftController@index')->name('index');
+                Route::get('get-data', 'DataDraftController@ajaxData')->name('get-data');
+                Route::post('approve/{id}', 'DataDraftController@approve')->name('approve');
+                Route::post('reject/{id}', 'DataDraftController@reject')->name('reject');
+            });
 
             // ZINE
             Route::group(['prefix' => 'zine', 'as' => 'zine.'], function () {

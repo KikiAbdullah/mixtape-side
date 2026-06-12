@@ -193,14 +193,16 @@ trait CrudTrait {
 
 			$data  = $this->getRequest();
 
-			if (!auth()->user()->hasRole('SUPERADMIN') && !auth()->user()->hasRole('ADMIN')) {
-				$data['created_by'] = auth()->id();
-			}
-
 			if($this->withTrashed){
 				$model = $this->model->withTrashed()->findOrFail($id);
 			}else{
 				$model = $this->model->findOrFail($id);
+			}
+
+            $this->authorize('update', $model);
+
+			if (!auth()->user()->hasRole('SUPERADMIN') && !auth()->user()->hasRole('ADMIN')) {
+				$data['created_by'] = auth()->id();
 			}
 
 			$model->fill($data);
@@ -260,6 +262,8 @@ trait CrudTrait {
 				$model = $this->model->with($this->relation)->findOrFail($id);
 			}
 			
+            $this->authorize('delete', $model);
+
 			if (method_exists($this, 'customDestroy')) {
 				$this->customDestroy($model);
 			}

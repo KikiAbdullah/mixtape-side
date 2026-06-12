@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Label extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'slug', 'name', 'logo_url', 'banner_url', 'city', 'formed_year', 'defunct_year', 
         'status', 'contact_email', 'website_url', 'description', 'owner_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organizer extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'slug', 'name', 'logo_url', 'city', 'description', 'contact_info', 'owner_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];

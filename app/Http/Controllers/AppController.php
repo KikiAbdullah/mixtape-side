@@ -40,8 +40,10 @@ class AppController extends Controller
         $data['counts'] = [
             'bands' => Band::count(),
             'releases' => Release::count(),
+            'gigs' => Gig::count(),
             'labels' => Label::count(),
             'pending_verifications' => VerificationRequest::where('status', 'Pending')->count(),
+            'total_users' => User::count(),
         ];
 
         // Recent Logs

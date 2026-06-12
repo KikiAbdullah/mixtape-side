@@ -65,6 +65,24 @@
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-info rounded-3">
+                                    <i class="ri-calendar-event-line ri-24px"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-info mt-5">
+                            <h5 class="mb-1">{{ $counts['gigs'] }}</h5>
+                            <p>Total Gigs</p>
+                            <div class="badge bg-label-secondary rounded-pill">Active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                            <div class="avatar">
+                                <div class="avatar-initial bg-label-warning rounded-3">
                                     <i class="ri-shield-user-line ri-24px"></i>
                                 </div>
                             </div>

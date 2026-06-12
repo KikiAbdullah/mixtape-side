@@ -59,7 +59,7 @@
 
         $(document).ready(function($) {
             SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
-
+            InitAutoSlug('input[name="title"]', 'input[name="slug"]');
 
             dtable = $('#dtable').DataTable({
                 "select": { style: "single", info: false },
@@ -122,6 +122,7 @@
                             if (response.view.includes('select-remote-band')) {
                                 SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
                             }
+                            InitAutoSlug('input[name="title"]', 'input[name="slug"]');
                             $('.select').select2();
                             $('.menuoption').prepend(button_temp);
                             $('.menuoption').find('.editBtn, .btnShow').remove();
@@ -221,6 +222,7 @@
             $("#dynamic-form").html(html_temp);
             $('.menuoption').html('');
             SelectRemoteData('.select-remote-band', '{{ route('select.bands') }}');
+            InitAutoSlug('input[name="title"]', 'input[name="slug"]');
         }
     </script>
 @endsection

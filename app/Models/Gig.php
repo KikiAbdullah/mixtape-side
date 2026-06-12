@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gig extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'slug', 'title', 'poster_url', 'banner_url', 'date', 'start_time', 'venue_name', 
         'venue_address', 'city', 'ticket_price', 'ticket_info', 'organizer_id', 'created_by', 'is_verified', 'verified_by', 'verified_at'

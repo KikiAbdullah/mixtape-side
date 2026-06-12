@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Band extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'slug', 'name', 'alternative_names', 'logo_url', 'banner_url', 'photo_url', 'city', 
         'country', 'formed_year', 'disbanded_year', 'status', 'genre', 

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Release extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'band_id', 'slug', 'title', 'release_type', 'cover_url', 'banner_url', 'original_release_year', 'description', 'track_count', 'created_by', 'is_verified', 'verified_by', 'verified_at'
     ];

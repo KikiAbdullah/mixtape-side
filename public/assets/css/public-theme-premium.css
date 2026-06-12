@@ -1700,7 +1700,12 @@ footer {
     }
 
     /* Profile Tabs Horizontal Scroll Mobile */
-    .tabs-nav {
+.tabs-wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tabs-nav {
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;

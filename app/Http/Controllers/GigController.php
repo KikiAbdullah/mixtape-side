@@ -14,7 +14,7 @@ class GigController extends Controller
         $this->title            = 'Gig';
         $this->subtitle         = 'Gigs Management';
         $this->folder           = 'management';
-        $this->relation         = ['organizer'];
+        $this->relation         = ['organizer', 'bands', 'labels'];
         $this->model            = $model;
         $this->withTrashed      = false;
     }

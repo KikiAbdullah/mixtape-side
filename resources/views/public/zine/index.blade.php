@@ -5,7 +5,7 @@
 @section('content')
     <div class="container py-5">
         <div class="section-header text-center">
-            <h2 class="section-title">THE<span class="graffiti-text">ZINE</span></h2>
+            <h2 class="section-title">ZINE<span class="graffiti-text">JOURNAL</span></h2>
             <p class="subtitle">Stories, news, and deep dives into the local music scene.</p>
         </div>
 
@@ -32,11 +32,11 @@
                                 {{ is_object($zine->author) ? $zine->author->name : 'Editor' }}
                             </div>
 
-                            <p class="text-muted mt-2" style="font-size: 14px; line-height: 1.6; height: 4.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                            <p style="color: #bbb; margin-top: 15px; font-size: 14px; line-height: 1.6; height: 4.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                                 {{ Str::limit(strip_tags($zine->content), 120) }}
                             </p>
 
-                            <div class="card-meta">
+                            <div class="card-meta" style="color: #888; border-top: 1px solid rgba(255,255,255,0.08);">
                                 <span><i class="fa-solid fa-clock"></i> 5 MIN READ</span>
                                 <span>{{ count($zine->comments ?? []) }} Reactions</span>
                             </div>

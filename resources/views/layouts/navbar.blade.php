@@ -23,6 +23,14 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <ul class="navbar-nav flex-row align-items-center ms-auto">
 
+                <!-- Style Switcher -->
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="javascript:void(0);" id="theme-toggler">
+                        <i class="ri-sun-line ri-22px" id="theme-icon"></i>
+                    </a>
+                </li>
+                <!--/ Style Switcher -->
+
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

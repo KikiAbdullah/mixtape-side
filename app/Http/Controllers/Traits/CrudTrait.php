@@ -34,7 +34,7 @@ trait CrudTrait {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
 		
 		$view = [
@@ -48,7 +48,15 @@ trait CrudTrait {
 			],
 		];
 
-		return view($this->generateViewName(__FUNCTION__))->with($view);
+		if($request->ajax()){
+			$response           = [
+				'status'            => true,
+				'view'              => view($this->generateViewName(__FUNCTION__))->with($view)->render(),
+			];
+			return response()->json($response);
+		}else{
+			return view($this->generateViewName(__FUNCTION__))->with($view);
+		}
 	}
 
 	/**

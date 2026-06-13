@@ -24,11 +24,21 @@ class ZineController extends Controller
         $data['title'] = $this->title;
         $data['subtitle'] = $this->subtitle;
         $data['url'] = [
+            'show' => 'management.zine.show',
             'edit' => 'management.zine.edit',
             'destroy' => 'management.zine.destroy',
             'store' => route('management.zine.store')
         ];
         return view($this->folder . '.zine.index', $data);
+    }
+
+    public function show($id)
+    {
+        $data['item'] = Zine::with(['author', 'bands', 'releases', 'labels', 'organizers', 'allComments.user'])->findOrFail($id);
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
+        
+        return view($this->folder . '.zine.show', $data);
     }
 
     public function store(Request $request)

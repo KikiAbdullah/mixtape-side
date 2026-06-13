@@ -16,7 +16,7 @@ class BandController extends Controller
         $this->title            = 'Band';
         $this->subtitle         = 'Bands Management';
         $this->folder           = 'management';
-        $this->relation         = [];
+        $this->relation         = ['members', 'releases', 'gigs'];
         $this->model            = $model;
         $this->withTrashed      = false;
     }

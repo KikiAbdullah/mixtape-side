@@ -30,28 +30,24 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/node-waves/node-waves.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/theme-default.css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet"
-        href="{{ asset('assets') }}/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet"
-        href="{{ asset('assets') }}/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
-
-    <!-- Page CSS -->
-
-    <link rel="stylesheet" href="{{ asset('assets') }}/vendor/css/pages/app-logistics-dashboard.css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-dark-mode.css" />
 
     @yield('customcss')
+
+    <script>
+        // Apply theme immediately to prevent flicker
+        (function() {
+            const savedStyle = localStorage.getItem('mixtape-admin-style') || 'light';
+            document.documentElement.setAttribute('data-style', savedStyle);
+            if (savedStyle === 'dark') {
+                document.documentElement.classList.remove('light-style');
+                document.documentElement.classList.add('dark-style');
+            }
+        })();
+    </script>
 
     <!-- Helpers -->
     <script src="{{ asset('assets') }}/vendor/js/helpers.js"></script>
@@ -192,6 +188,41 @@
 
     <!-- Page JS -->
     @yield('customjs')
+
+    <!-- Style Switcher Script -->
+    <script>
+        $(document).ready(function() {
+            const $html = $('html');
+            const $toggler = $('#theme-toggler');
+            const $icon = $('#theme-icon');
+
+            function updateIcon(style) {
+                if (style === 'dark') {
+                    $icon.removeClass('ri-sun-line').addClass('ri-moon-clear-line');
+                } else {
+                    $icon.removeClass('ri-moon-clear-line').addClass('ri-sun-line');
+                }
+            }
+
+            // Init icon
+            updateIcon($html.attr('data-style'));
+
+            $toggler.on('click', function() {
+                let currentStyle = $html.attr('data-style');
+                let newStyle = currentStyle === 'dark' ? 'light' : 'dark';
+
+                $html.attr('data-style', newStyle);
+                if (newStyle === 'dark') {
+                    $html.removeClass('light-style').addClass('dark-style');
+                } else {
+                    $html.removeClass('dark-style').addClass('light-style');
+                }
+
+                localStorage.setItem('mixtape-admin-style', newStyle);
+                updateIcon(newStyle);
+            });
+        });
+    </script>
 
     <!-- Global Notification Handler -->
     <script>

@@ -13,7 +13,7 @@ class OrganizerController extends Controller
         $this->title            = 'Organizer';
         $this->subtitle         = 'Organizer Management';
         $this->folder           = 'management';
-        $this->relation         = [];
+        $this->relation         = ['gigs'];
         $this->model            = $model;
         $this->withTrashed      = false;
     }

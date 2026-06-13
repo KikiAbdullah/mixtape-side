@@ -33,13 +33,26 @@
     <!-- MixtapeSide Public Theme -->
     <link rel="stylesheet" href="{{ asset('assets_front/css/public-theme-premium.css') }}" />
     <style>
+        /* Force High Contrast for Dark Theme */
+        body {
+            background-color: #111111 !important;
+            color: #ffffff !important;
+        }
+        h1, h2, h3, h4, h5, h6, p, span, li, label, div {
+            color: inherit; /* Biarkan mengikuti parent atau putih default */
+        }
+        .text-muted {
+            color: #9ca3af !important; /* Abu-abu terang agar tetap terbaca */
+        }
+
         /* Reset Bootstrap Links */
         a {
             text-decoration: none;
-            color: inherit;
+            color: #ffffff;
+            transition: 0.3s;
         }
         a:hover {
-            color: var(--accent-red, #ff3e3e);
+            color: var(--accent-red, #ff3e3e) !important;
         }
         .modal-backdrop {
             background-color: rgba(0, 0, 0, 0.8) !important;

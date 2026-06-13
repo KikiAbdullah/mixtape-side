@@ -51,7 +51,7 @@
         var dtable;
         const urlAjax = '{{ route('management.organizer.get-data') }}';
         const getButtonOption = '{{ route('get.button-option') }}';
-        const buttons = {!! json_encode(['vedit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
+        const buttons = {!! json_encode(['vshow' => $url['show'], 'vedit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
         var html_temp = $("#dynamic-form").html();
         var button_temp = '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ri-arrow-left-s-line ri-24px text-primary"></i>CANCEL</a>';
 

@@ -12,6 +12,13 @@
     </a>
 @endif
 
+@if (array_key_exists('vshow', $url))
+    <a href="{{ route($url['vshow'], $id) }}" class="action-link-icon-text">
+        <i class="ri-search-eye-line"></i>
+        <span class="fw-semibold text-uppercase">VIEW</span>
+    </a>
+@endif
+
 @if (array_key_exists('show', $url))
     <a href="{{ route($url['show'], $id) }}" class="action-link-icon-text">
         <i class="ri-search-line"></i>

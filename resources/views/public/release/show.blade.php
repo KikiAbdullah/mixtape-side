@@ -80,9 +80,9 @@
             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%);">
         </div>
 
-        <!-- Safe Zone Content (1080x1350 centered in 1080x1920) -->
+        <!-- Safe Zone Content (utilizing more of the 1080x1920 area) -->
         <div
-            style="position: absolute; top: 50px; height: 1350px; left: 0; right: 0; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; padding: 80px;">
+            style="position: absolute; top: 80px; height: 1720px; left: 0; right: 0; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; padding: 80px;">
 
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
@@ -103,13 +103,13 @@
                 style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 0;">
                 @if ($coverUrl)
                     <div
-                        style="width: 600px; height: 600px; border: 20px solid #fff; transform: rotate(-2deg); margin-bottom: 60px; overflow: hidden; background: #111;">
+                        style="width: 520px; height: 520px; border: 15px solid #fff; transform: rotate(-2deg); margin-bottom: 40px; overflow: hidden; background: #111;">
                         <img src="{{ $coverUrl }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 @else
                     <div
-                        style="width: 600px; height: 600px; border: 20px solid #fff; transform: rotate(-2deg); margin-bottom: 60px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
-                        <i class="fa-solid fa-compact-disc fa-10x"></i>
+                        style="width: 520px; height: 520px; border: 15px solid #fff; transform: rotate(-2deg); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; background: #111; color: #333;">
+                        <i class="fa-solid fa-compact-disc fa-8x"></i>
                     </div>
                 @endif
 
@@ -121,12 +121,12 @@
                 </div>
 
                 <div
-                    style="margin-top: 30px; font-family: 'Permanent Marker', cursive; font-size: 48px; color: #ff3e3e; transform: rotate(1deg); text-shadow: 3px 3px 0px #fff;">
+                    style="margin-top: 20px; font-family: 'Permanent Marker', cursive; font-size: 48px; color: #ff3e3e; transform: rotate(1deg); text-shadow: 3px 3px 0px #fff;">
                     {{ $band->name }}
                 </div>
 
                 <div
-                    style="margin-top: 40px; width: 100%; max-width: 850px; background: rgba(255,255,255,0.03); padding: 40px; border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
+                    style="margin-top: 30px; width: 100%; max-width: 850px; background: rgba(255,255,255,0.03); padding: 40px; border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
                     <h5
                         style="font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #ff3e3e; margin-bottom: 25px; border-bottom: 3px solid #ff3e3e; display: inline-block; padding-right: 30px; letter-spacing: 2px;">
                         TRACKLIST</h5>

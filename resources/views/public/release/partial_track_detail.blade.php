@@ -219,15 +219,15 @@
     .contrib-notes-premium {
         margin-top: 8px;
         font-size: 0.8rem;
-        color: #666;
+        color: #999;
         font-style: italic;
     }
 
     /* Action Buttons */
     .btn-action-premium {
         background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #aaa;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
         padding: 12px;
         border-radius: 4px;
         font-family: 'Bebas Neue', sans-serif;

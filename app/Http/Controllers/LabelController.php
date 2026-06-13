@@ -13,7 +13,7 @@ class LabelController extends Controller
         $this->title            = 'Label';
         $this->subtitle         = 'Labels Management';
         $this->folder           = 'management';
-        $this->relation         = [];
+        $this->relation         = ['releases.band', 'gigs'];
         $this->model            = $model;
         $this->withTrashed      = false;
     }

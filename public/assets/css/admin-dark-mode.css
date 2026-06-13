@@ -1,0 +1,169 @@
+/* Custom Theme Overrides (MixtapeSide Style) */
+[data-style="dark"] {
+    --bs-body-bg: #111111;
+    --bs-body-color: #eeeeee;
+    --bs-paper-bg: #1a1a1a;
+}
+
+/* Force colors when dark style is active */
+html[data-style="dark"] body {
+    background-color: #111111 !important;
+    color: #eeeeee !important;
+}
+
+html[data-style="dark"] .card,
+html[data-style="dark"] .layout-navbar,
+html[data-style="dark"] .content-footer,
+html[data-style="dark"] .menu-horizontal,
+html[data-style="dark"] .menu-vertical,
+        html[data-style="dark"] .layout-menu,
+        html[data-style="dark"] .menu-sub,
+        html[data-style="dark"] .menu-inner,
+        html[data-style="dark"] .modal-content,
+        html[data-style="dark"] .modal-header,
+        html[data-style="dark"] .modal-body,
+        html[data-style="dark"] .modal-footer,
+        html[data-style="dark"] .nav-tabs .nav-link.active,
+        html[data-style="dark"] .tab-content {
+            background-color: #1a1a1a !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            color: #eeeeee !important;
+        }
+
+        html[data-style="dark"] .nav-tabs .nav-link:not(.active) {
+            color: #999999 !important;
+        }
+
+        html[data-style="dark"] .nav-tabs {
+            border-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+html[data-style="dark"] .bg-menu-theme,
+html[data-style="dark"] .bg-navbar-theme,
+html[data-style="dark"] .navbar,
+html[data-style="dark"] .layout-navbar,
+html[data-style="dark"] .layout-navbar-full .navbar {
+    background-color: #1a1a1a !important;
+    color: #eeeeee !important;
+}
+
+html[data-style="dark"] .layout-navbar {
+    background-color: #1a1a1a !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-style="dark"] .navbar-nav .nav-link,
+html[data-style="dark"] .navbar-nav .nav-link i,
+html[data-style="dark"] .navbar-brand,
+html[data-style="dark"] .navbar-brand span {
+    color: #eeeeee !important;
+}
+
+html[data-style="dark"] .menu-link,
+html[data-style="dark"] .menu-text,
+html[data-style="dark"] .menu-header-text,
+html[data-style="dark"] .menu-icon {
+    color: #eeeeee !important;
+}
+
+html[data-style="dark"] .menu-item.active > .menu-link {
+    color: #ffffff !important;
+}
+
+html[data-style="dark"] .menu-item.open > .menu-link,
+html[data-style="dark"] .menu-item .menu-link:hover {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+html[data-style="dark"] .text-body,
+html[data-style="dark"] .text-heading,
+html[data-style="dark"] .text-muted,
+html[data-style="dark"] h1, html[data-style="dark"] h2, html[data-style="dark"] h3, 
+html[data-style="dark"] h4, html[data-style="dark"] h5, html[data-style="dark"] h6,
+html[data-style="dark"] label,
+html[data-style="dark"] .breadcrumb-item,
+html[data-style="dark"] .breadcrumb-item a {
+    color: #ffffff !important;
+}
+
+html[data-style="dark"] .text-muted {
+    color: #999999 !important;
+}
+
+/* Table Specifics */
+html[data-style="dark"] table thead,
+html[data-style="dark"] table thead tr,
+html[data-style="dark"] table thead th {
+    background-color: #222222 !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-style="dark"] table tbody td {
+    color: #eeeeee !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-style="dark"] .table:not(.table-dark) {
+    color: #eeeeee !important;
+}
+
+/* Forms */
+html[data-style="dark"] .form-control,
+html[data-style="dark"] .form-select,
+html[data-style="dark"] .input-group-text {
+    background-color: #0d0d0d !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+/* DataTables Fixes */
+.card-datatable .dataTables_wrapper .row:first-child,
+.card-datatable .dataTables_wrapper .row:last-child {
+    padding: 1.5rem !important;
+}
+
+.card-datatable .dataTables_wrapper .row:first-child {
+    padding-bottom: 0.5rem !important;
+}
+
+html[data-style="dark"] .dataTables_wrapper .dataTables_length,
+html[data-style="dark"] .dataTables_wrapper .dataTables_filter,
+html[data-style="dark"] .dataTables_wrapper .dataTables_info,
+html[data-style="dark"] .dataTables_wrapper .dataTables_processing,
+html[data-style="dark"] .dataTables_wrapper .dataTables_paginate {
+    color: #ffffff !important;
+}
+
+html[data-style="dark"] .page-link {
+    background-color: #1a1a1a !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html[data-style="dark"] .dropdown-menu {
+    background-color: #1a1a1a !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-style="dark"] .dropdown-item {    
+    color: #ffffff !important;
+}
+
+/* Selected Row Fix */
+html[data-style="dark"] table.dataTable tbody tr.selected,
+html[data-style="dark"] table.dataTable tbody tr.selected td,
+html[data-style="dark"] table tbody tr.selected,
+html[data-style="dark"] table tbody tr.selected td {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html[data-style="dark"] table.dataTable tbody tr.selected:hover,
+html[data-style="dark"] table tbody tr.selected:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Adjust UI elements */
+.template-customizer-theme-css { color: transparent; display: none; } /* Hide default customizer if any */

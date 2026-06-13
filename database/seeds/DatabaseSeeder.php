@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class, 
             PermissionSeeder::class,
-            MixtapeSideSeeder::class
+            MixtapeSideSeeder::class,
+            ZinesTableSeeder::class
         ]);
     }
 }
